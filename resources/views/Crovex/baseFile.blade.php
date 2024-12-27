@@ -82,6 +82,12 @@
                     <a href="#"><i class="ti-server"></i><span>Surat & Paket</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
+                    <a href="#"><i class="ti-server"></i><span>Security</span><span class="menu-arrow"></span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="ti-server"></i><span>Kurir</span><span class="menu-arrow"></span></a>
+                </li>
+                <li>
                     <form action="{{ route('logout') }}" method="POST" style="position: fixed; bottom: 10px; left: 7%; transform: translateX(-50%);">
                         @csrf
                         <button type="submit" class="btn btn-primary">
