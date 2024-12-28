@@ -104,7 +104,7 @@
         <div class="page-wrapper">
             <!-- Page Content-->
             <div class="page-content">
-
+                <br>
                 @yield('content')
             </div>
             <footer class="footer text-center text-sm-left">
