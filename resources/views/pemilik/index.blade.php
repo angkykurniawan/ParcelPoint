@@ -7,7 +7,7 @@
                 <a href="/pemilik/create" class="btn btn-primary btn-sm">Tambah Data Pemilik</a>
             </div>
         </div>
-        <h3>Data Poli</h3>
+        <h3>Data Pemilik</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -18,12 +18,12 @@
                     <th>Pekerjaan</th>
                     <th>Whatsapp</th>
                     <th>Email</th>
-                    <th>Foto</th>
+                    <th>Jenis Kelamin</th>
                     <th>Jalan</th>
                     <th>Kecamatan</th>
                     <th>KabupatenKota</th>
                     <th>Provinsi</th>
-                    <th>AKSI</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,26 +31,31 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->NomorInduk }}</td>
-                    <td>{{ $item->Nama }}</td>
+                    <td>
+                        @if($item->Foto)
+                            <a href="{{ \Storage::url($item->Foto) }}" target="blank">
+                                <img src="{{  \Storage::url($item->Foto) }}" width="50" />
+                            </a>
+                        @endif
+                        {{ $item->Nama }}
+                    </td>
                     <td>{{ $item->Umur }}</td>
                     <td>{{ $item->Pekerjaan }}</td>
                     <td>{{ $item->Whatsapp }}</td>
                     <td>{{ $item->Email }}</td>
-                    <td>{{ $item->Foto }}</td>
+                    <td>{{ $item->JenisKelamin }}</td>
                     <td>{{ $item->Jalan }}</td>
                     <td>{{ $item->Kecamatan }}</td>
                     <td>{{ $item->KabupatenKota }}</td>
                     <td>{{ $item->Provinsi }}</td>
                     <td>
-                        <a href="/pemilik/{{ $item->id }}/edit" class="btn btn-warning btn-sm m1-2">Edit</a>
+                        <a href="/pemilik/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1">Edit</a>
                         <form action="/pemilik/{{ $item->id }}" method="POST" class="d-inline">
                             @csrf
-                            @method('delete')
-                            <button class="btn btn-danger btn-sm ml-2"
-                                onclick="return confirm('Yakin ingin menghapus data?')">Hapus</button>
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm ml-2" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</button>
                         </form>
                     </td>
-                    <td></td>
                 </tr>
                 @endforeach
             </tbody>

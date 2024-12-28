@@ -21,7 +21,7 @@
         <link href="{{ url('Crovex/HTML/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/metisMenu.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
-
+        <link href="{{ url('Crovex/HTML/assets/css/baseFile.css') }}" rel="stylesheet" type="text/css">
     </head>
 
     <body>
@@ -73,19 +73,19 @@
         <div class="left-sidenav">
             <ul class="metismenu left-sidenav-menu">
                 <li>
-                    <a href="#"><i class="ti-bar-chart"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
+                    <a href="/dashboard" class="{{ Request::is('dashboard') ? 'active' : '' }}"><i class="ti-bar-chart"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ti-crown"></i><span>Pemilik</span><span class="menu-arrow"></span></a>
+                    <a href="/pemilik" class="{{ Request::is('pemilik') ? 'active' : '' }}"><i class="ti-crown"></i><span>Pemilik</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ti-server"></i><span>Surat & Paket</span><span class="menu-arrow"></span></a>
+                    <a href="/suratPaket" class="{{ Request::is('suratPaket') ? 'active' : '' }}"><i class="ti-server"></i><span>Surat & Paket</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ti-server"></i><span>Security</span><span class="menu-arrow"></span></a>
+                    <a href="/security" class="{{ Request::is('security') ? 'active' : '' }}"><i class="ti-server"></i><span>Security</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ti-server"></i><span>Kurir</span><span class="menu-arrow"></span></a>
+                    <a href="/kurir" class="{{ Request::is('kurir') ? 'active' : '' }}"><i class="ti-server"></i><span>Kurir</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="position: fixed; bottom: 10px; left: 7%; transform: translateX(-50%);">
@@ -108,7 +108,7 @@
                 @yield('content')
             </div>
             <footer class="footer text-center text-sm-left">
-                &copy; 2024 ParcelPoint <span class="text-muted d-none d-sm-inline-block float-right">By<i class="mdi mdi-heart text-danger"></i> Laravel 11</span>
+                 <span class="text-muted d-none d-sm-inline-block float-right"> 2024 &copy; ParcelPoint</span>
             </footer><!--end footer-->
             </div>
             <!-- end page content -->

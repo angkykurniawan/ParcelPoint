@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('Pekerjaan');
             $table->string('Whatsapp');
             $table->string('Email');
+            $table->string('JenisKelamin');
             $table->string('Foto');
             $table->string('Jalan');
             $table->string('Kecamatan');

@@ -23,7 +23,7 @@ class PemilikController extends Controller
      */
     public function create()
     {
-        return view('poli_create');
+        return view('pemilik.create');
     }
 
     /**
@@ -31,32 +31,32 @@ class PemilikController extends Controller
      */
     public function store(StorePemilikRequest $request)
     {
+        // Validasi input data
         $requestData = $request->validate([
-            'Nomor Induk' => 'required',
+            'NomorInduk' => 'required',
             'Nama' => 'required',
-            'Umur' => 'nullable',
-            'Pekerjaan' => 'required',
+            'Umur' => 'nullable|integer',
+            'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
             'Whatsapp' => 'required',
-            'Email' => 'required',
-            'Foto' => 'nullable',
+            'Email' => 'required|email',
+            'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
+            'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
             'Jalan' => 'nullable',
             'Kecamatan' => 'nullable',
             'KabupatenKota' => 'required',
-            'Pronvisi' => 'required',
+            'Provinsi' => 'required',
         ]);
-        $pemilik = new Pemilik();
-        $pemilik->fill($requestData);
-        $pemilik->Foto = $request->file('Foto')->store('public');
-        $pemilik->save();
-        return redirect('/pemilik')->with('success', 'Data pemilik berhasil ditambahkan!');
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pemilik $pemilik)
-    {
-        //
+        $pemilik = new Pemilik; //membuat objek kosong di variabel
+
+        $pemilik->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
+
+        if ($request->hasFile('Foto')) {
+            $pemilik->Foto = $request->file('Foto')->store('public'); // Menyimpan file gambar
+        }
+
+        $pemilik->save(); //menyimpan data ke database
+        return redirect('/pemilik');
     }
 
     /**
@@ -64,8 +64,8 @@ class PemilikController extends Controller
      */
     public function edit(String $id)
     {
-        $data['pemilik'] = \App\Models\Pemilik::findOrFail($id);
-        return view('pemilik_edit', $data);
+        $pemilik = Pemilik::findOrFail($id);
+        return view('pemilik.edit', compact('pemilik'));
     }
 
     /**
@@ -74,25 +74,29 @@ class PemilikController extends Controller
     public function update(UpdatePemilikRequest $request, String $id)
     {
         $requestData = $request->validate([
-            'Nomor Induk' => 'required',
+            'NomorInduk' => 'required',
             'Nama' => 'required',
-            'Umur' => 'nullable',
-            'Pekerjaan' => 'required',
+            'Umur' => 'nullable|integer',
+            'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
             'Whatsapp' => 'required',
-            'Email' => 'required',
-            'Foto' => 'nullable',
+            'Email' => 'required|email',
+            'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
+            'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
             'Jalan' => 'nullable',
             'Kecamatan' => 'nullable',
             'KabupatenKota' => 'required',
-            'Pronvisi' => 'required',
-            ]);
-        $pemilik = \App\Models\Pemilik::findOrfail($id);
-        $pemilik->fill($requestData);
-        if($request->hasFile('Foto')){
+            'Provinsi' => 'required',
+        ]);
+        $pemilik = \App\Models\Pemilik::findOrFail($id); //membuat objek kosong di variabel model
+        $pemilik->fill($requestData); //mengisi var model dengan data yang sudah divalidasi requestData
+
+        if ($request->hasFile('Foto')) {
             Storage::delete($pemilik->Foto);
             $pemilik->Foto = $request->file('Foto')->store('public');
         }
-        $pemilik->save();
+
+        // $pasien->foto = $request->file('foto')->store('public');
+        $pemilik->save(); //menyimpan data ke database
         return redirect('/pemilik');
     }
 
@@ -101,15 +105,13 @@ class PemilikController extends Controller
      */
     public function destroy(String $id)
     {
-        $pemilik = \App\Models\Pemilik::findOrfail($id);
-        // if ($pemilik->surpa->count() >= 1) {
-        //     flash('Data tidak bisa dihapus karena sudah terkait dengan data pendaftaran')->error();
-        //     return back();
-        // }
-        if ($pemilik->Foto != null && Storage::exists($pemilik->Foto)) {
-            Storage::delete($pemilik->Foto);
+        $pemilik = Pemilik::findOrFail($id);
+
+        if ($pemilik->Foto && Storage::exists($pemilik->Foto)) {
+            Storage::delete($pemilik->Foto); // Menghapus gambar jika ada
         }
-        $pemilik->delete();
+
+        $pemilik->delete(); // Menghapus data pemilik
         return redirect('/pemilik');
     }
 }
