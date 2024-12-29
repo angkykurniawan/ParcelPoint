@@ -6,7 +6,7 @@
         <form action="/suratPaket" method="POST" enctype="multipart/form-data"> <!-- enctype untuk foto -->
             @csrf
             <div class="form-group mt-1 mb-3">
-                <label for="pasien_id" class="text-primary" style="font-weight: bolder;">Nama Pemilik |
+                <label for="pemilik_id" class="text-primary" style="font-weight: bolder;">Nama Pemilik |
                     <a href="/pemilik/create" target="blank" class="text-primary" style="font-weight: bolder;">Pemilik Baru</a>
                 </label>
                 <select class="form-control select2 @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
@@ -44,6 +44,20 @@
                 <input type="text" class="form-control @error('Resi') is-invalid @enderror" id="Resi" name="Resi"
                     value="{{ old('Resi') }}" placeholder="00012312" >
                 <span class="text-danger">{{ $errors->first('Resi') }}</span>
+            </div>
+            <div class="form-group mt-1 mb-3">
+                <label for="kurir_id" class="text-primary" style="font-weight: bolder;">Nama Kurir |
+                    <a href="/kurir/create" target="blank" class="text-primary" style="font-weight: bolder;">Kurir Baru</a>
+                </label>
+                <select class="form-control select2 @error('kurir_id') is-invalid @enderror" id="kurir_id" name="kurir_id">
+                    <option value="">Pilih Nama Kurir</option>
+                    @foreach($Kurir as $ku)
+                        <option value="{{ $ku->id }}" {{ old('kurir_id') == $ku->id ? 'selected' : '' }}>
+                            {{ $ku->Ekspedisi }}
+                        </option>
+                    @endforeach
+                    </select>
+                <span class="text-danger">{{ $errors->first('kurir_id') }}</span>
             </div>
             <div class="form-group mt-1 mb-3">
                 <label for="Berat" class="text-primary" style="font-weight: bolder;">Berat </label>

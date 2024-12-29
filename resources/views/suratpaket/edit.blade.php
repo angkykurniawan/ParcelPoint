@@ -49,6 +49,16 @@
                 <span class="text-danger">{{ $errors->first('Resi') }}</span>
             </div>
             <div class="form-group mt-1 mb-3">
+                <label for="kurir_id">Pilih Nama Kurir</label>
+                <select class="form-control @error('kurir_id') is-invalid @enderror" id="kurir_id" name="kurir_id">
+                    @foreach($Kurir as $ku)
+                        <option value="{{ $ku->id }}" {{ old('kurir_id') == $ku->id ? 'selected' : '' }}>
+                            {{ $ku->Ekspedisi }}
+                    @endforeach
+                </select>
+                <span class="text-danger">{{ $errors->first('kurir_id') }}</span>
+            </div>
+            <div class="form-group mt-1 mb-3">
                 <label for="Berat" class="text-primary" style="font-weight: bolder;">Berat *</label>
                 <input type="text" class="form-control @error('Berat') is-invalid @enderror" id="Berat" name="Berat"
                     value="{{ old('Berat') ?? $suratPaket->Berat }}">

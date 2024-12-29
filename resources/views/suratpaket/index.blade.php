@@ -37,6 +37,7 @@
                     <td>{{ $item->NoHP }}</td>
                     <td>{{ $item->Resi }}</td>
                     <td>{{ $item->Berat }}</td>
+                    <td>{{ $item->Kurir->Ekspedisi }}</td>
                     <td>
                         <a href="/suratPaket/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
                         <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline">

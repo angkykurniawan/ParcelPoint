@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('surat_pakets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pemilik_id')->constrained('pemiliks'); // Relasi ke tabel pemiliks
+            $table->foreignId('kurir_id'); // Relasi ke tabel kurirs
             $table->enum('Jenis', ['Surat', 'Paket']);
             $table->string('Foto')->nullable();
             $table->string('NoHP');

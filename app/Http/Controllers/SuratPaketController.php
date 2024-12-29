@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\kurir;
 use App\Models\Pemilik;
 use App\Models\suratPaket;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,8 @@ class SuratPaketController extends Controller
     {
         $suratPaket = suratPaket::latest()->paginate(10);
         $Pemilik = Pemilik::latest()->paginate(10);
-        return view('suratpaket.index', compact('suratPaket','Pemilik'));
+        $Kurir = kurir::latest()->paginate(10);
+        return view('suratpaket.index', compact('suratPaket','Pemilik','Kurir'));
     }
 
 
@@ -26,9 +28,9 @@ class SuratPaketController extends Controller
      */
     public function create()
     {
-        $Pemilik = Pemilik::orderBy('nama', 'asc')->get();
         $Pemilik = Pemilik::latest()->paginate(10);
-        return view('suratpaket.create', compact('Pemilik'));
+        $Kurir = kurir::latest()->paginate(10);
+        return view('suratpaket.create', compact('Pemilik','Kurir'));
     }
 
     /**
@@ -38,6 +40,7 @@ class SuratPaketController extends Controller
     {
         $requestData = $request->validate([
             'pemilik_id' => 'required|exists:pemiliks,id',
+            'kurir_id' => 'required|exists:kurirs,id',
             'Jenis' => 'required|in:Surat,Paket',
             'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
             'NoHP' => 'required',
@@ -71,7 +74,8 @@ class SuratPaketController extends Controller
     {
         $suratPaket = suratPaket::findOrFail($id);
         $Pemilik = Pemilik::all();
-        return view('suratPaket.edit', compact('suratPaket','Pemilik'));
+        $Kurir = Kurir::all();
+        return view('suratPaket.edit', compact('suratPaket','Pemilik','Kurir'));
     }
 
     /**
@@ -80,6 +84,8 @@ class SuratPaketController extends Controller
     public function update(UpdatesuratPaketRequest $request, string $id)
     {
         $requestData = $request->validate([
+            'pemilik_id' => 'required|exists:pemiliks,id',
+            'kurir_id' => 'required|exists:kurirs,id',
             'Jenis' => 'required',
             'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
             'NoHP' => 'required',
@@ -109,6 +115,9 @@ class SuratPaketController extends Controller
     {
         $suratPaket = suratPaket::findOrFail($id);
         if ($suratPaket->pemilik->count() >= 1) {
+            return back();
+        }
+        if ($suratPaket->kurir->count() >= 1) {
             return back();
         }
         if ($suratPaket->Foto && Storage::exists($suratPaket->Foto)) {
