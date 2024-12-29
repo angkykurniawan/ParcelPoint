@@ -6,6 +6,7 @@ use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecurityController;
+use App\Http\Controllers\SuratPaketController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::Resource('kurir', KurirController::class);
     Route::Resource('ruang', RuangController::class);
     Route::Resource('security', SecurityController::class);
+    Route::Resource('suratPaket', SuratPaketController::class);
 });
 
 require __DIR__.'/auth.php';

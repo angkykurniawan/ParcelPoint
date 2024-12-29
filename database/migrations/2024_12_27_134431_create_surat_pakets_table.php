@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('surat_pakets', function (Blueprint $table) {
             $table->id();
-            $table->string('Nama Pemilik'); //Nanti Relasi
-            $table->string('Jenis');
-            $table->string('nomorHP');
+            $table->foreignId('pemilik_id')->constrained('pemiliks'); // Relasi ke tabel pemiliks
+            $table->enum('Jenis', ['Surat', 'Paket']);
+            $table->string('Foto')->nullable();
+            $table->string('NoHP');
             $table->string('Resi');
-            $table->string('Berat');
-            $table->string('WaktuJemput');
-            $table->string('Penjemput'); //ISI DENGAN YBS, TEMAN, KELUARGA, DLL
+            $table->string('Berat')->nullable();
+            $table->dateTime('WaktuJemput')->nullable();
+            $table->enum('Penjemput', ['YBS', 'Teman', 'Keluarga'])->nullable();
+            $table->string('FotoST')->nullable();
             $table->timestamps();
         });
     }
