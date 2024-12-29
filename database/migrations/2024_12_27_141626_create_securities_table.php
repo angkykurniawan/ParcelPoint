@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('NIP');
             $table->string('Nama');
-            $table->string('NomorHP');
+            $table->string('Foto')->nullable();
+            $table->string('NoHP');
             $table->string('Email');
             $table->timestamps();
         });

@@ -40,7 +40,7 @@ class PemilikController extends Controller
             'Whatsapp' => 'required',
             'Email' => 'required|email',
             'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
-            'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
+            'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
             'Jalan' => 'nullable',
             'Kecamatan' => 'nullable',
             'KabupatenKota' => 'required',
@@ -52,7 +52,7 @@ class PemilikController extends Controller
         $pemilik->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
 
         if ($request->hasFile('Foto')) {
-            $pemilik->Foto = $request->file('Foto')->store('public'); // Menyimpan file gambar
+            $pemilik->Foto = $request->file('Foto')->store('public/pemilik'); // Menyimpan file gambar
         }
 
         $pemilik->save(); //menyimpan data ke database
@@ -81,7 +81,7 @@ class PemilikController extends Controller
             'Whatsapp' => 'required',
             'Email' => 'required|email',
             'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
-            'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
+            'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
             'Jalan' => 'nullable',
             'Kecamatan' => 'nullable',
             'KabupatenKota' => 'required',
@@ -92,7 +92,7 @@ class PemilikController extends Controller
 
         if ($request->hasFile('Foto')) {
             Storage::delete($pemilik->Foto);
-            $pemilik->Foto = $request->file('Foto')->store('public');
+            $pemilik->Foto = $request->file('Foto')->store('public/pemilik');
         }
 
         // $pasien->foto = $request->file('foto')->store('public');

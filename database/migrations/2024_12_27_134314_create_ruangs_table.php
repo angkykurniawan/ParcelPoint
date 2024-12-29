@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('ruangs', function (Blueprint $table) {
             $table->id();
             $table->string('Nama');
-            $table->string('Lantai');
-            $table->string('PIC');
+            $table->string('Lantai')->nullable();
+            $table->string('Lokasi')->nullable();
+            $table->string('PIC')->nullable();
             $table->timestamps();
         });
     }

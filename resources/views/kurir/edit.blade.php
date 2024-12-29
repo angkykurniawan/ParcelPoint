@@ -7,7 +7,7 @@
             @method('put')
             @csrf
             <div class="form-group mt-1 mb-3">
-                <label for="Ekspedisi">Ekspedisi</label>
+                <label for="Ekspedisi">Ekspedisi *</label>
                 <input type="text" class="form-control @error('Ekspedisi') is-invalid @enderror" id="Ekspedisi" name="Ekspedisi"
                     value="{{ old('Ekspedisi') ?? $kurir->Ekspedisi }}">
                 <span class="text-danger">{{ $errors->first('Ekspedisi') }}</span>
