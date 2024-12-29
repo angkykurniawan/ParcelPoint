@@ -28,4 +28,12 @@ class suratPaket extends Model
             'Ekspedisi' => 'Tidak Diketahui', // Nilai default jika pemilik tidak ditemukan
         ]);
     }
+
+    //Relasi ke Ruangs
+    public function ruang(): BelongsTo
+    {
+        return $this->belongsTo(ruang::class, 'ruang_id')->withDefault([
+            'Nama' => 'Pos Security', // Nilai default jika pemilik tidak ditemukan
+        ]);
+    }
 }

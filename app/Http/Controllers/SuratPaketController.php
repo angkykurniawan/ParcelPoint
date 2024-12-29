@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\kurir;
+use App\Models\Ruang;
 use App\Models\Pemilik;
 use App\Models\suratPaket;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,8 @@ class SuratPaketController extends Controller
         $suratPaket = suratPaket::latest()->paginate(10);
         $Pemilik = Pemilik::latest()->paginate(10);
         $Kurir = kurir::latest()->paginate(10);
-        return view('suratpaket.index', compact('suratPaket','Pemilik','Kurir'));
+        $Ruang = Ruang::latest()->paginate(10);
+        return view('suratpaket.index', compact('suratPaket','Pemilik','Kurir','Ruang'));
     }
 
 
@@ -30,7 +32,8 @@ class SuratPaketController extends Controller
     {
         $Pemilik = Pemilik::latest()->paginate(10);
         $Kurir = kurir::latest()->paginate(10);
-        return view('suratpaket.create', compact('Pemilik','Kurir'));
+        $Ruang = Ruang::latest()->paginate(10);
+        return view('suratpaket.create', compact('Pemilik','Kurir','Ruang'));
     }
 
     /**
@@ -41,6 +44,7 @@ class SuratPaketController extends Controller
         $requestData = $request->validate([
             'pemilik_id' => 'required|exists:pemiliks,id',
             'kurir_id' => 'required|exists:kurirs,id',
+            'ruang_id' => 'required|exists:ruangs,id',
             'Jenis' => 'required|in:Surat,Paket',
             'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
             'NoHP' => 'required',
@@ -75,7 +79,8 @@ class SuratPaketController extends Controller
         $suratPaket = suratPaket::findOrFail($id);
         $Pemilik = Pemilik::all();
         $Kurir = Kurir::all();
-        return view('suratPaket.edit', compact('suratPaket','Pemilik','Kurir'));
+        $Ruang = Ruang::all();
+        return view('suratPaket.edit', compact('suratPaket','Pemilik','Kurir','Ruang'));
     }
 
     /**
@@ -86,6 +91,7 @@ class SuratPaketController extends Controller
         $requestData = $request->validate([
             'pemilik_id' => 'required|exists:pemiliks,id',
             'kurir_id' => 'required|exists:kurirs,id',
+            'ruang_id' => 'required|exists:ruangs,id',
             'Jenis' => 'required',
             'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
             'NoHP' => 'required',
@@ -118,6 +124,9 @@ class SuratPaketController extends Controller
             return back();
         }
         if ($suratPaket->kurir->count() >= 1) {
+            return back();
+        }
+        if ($suratPaket->ruang->count() >= 1) {
             return back();
         }
         if ($suratPaket->Foto && Storage::exists($suratPaket->Foto)) {

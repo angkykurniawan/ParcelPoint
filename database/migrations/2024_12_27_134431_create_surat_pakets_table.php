@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pemilik_id')->constrained('pemiliks'); // Relasi ke tabel pemiliks
             $table->foreignId('kurir_id'); // Relasi ke tabel kurirs
+            $table->foreignId('ruang_id')->constrained('ruangs'); // Relasi ke tabel pemiliks
             $table->enum('Jenis', ['Surat', 'Paket']);
             $table->string('Foto')->nullable();
             $table->string('NoHP');

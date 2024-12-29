@@ -39,6 +39,7 @@
                     <td>{{ $item->Berat }}</td>
                     <td>{{ $item->Kurir->Ekspedisi }}</td>
                     <td>
+                        <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm m1-2 ti-info"></a> <!-- Btn primary warna biru -->
                         <a href="/suratPaket/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
                         <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline">
                             @csrf
