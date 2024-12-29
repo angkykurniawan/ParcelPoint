@@ -9,4 +9,5 @@ class security extends Model
 {
     /** @use HasFactory<\Database\Factories\SecurityFactory> */
     use HasFactory;
+    protected $guarded;
 }

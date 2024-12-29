@@ -13,7 +13,8 @@ class KurirController extends Controller
      */
     public function index()
     {
-        //
+        $kurir = Kurir::latest()->paginate(10);
+        return view('kurir.index', compact('kurir'));
     }
 
     /**
@@ -21,7 +22,7 @@ class KurirController extends Controller
      */
     public function create()
     {
-        //
+        return view('kurir.create');
     }
 
     /**
@@ -29,7 +30,16 @@ class KurirController extends Controller
      */
     public function store(StorekurirRequest $request)
     {
-        //
+        $requestData = $request->validate([
+            'Ekspedisi' => 'required',
+        ]);
+
+        $kurir = new Kurir; //membuat objek kosong di variabel
+
+        $kurir->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
+
+        $kurir->save(); //menyimpan data ke database
+        return redirect('/kurir');
     }
 
     /**
@@ -43,24 +53,35 @@ class KurirController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(kurir $kurir)
+    public function edit(string $id)
     {
-        //
+        $kurir = Kurir::findOrFail($id);
+        return view('kurir.edit', compact('kurir'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatekurirRequest $request, kurir $kurir)
+    public function update(UpdatekurirRequest $request, string $id)
     {
-        //
+        $requestData = $request->validate([
+            'Ekspedisi' => 'required',
+        ]);
+        $kurir = \App\Models\Kurir::findOrFail($id); //membuat objek kosong di variabel model
+        $kurir->fill($requestData); //mengisi var model dengan data yang sudah divalidasi requestData
+
+        $kurir->save(); //menyimpan data ke database
+        return redirect('/kurir');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(kurir $kurir)
+    public function destroy(string $id)
     {
-        //
+        $kurir = Kurir::findOrFail($id);
+
+        $kurir->delete(); // Menghapus data pemilik
+        return redirect('/kurir');
     }
 }

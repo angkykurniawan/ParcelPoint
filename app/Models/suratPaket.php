@@ -9,4 +9,5 @@ class suratPaket extends Model
 {
     /** @use HasFactory<\Database\Factories\SuratPaketFactory> */
     use HasFactory;
+    protected $guarded;
 }

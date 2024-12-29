@@ -9,4 +9,5 @@ class Ruang extends Model
 {
     /** @use HasFactory<\Database\Factories\RuangFactory> */
     use HasFactory;
+    protected $guarded;
 }

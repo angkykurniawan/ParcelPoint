@@ -49,11 +49,11 @@
                     <td>{{ $item->KabupatenKota }}</td>
                     <td>{{ $item->Provinsi }}</td>
                     <td>
-                        <a href="/pemilik/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1">Edit</a>
-                        <form action="/pemilik/{{ $item->id }}" method="POST" class="d-inline">
+                        <a href="/kurir/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
+                        <form action="/kurir/{{ $item->id }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm ml-2" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</button>
+                            <button class="btn btn-danger btn-sm ml-2 ti ti-trash" onclick="return confirm('Yakin ingin menghapus data?')"></button>
                         </form>
                     </td>
                 </tr>

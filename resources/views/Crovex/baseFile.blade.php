@@ -79,13 +79,16 @@
                     <a href="/pemilik" class="{{ Request::is('pemilik') ? 'active' : '' }}"><i class="ti-crown"></i><span>Pemilik</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="/suratPaket" class="{{ Request::is('suratPaket') ? 'active' : '' }}"><i class="ti-server"></i><span>Surat & Paket</span><span class="menu-arrow"></span></a>
+                    <a href="/ruang" class="{{ Request::is('ruang') ? 'active' : '' }}"><i class="ti ti-folder"></i><span>Ruang</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="/security" class="{{ Request::is('security') ? 'active' : '' }}"><i class="ti-server"></i><span>Security</span><span class="menu-arrow"></span></a>
+                    <a href="/suratPaket" class="{{ Request::is('suratPaket') ? 'active' : '' }}"><i class="ti ti-package"></i><span>Surat & Paket</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="/kurir" class="{{ Request::is('kurir') ? 'active' : '' }}"><i class="ti-server"></i><span>Kurir</span><span class="menu-arrow"></span></a>
+                    <a href="/security" class="{{ Request::is('security') ? 'active' : '' }}"><i class="ti ti-user"></i><span>Security</span><span class="menu-arrow"></span></a>
+                </li>
+                <li>
+                    <a href="/kurir" class="{{ Request::is('kurir') ? 'active' : '' }}"><i class="ti ti-map"></i><span>Kurir</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="position: fixed; bottom: 10px; left: 7%; transform: translateX(-50%);">

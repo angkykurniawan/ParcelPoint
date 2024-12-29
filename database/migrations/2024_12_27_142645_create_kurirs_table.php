@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('kurirs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('ekspedisi');
+            $table->string('Ekspedisi');
             $table->timestamps();
         });
     }

@@ -9,4 +9,5 @@ class kurir extends Model
 {
     /** @use HasFactory<\Database\Factories\KurirFactory> */
     use HasFactory;
+    protected $guarded;
 }
