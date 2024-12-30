@@ -59,9 +59,9 @@
                                             {{ ucfirst($suratPaket->status_daftar) }}
                                         </span>
                                     @else
-                                        <span style="color: black;">
-                                            {{ ucfirst($suratPaket->status_daftar) }}
-                                        </span>
+                                    <span style="color: white; background-color: orange; padding: 3px 10px; border-radius: 3px; display: inline-block;">
+                                        {{ ucfirst($suratPaket->status_daftar) }}
+                                    </span>
                                     @endif
                                 </td>
                             </tr>
