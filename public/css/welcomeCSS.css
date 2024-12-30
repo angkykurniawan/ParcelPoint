@@ -1,0 +1,190 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #0A174E; /* Biru gelap untuk teks */
+    background-color: #ffffff; /* Latar belakang putih */
+    overflow-x: hidden;
+}
+
+/* Hero section */
+.hero {
+    position: relative;
+    height: 100vh;
+    background-color: #ffffff; /* Latar belakang putih */
+    overflow: hidden;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    z-index: 1;
+    position: relative;
+    background-color: #ffffff; /* Navbar dengan warna latar putih */
+    box-shadow: 0 4px 6px rgba(0, 168, 232, 0.3); /* Shadow biru */
+}
+
+.logo-img {
+    width: 150px;
+    height: auto;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #0A174E; /* Warna teks biru gelap */
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #3475FE; /* Biru cerah saat hover */
+}
+
+.cta-button {
+    background-color: #3475FE; /* Biru cerah */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-button:hover {
+    background-color: #3475FE; /* Biru lebih gelap saat hover */
+    transform: scale(1.05);
+}
+
+/* Hero Content */
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+}
+
+.hero-content h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #0A174E; /* Biru gelap */
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #3475FE;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.5;
+    color: #0A174E; /* Biru gelap */
+}
+
+/* Tombol dan kolom pencarian */
+.search-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 2px solid #3475FE;
+    outline: none;
+    width: 250px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+    border-color: #3475FE;
+    box-shadow: 0 0 8px rgba(0, 168, 232, 0.5);
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #3475FE;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.search-button:hover {
+    background-color: #3475FE;
+    transform: scale(1.05);
+}
+
+.search-button:focus {
+    outline: none;
+}
+
+/* Styling untuk Carousel */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.carousel-buttons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.carousel-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}

@@ -71,7 +71,7 @@
             <!-- Right side Form -->
             <div class="login-form">
                 <center><img src="{{ url('Crovex/HTML/assets/images/ParcelPointWithText.png') }}" alt="ParcelPoint" width="250px" height="100px"></center>
-                <center><h3 class="text-primary" style="font-weight: bolder;">Log in</h3></center>
+                <center><h3 class="text-primary" style="font-weight: bolder;">Masuk</h3></center>
 
                 <!-- Session Status -->
                 @if (session('status'))
@@ -112,19 +112,19 @@
                     <!-- Remember Me -->
                     <div class="form-check mb-3">
                         <input id="remember" type="checkbox" name="remember" class="form-check-input text-primary" {{ old('remember') ? 'checked' : '' }}>
-                        <label for="remember" class="form-check-label">Remember Me</label>
+                        <label for="remember" class="form-check-label">Ingat Saya</label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Log in</button>
+                    <button type="submit" class="btn btn-primary w-100">Masuk</button>
                 </form>
 
                 <!-- Links -->
                 <div class="text-secondary text-center mt-4">
-                    Don’t have an account? <a href="{{ route('register') }}">Sign up</a>
+                    Belum Mempunyai Akun? <a href="{{ route('register') }}">Daftar</a>
                 </div>
                 <div class="text-secondary text-center mt-2">
                     @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">Forgot your password?</a>
+                        <a href="{{ route('password.request') }}">Lupa Password?</a>
                     @endif
                 </div>
             </div>

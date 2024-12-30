@@ -21,7 +21,7 @@ body, html {
 }
 .login-image {
     flex: 0 0 65%; /* Image takes 65% of the width */
-    background: url('/images/Kurir_LoginPage.png') no-repeat center center;
+    background: url('/images/Kurir_LoginPage.jpg') no-repeat center center; /* Untuk Kurir */
     background-size: contain; /* Ensures the whole image is visible without being cut off */
     background-position: center center; /* Ensures the image is centered */
     height: 100%; /* Ensures the image takes full height */

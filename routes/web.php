@@ -6,15 +6,16 @@ use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecurityController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SuratPaketController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.index');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
