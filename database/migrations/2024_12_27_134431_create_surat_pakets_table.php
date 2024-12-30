@@ -24,6 +24,7 @@ return new class extends Migration
             $table->dateTime('WaktuJemput')->nullable();
             $table->enum('Penjemput', ['YBS', 'Teman', 'Keluarga'])->nullable();
             $table->string('FotoST')->nullable();
+            $table->string('status_daftar')->default('DiterimaSecurity');
             $table->timestamps();
         });
     }

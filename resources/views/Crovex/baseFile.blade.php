@@ -44,8 +44,8 @@
                     <li class="dropdown">
                         <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
-                            <img src="{{ url('Crovex/HTML/assets/images/users/user-1.png') }}" alt="profile-user" class="rounded-circle" />
-                            <span class="ml-1 nav-user-name hidden-sm">Aziz <i class="mdi mdi-chevron-down"></i> </span>
+                            <span class="ml-1 nav-user-name hidden-sm">{{ Auth::user()->name }} <i class="mdi "></i> </span>
+                            <img src="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}" alt="profile-user" class="rounded-circle" />
                         </a>
                     </li>
                 </ul><!--end topbar-nav-->
@@ -83,9 +83,6 @@
                 </li>
                 <li>
                     <a href="/suratPaket" class="{{ Request::is('suratPaket') ? 'active' : '' }}"><i class="ti ti-package"></i><span>Surat & Paket</span><span class="menu-arrow"></span></a>
-                </li>
-                <li>
-                    <a href="/security" class="{{ Request::is('security') ? 'active' : '' }}"><i class="ti ti-user"></i><span>Security</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
                     <a href="/kurir" class="{{ Request::is('kurir') ? 'active' : '' }}"><i class="ti ti-map"></i><span>Kurir</span><span class="menu-arrow"></span></a>

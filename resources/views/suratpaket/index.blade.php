@@ -13,11 +13,14 @@
                 <tr>
                     <th>No</th>
                     <th>Pemilik</th>
-                    <th>Jenis</th>
-                    <th>Foto </th>
+                    <th>Foto Surat Paket </th>
                     <th>NoHP</th>
+                    <th>Waktu Antar</th>
+                    <th>Kurir</th>
                     <th>Resi</th>
-                    <th>Berat (Gram)</th>
+                    <th>Penjemput</th>
+                    <th>Foto Serah Terima</th>
+                    <th>Waktu Jemput</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -26,7 +29,6 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->Pemilik->Nama }}</td>
-                    <td>{{ $item->Jenis }}</td>
                     <td>
                         @if($item->Foto)
                             <a href="{{ \Storage::url($item->Foto) }}" target="blank">
@@ -35,12 +37,21 @@
                         @endif
                     </td>
                     <td>{{ $item->NoHP }}</td>
-                    <td>{{ $item->Resi }}</td>
-                    <td>{{ $item->Berat }}</td>
+                    <td>{{ $item->created_at }}</td>
                     <td>{{ $item->Kurir->Ekspedisi }}</td>
+                    <td>{{ $item->Resi }}</td>
+                    <td>{{ $item->Penjemput }}</td>
+                    <td>
+                        @if($item->FotoST)
+                            <a href="{{ \Storage::url($item->FotoST) }}" target="blank">
+                            <img src="{{  \Storage::url($item->FotoST) }}" width="50" />
+                        </a>
+                        @endif
+                    </td>
+                    <td>{{ $item->WaktuJemput }}</td>
                     <td>
                         <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm m1-2 ti-info"></a> <!-- Btn primary warna biru -->
-                        <a href="/suratPaket/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
+                        {{-- <a href="/suratPaket/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a> --}}
                         <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
