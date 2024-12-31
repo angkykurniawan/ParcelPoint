@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::Resource('ruang', RuangController::class);
     Route::Resource('suratPaket', SuratPaketController::class);
     Route::get('/notification/send/{id}', [NotificationController::class, 'sendNotification'])->name('notification.send');
+    Route::get('/notification/send-email/{id}', [NotificationController::class, 'sendEmailNotification'])->name('notification.sendEmail');
 });
 
 require __DIR__.'/auth.php';

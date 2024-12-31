@@ -63,7 +63,7 @@
                                 <!-- Notification WA -->
                                 <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm ti-comment"></a>
                                 <!-- Notification Email -->
-                                <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm ti-email"></a>
+                                <a href="{{ route('notification.sendEmail', $item->id) }}" class="btn btn-info btn-sm ti-email"></a>
                             </div>
                         </div>
                     </td>

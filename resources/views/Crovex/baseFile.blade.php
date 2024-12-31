@@ -102,7 +102,7 @@
                 @yield('content')
             </div>
             <footer class="footer text-center text-sm-left">
-                &copy; 2024 ParcelPoint <span class="text-muted d-none d-sm-inline-block float-right">By<i class="mdi mdi-heart text-danger"></i> Laravel 11</span>
+                <span class="text-muted d-none d-sm-inline-block float-right"> 2024 &copy; ParcelPoint </span>
             </footer><!--end footer-->
         </div>
         <!-- end page content -->
