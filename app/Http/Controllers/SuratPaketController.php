@@ -8,6 +8,7 @@ use App\Models\kurir;
 use App\Models\Ruang;
 use App\Models\Pemilik;
 use App\Models\suratPaket;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoresuratPaketRequest;
@@ -55,6 +56,9 @@ class SuratPaketController extends Controller
             'WaktuJemput' => 'nullable|date',
             'Penjemput' => 'nullable|in:YBS,Teman,Keluarga',
         ]);
+
+        // Menambahkan nama user yang sedang login ke dalam requestData
+        $requestData['Penginput'] = Auth::user()->name;
 
         if ($request->hasFile('Foto')) {
             $requestData['Foto'] = $request->file('Foto')->store('public/suratpaket');

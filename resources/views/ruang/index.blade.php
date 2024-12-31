@@ -11,22 +11,22 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Lantai</th>
-                    <th>Lokasi</th>
-                    <th>PIC</th>
-                    <th>Aksi</th>
+                    <center><th>No</th></center>
+                    <center><th>Nama</th></center>
+                    <center><th>Lantai</th></center>
+                    <center><th>Lokasi</th></center>
+                    <center><th>PIC</th></center>
+                    <center><th>Aksi</th></center>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($ruang as $item)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->Nama }}</td>
-                    <td>{{ $item->Lantai }}</td>
-                    <td>{{ $item->Lokasi }}</td>
-                    <td>{{ $item->PIC }}</td>
+                    <center><td>{{ $loop->iteration }}</td></center>
+                    <center><td>{{ $item->Nama }}</td></center>
+                    <center><td>{{ $item->Lantai }}</td></center>
+                    <center><td>{{ $item->Lokasi }}</td></center>
+                    <center><td>{{ $item->PIC }}</td></center>
                     <td>
                         <a href="/ruang/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
                         <form action="/ruang/{{ $item->id }}" method="POST" class="d-inline">

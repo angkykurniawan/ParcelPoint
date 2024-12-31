@@ -16,7 +16,7 @@
         <link href="{{ url('Crovex/HTML/plugins/jvectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet">
 
         <!-- App css -->
-        <link href="{{ url('Crovex/HTML/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ url('Crovex/HTML/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="texphp t/css" />
         <link href="{{ url('Crovex/HTML/assets/css/jquery-ui.min.css') }}" rel="stylesheet">
         <link href="{{ url('Crovex/HTML/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/metisMenu.min.css') }}" rel="stylesheet" type="text/css" />
@@ -115,9 +115,6 @@
         </div>
         <!-- end page-wrapper -->
 
-
-
-
         <!-- jQuery  -->
         <script src="{{ url('Crovex/HTML/assets/js/jquery.min.js') }}"></script>
         <script src="{{ url('Crovex/HTML/assets/js/bootstrap.bundle.min.js') }}"></script>
@@ -135,7 +132,5 @@
 
         <!-- App js -->
         <script src="{{ url('Crovex/HTML/assets/js/app.js') }}"></script>
-
     </body>
-
 </html>

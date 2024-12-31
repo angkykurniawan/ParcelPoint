@@ -27,10 +27,8 @@ class NotificationController extends Controller
         $message = "Halo, " . ($suratPaket->Pemilik->Nama ?? 'Pemilik') . "!\n\n" .
             "Paket Anda dengan detail berikut telah terdaftar:\n" .
             "Resi: " . $suratPaket->Resi . "\n" .
-            "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
-            "Silakan jemput paket Anda di lokasi kami.
-            Kunjungi URL localhost:8000/$suratPaket->Resi
-            Terima kasih.";
+            "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada')."\n\n".
+            "Silakan jemput" . $suratPaket->Jenis ." Anda di lokasi kami. \n\n Kunjungi : localhost:8000/$suratPaket->Resi untuk informasi lebih lanjut\nTerima kasih.";
 
         // Nomor WhatsApp tujuan
         $noHp = $suratPaket->NoHP;

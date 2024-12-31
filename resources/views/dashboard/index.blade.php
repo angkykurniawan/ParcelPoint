@@ -34,14 +34,6 @@
                 <div id="label4" class="mt-2 text-center"></div> <!-- Label keterangan -->
             </div>
         </div>
-
-        <!-- Total di bawah grafik -->
-        <div class="row">
-            <div class="col-md-12 text-center mt-4">
-                <h4><strong>Total</strong></h4>
-                <p>Jumlah Surat: {{ $jumlahSurat }} | Jumlah Paket: {{ $jumlahPaket }} | Surat Hari Ini: {{ $suratHariIni }} | Paket Hari Ini: {{ $paketHariIni }} | Surat Dijemput: {{ $suratDijemputHariIni }} | Paket Dijemput: {{ $paketDijemputHariIni }}</p>
-            </div>
-        </div>
     </div>
 
     <!-- Chart.js CDN -->
