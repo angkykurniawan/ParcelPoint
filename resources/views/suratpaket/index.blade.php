@@ -50,13 +50,22 @@
                     </td>
                     <td>{{ $item->WaktuJemput }}</td>
                     <td>
-                        <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm m1-2 ti-info"></a> <!-- Btn primary warna biru -->
-                        {{-- <a href="/suratPaket/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a> --}}
-                        <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm ml-2 ti ti-trash" onclick="return confirm('Yakin ingin menghapus data?')"></button>
-                        </form>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div style="display: flex; gap: 10px;">
+                                <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm ti-info"></a>
+                                <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm ti-trash" onclick="return confirm('Yakin ingin menghapus data?')"></button>
+                                </form>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <!-- Notification WA -->
+                                <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm ti-comment"></a>
+                                <!-- Notification Email -->
+                                <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm ti-email"></a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

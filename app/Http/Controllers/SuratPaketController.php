@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Log;
+use CURLFile;
 use App\Models\kurir;
 use App\Models\Ruang;
 use App\Models\Pemilik;
 use App\Models\suratPaket;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoresuratPaketRequest;
 use App\Http\Requests\UpdatesuratPaketRequest;
@@ -67,6 +70,7 @@ class SuratPaketController extends Controller
         if ($selisih->days === 0) {
             $suratPaket->status = 'DiterimaSecurity';
         }
+
         return redirect('/suratPaket');
     }
 
