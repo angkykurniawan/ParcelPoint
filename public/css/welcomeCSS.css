@@ -49,7 +49,7 @@ body, html {
 }
 
 .nav-links a:hover {
-    color:#3475FE; /* Biru cerah saat hover */
+    color: #3475FE; /* Biru cerah saat hover */
 }
 
 .cta-button {
@@ -145,4 +145,63 @@ body, html {
 
 .search-button:focus {
     outline: none;
+}
+
+/* Animasi bergerak untuk gambar */
+.animated-image {
+    width: 200px; /* Atur ukuran gambar sesuai kebutuhan */
+    animation: move 5s infinite alternate; /* Animasi bergerak */
+}
+
+@keyframes move {
+    0% { transform: translateX(-300px); }
+    100% { transform: translateX(300px); }
+}
+
+/* Carousel Styling */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 50vh; /* Mengatur tinggi carousel menjadi 50vh untuk tampilan lebih rendah */
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+    width: 100%; /* Gambar akan memenuhi lebar kontainer */
+    height: auto; /* Menjaga rasio aspek gambar */
+    object-fit: contain; /* Pastikan gambar sepenuhnya terlihat tanpa terpotong */
+    flex-shrink: 0; /* Gambar tidak akan mengecil */
+}
+
+/* User Info Section - Menampilkan nama pengguna dan tombol akses */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info span {
+    color: #0A174E; /* Biru gelap untuk teks */
+    font-size: 1.2rem;
+}
+
+.user-info .cta-button {
+    background-color: #3475FE; /* Biru cerah */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.user-info .cta-button:hover {
+    background-color: #1f5db4; /* Biru lebih gelap saat hover */
+    transform: scale(1.05);
 }

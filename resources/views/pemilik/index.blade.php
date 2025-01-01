@@ -1,9 +1,11 @@
 @extends('Crovex/baseFile', ['title' => 'Data Pemilik Surat Paket'])
+
 @section('content')
     <div class="card">
         <div class="card-body">
             <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Pemilik Surat Paket</h3>
             <center><a href="/pemilik/create" class="btn btn-primary btn-sm">Tambah Data Pemilik</a></center><br>
+
             <table class="table table-striped">
                 <thead>
                     <tr style="text-align: center;">
@@ -26,8 +28,8 @@
                             <td>{{ $item->NomorInduk }}</td>
                             <td>
                                 @if ($item->Foto)
-                                    <a href="{{ \Storage::url($item->Foto) }}" target="blank">
-                                        <img src="{{ \Storage::url($item->Foto) }}" width="50" height="100" alt="Foto Pemilik" />
+                                    <a href="{{ \Storage::url($item->Foto) }}" target="_blank">
+                                        <img src="{{ \Storage::url($item->Foto) }}" width="50" height="100" alt="Foto Pemilik">
                                     </a>
                                 @endif
                                 {{ $item->Nama }}
@@ -54,7 +56,11 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $pemilik->links() }}
+
+            <!-- Pagination Links -->
+            <div class="d-flex justify-content-center">
+                {{ $pemilik->links('pagination::bootstrap-4') }} <!-- Menampilkan pagination dengan Bootstrap 4 -->
+            </div>
         </div>
     </div>
 
@@ -74,59 +80,5 @@
                 showCloseButton: true
             });
         @endif
-
-        // Function to confirm deletion of data
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Yakin ingin menghapus data?',
-                text: 'Data ini tidak akan bisa dikembalikan setelah dihapus.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-                focusCancel: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data telah dihapus.',
-                        'success'
-                    ).then(() => {
-                        document.getElementById('delete-form-' + id).submit();
-                    });
-                } else {
-                    Swal.fire(
-                        'Dibatalkan',
-                        'Data tidak dihapus.',
-                        'info'
-                    );
-                }
-            });
-            return false; // Prevent immediate form submission
-        }
-
-        // WhatsApp notification function
-        function sendWhatsAppNotification(phoneNumber) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Notifikasi WhatsApp',
-                text: 'Pesan berhasil dikirim ke nomor yang terdaftar: ' + phoneNumber,
-                showCloseButton: true
-            });
-            return true; // Keep the link behavior intact
-        }
-
-        // Email notification function
-        function sendEmailNotification(email) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Notifikasi Email',
-                text: 'Pesan berhasil dikirim ke email yang terdaftar: ' + email,
-                showCloseButton: true
-            });
-            return true; // Keep the link behavior intact
-        }
     </script>
 @endsection

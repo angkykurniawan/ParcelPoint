@@ -2,8 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Edit Data Ruang</h3>
-            <center><b>{{ strtoupper($ruang->Nama) }}</b></center><br>
+            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Edit Data Ruang     <center><b>{{ strtoupper($ruang->Nama) }}</b></center><br></h3>
             <form action="/ruang/{{ $ruang->id }}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf

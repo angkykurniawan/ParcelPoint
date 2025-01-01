@@ -9,14 +9,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}">
+
         <!-- jvectormap -->
         <link href="{{ url('Crovex/HTML/plugins/jvectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet">
+
         <!-- App css -->
         <link href="{{ url('Crovex/HTML/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/jquery-ui.min.css') }}" rel="stylesheet">
         <link href="{{ url('Crovex/HTML/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/metisMenu.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+
         <!-- Sweet Alert -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -52,7 +55,7 @@
             .page-wrapper {
                 margin-top: 60px; /* Adjust for fixed navbar */
                 margin-left: 260px; /* Increased space for left sidebar */
-                padding: 20px 20px 50px; /* Add more padding at the bottom for pagination */
+                padding: 20px 20px 80px; /* Add more padding at the bottom for pagination */
             }
             .active-item {
                 background-color: #3475FE !important;
@@ -61,14 +64,35 @@
             }
             /* Center pagination */
             .pagination {
+                width: 100%;
+                height: 500px;
                 margin-top: 20px;
                 justify-content: center;
+            }
+            .pagination li {
+                display: inline;
+                margin: 0 5px;
+            }
+            .pagination a, .pagination span {
+                padding: 8px 16px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                color: #3475FE;
+                text-decoration: none;
+            }
+            .pagination a:hover {
+                background-color: #3475FE;
+                color: white;
+            }
+            .pagination .active a {
+                background-color: #3475FE;
+                color: white;
             }
         </style>
     </head>
     <body>
-         <!-- Top Bar Start -->
-         <div class="topbar">
+        <!-- Top Bar Start -->
+        <div class="topbar">
             <!-- LOGO -->
             <div class="topbar-left">
                 <a href="#" class="logo">
@@ -82,14 +106,15 @@
             <nav class="navbar-custom">
                 <ul class="list-unstyled topbar-nav float-right mb-0">
                     <li class="nav-link waves-effect waves-light nav-user">
-                            <span class="ml-1 nav-user-name">{{ Auth::user()->name }} </span>
-                            <img src="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}" alt="profile-user" class="rounded-circle" />
+                        <span class="ml-1 nav-user-name">{{ Auth::user()->name }} </span>
+                        <img src="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}" alt="profile-user" class="rounded-circle" />
                     </li>
                 </ul><!--end topbar-nav-->
             </nav>
             <!-- end navbar-->
         </div>
         <!-- Top Bar End -->
+
         <!-- Left Sidenav -->
         <div class="left-sidenav">
             <ul class="metismenu left-sidenav-menu">
@@ -120,17 +145,23 @@
         </div>
         <!-- end left-sidenav-->
 
-
+        <!-- Page Wrapper -->
         <div class="page-wrapper">
-            <!-- Page Content-->
+            <!-- Page Content -->
             <div class="page-content">
                 <br>
                 @yield('content')
+                <!-- Ensure pagination is included in the content -->
+                @if(isset($data) && $data->hasPages())
+                    <div class="pagination-wrapper">
+                        {{ $data->links() }}
+                    </div>
+                @endif
             </div>
         </div>
         <!-- end page content -->
 
-        <!-- jQuery  -->
+        <!-- jQuery -->
         <script src="{{ url('Crovex/HTML/assets/js/jquery.min.js') }}"></script>
         <script src="{{ url('Crovex/HTML/assets/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url('Crovex/HTML/assets/js/metismenu.min.js') }}"></script>

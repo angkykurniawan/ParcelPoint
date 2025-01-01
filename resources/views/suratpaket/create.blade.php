@@ -16,9 +16,6 @@
             <div class="form-group mt-1 mb-3">
                 <label for="pemilik_id" class="text-primary" style="font-weight: bolder;">
                     Nama Pemilik *
-                    <a href="/pemilik/create" target="_blank" class="text-primary" style="font-weight: bolder;">
-                        Pemilik Baru
-                    </a>
                 </label>
                 <select class="form-control select2 @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
                     <option value="">Pilih Nama Pemilik</option>
@@ -52,10 +49,15 @@
             <!-- No HP Input -->
             <div class="form-group mt-1 mb-3">
                 <label for="NoHP" class="text-primary" style="font-weight: bolder;">No HP *</label>
-                <input type="text" class="form-control @error('NoHP') is-invalid @enderror" id="NoHP" name="NoHP"
-                    value="{{ old('NoHP') }}" placeholder="+6281211110000">
+                <input type="text"
+                       class="form-control @error('NoHP') is-invalid @enderror"
+                       id="NoHP"
+                       name="NoHP"
+                       value="{{ old('NoHP', $pemilik->whatsapp ?? '') }}"
+                       placeholder="+6281211110000">
                 <span class="text-danger">{{ $errors->first('NoHP') }}</span>
             </div>
+
 
             <!-- Resi Input -->
             <div class="form-group mt-1 mb-3">
@@ -69,9 +71,6 @@
             <div class="form-group mt-1 mb-3">
                 <label for="kurir_id" class="text-primary" style="font-weight: bolder;">
                     Nama Kurir *
-                    <a href="/kurir/create" target="_blank" class="text-primary" style="font-weight: bolder;">
-                        Kurir Baru
-                    </a>
                 </label>
                 <select class="form-control select2 @error('kurir_id') is-invalid @enderror" id="kurir_id" name="kurir_id">
                     <option value="">Pilih Nama Kurir</option>
@@ -96,9 +95,6 @@
             <div class="form-group mt-1 mb-3">
                 <label for="ruang_id" class="text-primary" style="font-weight: bolder;">
                     Nama Ruang *
-                    <a href="/ruang/create" target="_blank" class="text-primary" style="font-weight: bolder;">
-                        Ruang Baru
-                    </a>
                 </label>
                 <select class="form-control select2 @error('ruang_id') is-invalid @enderror" id="ruang_id" name="ruang_id">
                     <option value="">Pilih Nama Ruang</option>
@@ -130,3 +126,5 @@
         });
     </script>
 @endif
+
+
