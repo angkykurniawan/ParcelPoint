@@ -4,10 +4,18 @@
     <div class="card">
         <div class="card-body">
             <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Ruang</h3>
-            <center>
-                <a href="/ruang/create" class="btn btn-primary btn-sm">Tambah Data Ruang</a>
-            </center>
+
+            <!-- Form pencarian dan tombol tambah data di tengah -->
+            <div class="d-flex justify-content-center align-items-center">
+                <form action="/ruang" method="GET" class="d-flex">
+                    <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control w-100" placeholder="Cari berdasarkan Nama atau Lokasi" />
+                    <button type="submit" class="btn btn-primary btn-sm ml-0">Cari</button> <!-- Mengurangi jarak antara tombol search dan tambah data -->
+                </form>
+
+                <a href="/ruang/create" class="btn btn-primary btn-sm ml-1">Tambah Data Ruang</a> <!-- Margin kiri kecil -->
+            </div>
             <br>
+
             <table class="table table-striped">
                 <thead>
                     <tr style="text-align: center;">
@@ -43,59 +51,29 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $ruang->links() }}
+
+            <!-- Pagination Links -->
+            <div class="d-flex justify-content-center">
+                {{ $ruang->appends(['search' => request()->get('search')])->links('pagination::bootstrap-4') }} <!-- Menampilkan pagination dengan Bootstrap 4 -->
+            </div>
         </div>
     </div>
 
-    @if (session('success'))
-        <script>
+    <script>
+        @if (session('success'))
             Swal.fire({
                 title: 'Berhasil!',
                 icon: 'success',
                 text: '{{ session('success') }}',
                 showCloseButton: true
             });
-        </script>
-    @elseif (session('error'))
-        <script>
+        @elseif (session('error'))
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: '{{ session('error') }}',
                 showCloseButton: true
             });
-        </script>
-    @endif
-
-    <script>
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Yakin ingin menghapus data?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Cancel',
-                focusCancel: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data telah dihapus.',
-                        'success'
-                    ).then(() => {
-                        document.getElementById('delete-form-' + id).submit();
-                    });
-                } else {
-                    Swal.fire(
-                        'Dibatalkan',
-                        'Data tidak dihapus.',
-                        'info'
-                    );
-                }
-            });
-            return false;
-        }
+        @endif
     </script>
 @endsection

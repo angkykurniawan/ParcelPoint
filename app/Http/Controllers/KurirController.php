@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\kurir;
-use App\Http\Requests\StorekurirRequest;
-use App\Http\Requests\UpdatekurirRequest;
+use App\Models\Kurir;
+use Illuminate\Http\Request;
+use App\Http\Requests\StoreKurirRequest;
+use App\Http\Requests\UpdateKurirRequest;
 
 class KurirController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kurir = Kurir::latest()->paginate(10);
-        return view('kurir.index', compact('kurir'));
+        // Ambil kata kunci pencarian dari query string
+        $search = $request->get('search');
+
+        // Menambahkan pagination dan opsi per_page
+        $perPage = $request->get('per_page', 10); // Default 10 per halaman
+
+        // Jika ada pencarian, filter berdasarkan ekspedisi
+        if ($search) {
+            $kurir = Kurir::where('Ekspedisi', 'like', "%{$search}%")
+                          ->latest()
+                          ->paginate($perPage);
+        } else {
+            // Jika tidak ada pencarian, tampilkan semua data
+            $kurir = Kurir::latest()->paginate($perPage);
+        }
+
+        return view('kurir.index', compact('kurir', 'search'));
     }
 
     /**
@@ -28,26 +44,15 @@ class KurirController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorekurirRequest $request)
+    public function store(StoreKurirRequest $request)
     {
-        $requestData = $request->validate([
-            'Ekspedisi' => 'required',
-        ]);
+        $requestData = $request->validated();
 
-        $kurir = new Kurir; //membuat objek kosong di variabel
+        $kurir = new Kurir;
+        $kurir->fill($requestData);
+        $kurir->save();
 
-        $kurir->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
-
-        $kurir->save(); //menyimpan data ke database
         return redirect('/kurir')->with('success', 'Data Kurir berhasil ditambahkan!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(kurir $kurir)
-    {
-        //
     }
 
     /**
@@ -62,15 +67,14 @@ class KurirController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatekurirRequest $request, string $id)
+    public function update(UpdateKurirRequest $request, string $id)
     {
-        $requestData = $request->validate([
-            'Ekspedisi' => 'required',
-        ]);
-        $kurir = \App\Models\Kurir::findOrFail($id); //membuat objek kosong di variabel model
-        $kurir->fill($requestData); //mengisi var model dengan data yang sudah divalidasi requestData
+        $requestData = $request->validated();
 
-        $kurir->save(); //menyimpan data ke database
+        $kurir = Kurir::findOrFail($id);
+        $kurir->fill($requestData);
+        $kurir->save();
+
         return redirect('/kurir')->with('success', 'Data Kurir berhasil diupdate!');
     }
 
@@ -80,8 +84,8 @@ class KurirController extends Controller
     public function destroy(string $id)
     {
         $kurir = Kurir::findOrFail($id);
+        $kurir->delete();
 
-        $kurir->delete(); // Menghapus data pemilik
         return redirect('/kurir')->with('success', 'Data Kurir berhasil dihapus!');
     }
 }

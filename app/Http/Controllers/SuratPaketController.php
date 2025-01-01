@@ -4,28 +4,42 @@ namespace App\Http\Controllers;
 
 use Log;
 use CURLFile;
-use App\Models\kurir;
+use App\Models\Kurir;
 use App\Models\Ruang;
 use App\Models\Pemilik;
-use App\Models\suratPaket;
+use App\Models\SuratPaket;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\StoresuratPaketRequest;
-use App\Http\Requests\UpdatesuratPaketRequest;
+use App\Http\Requests\StoreSuratPaketRequest;
+use App\Http\Requests\UpdateSuratPaketRequest;
 
 class SuratPaketController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $suratPaket = suratPaket::latest()->paginate(10);
+        // Use $request->input() to retrieve input values
+        $search = $request->input('search');
+        $perPage = $request->input('per_page', 10);
+
+        $suratPaket = SuratPaket::with('Pemilik')
+            ->when($search, function ($query, $search) {
+                return $query->where('Resi', 'like', "%{$search}%")
+                             ->orWhereHas('Pemilik', function ($query) use ($search) {
+                                 $query->where('Nama', 'like', "%{$search}%");
+                             });
+            })
+            ->latest()
+            ->paginate($perPage);
+
         $Pemilik = Pemilik::latest()->paginate(10);
-        $Kurir = kurir::latest()->paginate(10);
+        $Kurir = Kurir::latest()->paginate(10);
         $Ruang = Ruang::latest()->paginate(10);
-        return view('suratpaket.index', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang'));
+
+        return view('suratpaket.index', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang', 'search'));
     }
 
     /**
@@ -34,7 +48,7 @@ class SuratPaketController extends Controller
     public function create()
     {
         $Pemilik = Pemilik::latest()->paginate(10);
-        $Kurir = kurir::latest()->paginate(10);
+        $Kurir = Kurir::latest()->paginate(10);
         $Ruang = Ruang::latest()->paginate(10);
         return view('suratpaket.create', compact('Pemilik', 'Kurir', 'Ruang'));
     }
@@ -42,7 +56,7 @@ class SuratPaketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoresuratPaketRequest $request)
+    public function store(StoreSuratPaketRequest $request)
     {
         $requestData = $request->validate([
             'pemilik_id' => 'required|exists:pemiliks,id',
@@ -57,7 +71,6 @@ class SuratPaketController extends Controller
             'Penjemput' => 'nullable|in:YBS,Teman,Keluarga',
         ]);
 
-        // Menambahkan nama user yang sedang login ke dalam requestData
         $requestData['Penginput'] = Auth::user()->name;
 
         if ($request->hasFile('Foto')) {
@@ -65,17 +78,7 @@ class SuratPaketController extends Controller
         }
 
         SuratPaket::create($requestData);
-        $suratPaket = new suratPaket();
 
-        $tanggalDaftar = new \DateTime($suratPaket->created_at);
-        $hariIni = new \DateTime();
-        $selisih = $tanggalDaftar->diff($hariIni);
-
-        if ($selisih->days === 0) {
-            $suratPaket->status = 'DiterimaSecurity';
-        }
-
-        // Store success message
         return redirect('/suratPaket')->with('success', 'Data Surat Paket berhasil ditambahkan!');
     }
 
@@ -84,10 +87,8 @@ class SuratPaketController extends Controller
      */
     public function show($id)
     {
-        $suratPaket = suratPaket::findOrFail($id);
-        return view('suratpaket.show', [
-            'suratPaket' => $suratPaket,
-        ]);
+        $suratPaket = SuratPaket::findOrFail($id);
+        return view('suratpaket.show', ['suratPaket' => $suratPaket]);
     }
 
     /**
@@ -95,7 +96,7 @@ class SuratPaketController extends Controller
      */
     public function edit(string $id)
     {
-        $suratPaket = suratPaket::findOrFail($id);
+        $suratPaket = SuratPaket::findOrFail($id);
         $Pemilik = Pemilik::all();
         $Kurir = Kurir::all();
         $Ruang = Ruang::all();
@@ -105,39 +106,28 @@ class SuratPaketController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatesuratPaketRequest $request, $id)
+    public function update(UpdateSuratPaketRequest $request, $id)
     {
-        // Validasi data dari request
         $requestData = $request->validate([
             'WaktuJemput' => 'required|date',
             'Penjemput' => 'required|in:YBS,Teman,Keluarga',
-            'FotoST' => 'required|image|mimes:jpeg,png,jpg|max:2000', // Validasi file FotoST
+            'FotoST' => 'required|image|mimes:jpeg,png,jpg|max:2000',
         ]);
 
-        // Temukan suratPaket berdasarkan ID
         $suratPaket = SuratPaket::findOrFail($id);
-
-        // Perbarui data suratPaket dengan data dari request
         $suratPaket->fill($requestData);
 
-        // Jika ada file FotoST yang diupload, simpan dan perbarui data FotoST
         if ($request->hasFile('FotoST')) {
-            // Periksa apakah ada foto lama dan hapus jika ada
             if ($suratPaket->FotoST && Storage::exists($suratPaket->FotoST)) {
-                Storage::delete($suratPaket->FotoST); // Hapus foto lama
+                Storage::delete($suratPaket->FotoST);
             }
 
-            // Menyimpan foto baru dan update kolom FotoST
             $suratPaket->FotoST = $request->file('FotoST')->store('public/suratpaket/fotoST');
         }
 
-        // Ubah status_daftar menjadi 'Sudah Dijemput'
         $suratPaket->status_daftar = 'Sudah Dijemput';
-
-        // Simpan perubahan ke database
         $suratPaket->save();
 
-        // Redirect ke halaman suratPaket dengan pesan sukses
         return redirect('/suratPaket')->with('success', 'Data berhasil diperbarui dan status sudah dijemput');
     }
 
@@ -146,27 +136,24 @@ class SuratPaketController extends Controller
      */
     public function destroy(string $id)
     {
-        // Mencari SuratPaket berdasarkan ID
-        $suratPaket = suratPaket::findOrFail($id);
+        $suratPaket = SuratPaket::findOrFail($id);
 
-        // Menghapus file Foto jika ada
         if ($suratPaket->Foto && Storage::exists($suratPaket->Foto)) {
-            Storage::delete($suratPaket->Foto); // Menghapus gambar jika ada
+            Storage::delete($suratPaket->Foto);
         }
 
-        // Menghapus data suratPaket dari database
-        $suratPaket->delete(); // Menghapus data suratPaket
+        $suratPaket->delete();
 
-        // Redirect kembali ke halaman suratPaket setelah berhasil dihapus
         return redirect('/suratPaket')->with('success', 'Data berhasil dihapus!');
     }
 
-    /* Function Cek Resi */
+    /**
+     * Function Cek Resi
+     */
     public function cekResi($resi)
     {
-        // Cari suratpaket berdasarkan nomor resi dan ambil kolom Jenis, Pemilik, dan statusDaftar
         return SuratPaket::where('resi', $resi)
-            ->select('jenis', 'pemilik', 'statusDaftar', 'created_at', 'WaktuJemput', 'resi') // Pilih kolom yang dibutuhkan
+            ->select('jenis', 'pemilik', 'statusDaftar', 'created_at', 'WaktuJemput', 'resi')
             ->first();
     }
 }

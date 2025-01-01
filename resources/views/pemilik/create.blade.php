@@ -8,7 +8,7 @@
             <div class="form-group mt-1 mb-3">
                 <label for="NomorInduk" class="text-primary" style="font-weight: bolder;">Nomor Induk *</label>
                 <input type="text" class="form-control @error('NomorInduk') is-invalid @enderror" id="NomorInduk" name="NomorInduk"
-                    value="{{ old('NomorInduk') }}" placeholder="2355300000" >
+                    value="{{ old('NomorInduk') }}" placeholder="2355300000" required>
                 <span class="text-danger">{{ $errors->first('NomorInduk') }}</span>
             </div>
             <div class="form-group mt-1 mb-3">

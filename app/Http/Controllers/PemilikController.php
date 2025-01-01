@@ -15,11 +15,23 @@ class PemilikController extends Controller
      */
     public function index(Request $request)
     {
+        // Ambil kata kunci pencarian dari query string
+        $search = $request->get('search');
+
         // Menambahkan pagination dan opsi per_page
         $perPage = $request->get('per_page', 10); // Default 10 per halaman
-        $pemilik = Pemilik::latest()->paginate($perPage); // Menampilkan 10 pemilik per halaman
 
-        return view('pemilik.index', compact('pemilik'));
+        // Jika ada pencarian, filter berdasarkan nama
+        if ($search) {
+            $pemilik = Pemilik::where('Nama', 'like', "%{$search}%")
+                              ->latest()
+                              ->paginate($perPage);
+        } else {
+            // Jika tidak ada pencarian, tampilkan semua data
+            $pemilik = Pemilik::latest()->paginate($perPage);
+        }
+
+        return view('pemilik.index', compact('pemilik', 'search'));
     }
 
     /**
@@ -35,7 +47,17 @@ class PemilikController extends Controller
      */
     public function store(StorePemilikRequest $request)
     {
-        $requestData = $request->validated();
+        $requestData = $request->validated(
+            // 'NomorInduk' => 'required',
+            // 'Nama' => 'required',
+            // 'Umur' => 'nullable',
+            // 'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
+            // 'Whatsapp' => 'required',
+            // 'Email' => 'required',
+            // 'JenisKelamin' => 'required|in:LakiLaki,P',
+            // 'Foto' => 'nullable',
+            // 'Alamat' => 'nullable',
+        );
 
         $pemilik = new Pemilik;
         $pemilik->fill($requestData);

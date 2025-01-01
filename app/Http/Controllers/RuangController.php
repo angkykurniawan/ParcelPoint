@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ruang;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreRuangRequest;
 use App\Http\Requests\UpdateRuangRequest;
 
@@ -11,10 +12,26 @@ class RuangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['ruang'] = Ruang::latest()->paginate(10);
-        return view('ruang.index', $data);
+        // Ambil kata kunci pencarian dari query string
+        $search = $request->get('search');
+
+        // Menambahkan pagination dan opsi per_page
+        $perPage = $request->get('per_page', 10); // Default 10 per halaman
+
+        // Jika ada pencarian, filter berdasarkan nama ruang
+        if ($search) {
+            $ruang = Ruang::where('Nama', 'like', "%{$search}%")
+                          ->orWhere('Lokasi', 'like', "%{$search}%")
+                          ->latest()
+                          ->paginate($perPage);
+        } else {
+            // Jika tidak ada pencarian, tampilkan semua data
+            $ruang = Ruang::latest()->paginate($perPage);
+        }
+
+        return view('ruang.index', compact('ruang', 'search'));
     }
 
     /**
@@ -30,28 +47,13 @@ class RuangController extends Controller
      */
     public function store(StoreRuangRequest $request)
     {
-        $requestData = $request->validate([
-            'Nama' => 'required',
-            'Lantai' => 'nullable',
-            'Lokasi' => 'nullable',
-            'PIC' => 'nullable',
-        ]);
+        $requestData = $request->validated();
 
-        $ruang = new Ruang; //membuat objek kosong di variabel
+        $ruang = new Ruang;
+        $ruang->fill($requestData);
 
-        $ruang->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
-
-        $ruang->save(); //menyimpan data ke database
-
+        $ruang->save();
         return redirect('/ruang')->with('success', 'Data Ruang berhasil ditambahkan!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ruang $ruang)
-    {
-        //
     }
 
     /**
@@ -68,16 +70,12 @@ class RuangController extends Controller
      */
     public function update(UpdateRuangRequest $request, string $id)
     {
-        $requestData = $request->validate([
-            'Nama' => 'required',
-            'Lantai' => 'nullable',
-            'Lokasi' => 'nullable',
-            'PIC' => 'nullable',
-        ]);
-        $ruang = \App\Models\Ruang::findOrFail($id); //membuat objek kosong di variabel model
-        $ruang->fill($requestData); //mengisi var model dengan data yang sudah divalidasi requestData
+        $requestData = $request->validated();
 
-        $ruang->save(); //menyimpan data ke database
+        $ruang = Ruang::findOrFail($id);
+        $ruang->fill($requestData);
+
+        $ruang->save();
         return redirect('/ruang')->with('success', 'Data Ruang berhasil diupdate!');
     }
 
@@ -87,8 +85,7 @@ class RuangController extends Controller
     public function destroy(string $id)
     {
         $ruang = Ruang::findOrFail($id);
-
-        $ruang->delete(); // Menghapus data pemilik
+        $ruang->delete();
         return redirect('/ruang')->with('success', 'Data Ruang berhasil dihapus!');
     }
 }

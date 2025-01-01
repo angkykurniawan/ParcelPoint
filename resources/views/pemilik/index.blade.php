@@ -4,7 +4,17 @@
     <div class="card">
         <div class="card-body">
             <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Pemilik Surat Paket</h3>
-            <center><a href="/pemilik/create" class="btn btn-primary btn-sm">Tambah Data Pemilik</a></center><br>
+
+            <!-- Form pencarian dan tombol tambah data di tengah -->
+            <div class="d-flex justify-content-center align-items-center">
+                <form action="/pemilik" method="GET" class="d-flex">
+                    <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control w-100" placeholder="Cari berdasarkan Nama" />
+                    <button type="submit" class="btn btn-primary btn-sm ml-0">Cari</button> <!-- Mengurangi jarak antara tombol search dan tambah data -->
+                </form>
+
+                <a href="/pemilik/create" class="btn btn-primary btn-sm ml-1">Tambah Data Pemilik</a> <!-- Margin kiri kecil -->
+            </div>
+            <br>
 
             <table class="table table-striped">
                 <thead>
@@ -59,7 +69,7 @@
 
             <!-- Pagination Links -->
             <div class="d-flex justify-content-center">
-                {{ $pemilik->links('pagination::bootstrap-4') }} <!-- Menampilkan pagination dengan Bootstrap 4 -->
+                {{ $pemilik->appends(['search' => request()->get('search')])->links('pagination::bootstrap-4') }} <!-- Menampilkan pagination dengan Bootstrap 4 -->
             </div>
         </div>
     </div>
