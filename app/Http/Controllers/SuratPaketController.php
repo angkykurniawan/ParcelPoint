@@ -160,4 +160,13 @@ class SuratPaketController extends Controller
         // Redirect kembali ke halaman suratPaket setelah berhasil dihapus
         return redirect('/suratPaket')->with('success', 'Data berhasil dihapus!');
     }
+
+    /* Function Cek Resi */
+    public function cekResi($resi)
+    {
+        // Cari suratpaket berdasarkan nomor resi dan ambil kolom Jenis, Pemilik, dan statusDaftar
+        return SuratPaket::where('resi', $resi)
+            ->select('jenis', 'pemilik', 'statusDaftar', 'created_at', 'WaktuJemput', 'resi') // Pilih kolom yang dibutuhkan
+            ->first();
+    }
 }

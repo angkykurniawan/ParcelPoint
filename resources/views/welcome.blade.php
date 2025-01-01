@@ -46,9 +46,9 @@
       <h2>Penitipan Surat & Paket</h2>
       <p>Sebuah layanan penitipan surat & paket yang disediakan untuk sivitas akademika Politeknik Caltex Riau</p>
       <div class="search-container">
-        <form action="/search-resi" method="GET" class="search-form">
-          <input type="text" name="resi" placeholder="Masukkan nomor resi..." class="search-input" required>
-          <button type="submit" class="search-button">Search</button>
+        <form action="{{ route('search.resi') }}" method="GET" class="search-form">
+            <input type="text" name="resi" placeholder="Masukkan nomor resi..." class="search-input" required>
+            <button type="submit" class="search-button">Search</button>
         </form>
       </div>
     </div>

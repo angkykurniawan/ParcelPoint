@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResiController;
 use App\Http\Controllers\KurirController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PemilikController;
@@ -26,5 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/notification/send/{id}', [NotificationController::class, 'sendNotification'])->name('notification.send');
     Route::get('/notification/sendEmail/{id}', [NotificationController::class, 'sendEmailNotification'])->name('notification.sendEmail');
 });
+
+Route::get('/cekresi', [ResiController::class, 'searchResi'])->name('search.resi');
 
 require __DIR__.'/auth.php';
