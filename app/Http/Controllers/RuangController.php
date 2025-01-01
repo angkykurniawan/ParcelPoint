@@ -47,7 +47,12 @@ class RuangController extends Controller
      */
     public function store(StoreRuangRequest $request)
     {
-        $requestData = $request->validated();
+        $requestData = $request->validate([
+            'Nama' => 'required',
+            'Lantai' => 'nullable',
+            'Lokasi' => 'nullable',
+            'PIC' => 'nullable,'
+        ]);
 
         $ruang = new Ruang;
         $ruang->fill($requestData);
@@ -70,7 +75,12 @@ class RuangController extends Controller
      */
     public function update(UpdateRuangRequest $request, string $id)
     {
-        $requestData = $request->validated();
+        $requestData = $request->validate([
+            'Nama' => 'required',
+            'Lantai' => 'nullable',
+            'Lokasi' => 'nullable',
+            'PIC' => 'nullable,'
+        ]);
 
         $ruang = Ruang::findOrFail($id);
         $ruang->fill($requestData);

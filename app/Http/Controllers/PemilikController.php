@@ -47,17 +47,17 @@ class PemilikController extends Controller
      */
     public function store(StorePemilikRequest $request)
     {
-        $requestData = $request->validated(
-            // 'NomorInduk' => 'required',
-            // 'Nama' => 'required',
-            // 'Umur' => 'nullable',
-            // 'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
-            // 'Whatsapp' => 'required',
-            // 'Email' => 'required',
-            // 'JenisKelamin' => 'required|in:LakiLaki,P',
-            // 'Foto' => 'nullable',
-            // 'Alamat' => 'nullable',
-        );
+        $requestData = $request->validate([
+            'NomorInduk' => 'required',
+            'Nama' => 'required',
+            'Umur' => 'nullable',
+            'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
+            'Whatsapp' => 'required',
+            'Email' => 'required',
+            'JenisKelamin' => 'required|in:LakiLaki,P',
+            'Foto' => 'nullable',
+            'Alamat' => 'nullable',
+        ]);
 
         $pemilik = new Pemilik;
         $pemilik->fill($requestData);
@@ -84,7 +84,17 @@ class PemilikController extends Controller
      */
     public function update(UpdatePemilikRequest $request, String $id)
     {
-        $requestData = $request->validated();
+        $requestData = $request->validate([
+            'NomorInduk' => 'required',
+            'Nama' => 'required',
+            'Umur' => 'nullable',
+            'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
+            'Whatsapp' => 'required',
+            'Email' => 'required',
+            'JenisKelamin' => 'required|in:LakiLaki,P',
+            'Foto' => 'nullable',
+            'Alamat' => 'nullable',
+        ]);
 
         $pemilik = Pemilik::findOrFail($id);
         $pemilik->fill($requestData);

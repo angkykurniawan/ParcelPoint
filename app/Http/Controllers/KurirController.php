@@ -21,14 +21,11 @@ class KurirController extends Controller
         $perPage = $request->get('per_page', 10); // Default 10 per halaman
 
         // Jika ada pencarian, filter berdasarkan ekspedisi
-        if ($search) {
-            $kurir = Kurir::where('Ekspedisi', 'like', "%{$search}%")
-                          ->latest()
-                          ->paginate($perPage);
-        } else {
-            // Jika tidak ada pencarian, tampilkan semua data
-            $kurir = Kurir::latest()->paginate($perPage);
-        }
+        $kurir = Kurir::when($search, function ($query, $search) {
+            return $query->where('Ekspedisi', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->paginate($perPage);
 
         return view('kurir.index', compact('kurir', 'search'));
     }
@@ -46,11 +43,15 @@ class KurirController extends Controller
      */
     public function store(StoreKurirRequest $request)
     {
-        $requestData = $request->validated();
+        // Validate the request and get the validated data
+        $requestData = $request->validate([
+            'Ekspedisi'=> 'required',
+        ]);  
 
+        // Create a new Kurir instance and fill it with the validated data
         $kurir = new Kurir;
         $kurir->fill($requestData);
-        $kurir->save();
+        $kurir->save(); // Save the new Kurir to the database
 
         return redirect('/kurir')->with('success', 'Data Kurir berhasil ditambahkan!');
     }
@@ -69,12 +70,17 @@ class KurirController extends Controller
      */
     public function update(UpdateKurirRequest $request, string $id)
     {
-        $requestData = $request->validated();
+        // Validating the incoming request
+        $requestData = $request->validate([
+            'Ekspedisi'=> 'required',
+        ]);
 
+        // Find the Kurir entry by ID and update it with new data
         $kurir = Kurir::findOrFail($id);
         $kurir->fill($requestData);
-        $kurir->save();
+        $kurir->save(); // Save the updated Kurir entry to the database
 
+        // Redirecting with a success message
         return redirect('/kurir')->with('success', 'Data Kurir berhasil diupdate!');
     }
 
@@ -83,9 +89,11 @@ class KurirController extends Controller
      */
     public function destroy(string $id)
     {
+        // Find and delete the Kurir entry
         $kurir = Kurir::findOrFail($id);
         $kurir->delete();
 
+        // Redirecting with a success message
         return redirect('/kurir')->with('success', 'Data Kurir berhasil dihapus!');
     }
 }
