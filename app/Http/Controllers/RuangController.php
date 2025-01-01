@@ -42,7 +42,7 @@ class RuangController extends Controller
         $ruang->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
 
         $ruang->save(); //menyimpan data ke database
-        return redirect('/ruang');
+        return redirect('/ruang')->with('success', 'Data Ruang berhasil ditambahkan!');
     }
 
     /**
@@ -77,7 +77,7 @@ class RuangController extends Controller
         $ruang->fill($requestData); //mengisi var model dengan data yang sudah divalidasi requestData
 
         $ruang->save(); //menyimpan data ke database
-        return redirect('/ruang');
+        return redirect('/ruang')->with('success', 'Data Ruang berhasil diupdate!');
     }
 
     /**
@@ -88,6 +88,6 @@ class RuangController extends Controller
         $ruang = Ruang::findOrFail($id);
 
         $ruang->delete(); // Menghapus data pemilik
-        return redirect('/ruang');
+        return redirect('/ruang')->with('success', 'Data Ruang berhasil dihapus!');
     }
 }

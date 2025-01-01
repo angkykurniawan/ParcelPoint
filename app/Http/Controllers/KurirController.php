@@ -39,7 +39,7 @@ class KurirController extends Controller
         $kurir->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
 
         $kurir->save(); //menyimpan data ke database
-        return redirect('/kurir');
+        return redirect('/kurir')->with('success', 'Data Kurir berhasil ditambahkan!');
     }
 
     /**
@@ -71,7 +71,7 @@ class KurirController extends Controller
         $kurir->fill($requestData); //mengisi var model dengan data yang sudah divalidasi requestData
 
         $kurir->save(); //menyimpan data ke database
-        return redirect('/kurir');
+        return redirect('/kurir')->with('success', 'Data Kurir berhasil diupdate!');
     }
 
     /**
@@ -82,6 +82,6 @@ class KurirController extends Controller
         $kurir = Kurir::findOrFail($id);
 
         $kurir->delete(); // Menghapus data pemilik
-        return redirect('/kurir');
+        return redirect('/kurir')->with('success', 'Data Kurir berhasil dihapus!');
     }
 }

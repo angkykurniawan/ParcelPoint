@@ -60,31 +60,25 @@
                 <span class="text-danger">{{ $errors->first('JenisKelamin') }}</span>
             </div>
             <div class="form-group mt-1 mb-3">
-                <label for="Jalan" class="text-primary" style="font-weight: bolder;">Jalan</label>
-                <input type="text" class="form-control @error('Jalan') is-invalid @enderror" id="Jalan"
-                    name="Jalan" value="{{ old('Jalan') }}" placeholder="Jl. Kembang Sari">
-                <span class="text-danger">{{ $errors->first('Jalan') }}</span>
-            </div>
-            <div class="form-group mt-1 mb-3">
-                <label for="Kecamatan" class="text-primary" style="font-weight: bolder;">Kecamatan</label>
-                <input type="text" class="form-control @error('Kecamatan') is-invalid @enderror" id="Kecamatan"
-                    name="Kecamatan" value="{{ old('Kecamatan') }}" placeholder="Umban Sari">
-                <span class="text-danger">{{ $errors->first('Kecamatan') }}</span>
-            </div>
-            <div class="form-group mt-1 mb-3">
-                <label for="KabupatenKota" class="text-primary" style="font-weight: bolder;">Kabupaten / Kota *</label>
-                <input type="text" class="form-control @error('KabupatenKota') is-invalid @enderror" id="KabupatenKota"
-                    name="KabupatenKota" value="{{ old('KabupatenKota') }}" placeholder="Rumbai">
-                <span class="text-danger">{{ $errors->first('KabupatenKota') }}</span>
-            </div>
-            <div class="form-group mt-1 mb-3">
-                <label for="Pronvinsi" class="text-primary" style="font-weight: bolder;">Provinsi *</label>
-                <input type="text" class="form-control @error('Provinsi') is-invalid @enderror" id="Provinsi"
-                    name="Provinsi" value="{{ old('Provinsi') }}" placeholder="Riau">
-                <span class="text-danger">{{ $errors->first('Provinsi') }}</span>
+                <label for="Alamat" class="text-primary" style="font-weight: bolder;">Alamat</label>
+                <input type="text" class="form-control @error('Alamat') is-invalid @enderror" id="Alamat"
+                    name="Alamat" value="{{ old('Alamat') }}" placeholder="Jl. Kembang Sari">
+                <span class="text-danger">{{ $errors->first('Alamat') }}</span>
             </div>
             <button type="submit" class="btn btn-primary">SIMPAN</button>
         </form>
     </div>
 </div>
 @endsection
+
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session('success') }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+@endif
+

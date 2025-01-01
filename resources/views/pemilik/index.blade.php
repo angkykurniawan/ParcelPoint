@@ -24,15 +24,14 @@
                 <tr style="text-align: center;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->NomorInduk }}</td>
-
-                        <td>
-                            @if($item->Foto)
-                                <a href="{{ \Storage::url($item->Foto) }}" target="blank">
-                                    <img src="{{  \Storage::url($item->Foto) }}" width="50" width="150" height="100" />
-                                </a>
-                            @endif
-                            {{ $item->Nama }}
-                        </td>
+                    <td>
+                        @if($item->Foto)
+                            <a href="{{ \Storage::url($item->Foto) }}" target="blank">
+                                <img src="{{  \Storage::url($item->Foto) }}" width="50" height="100" />
+                            </a>
+                        @endif
+                        {{ $item->Nama }}
+                    </td>
                     <td>{{ $item->Umur }}</td>
                     <td>{{ $item->Pekerjaan }}</td>
                     <td>{{ $item->Whatsapp }}</td>
@@ -41,10 +40,10 @@
                     <td>{{ $item->Alamat }}</td>
                     <td>
                         <a href="/pemilik/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
-                        <form action="/pemilik/{{ $item->id }}" method="POST" class="d-inline">
+                        <form action="/pemilik/{{ $item->id }}" method="POST" class="d-inline" id="delete-form-{{ $item->id }}" onsubmit="return confirmDelete({{ $item->id }})">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm ml-2 ti ti-trash" onclick="return confirm('Yakin ingin menghapus data?')"></button>
+                            <button type="submit" class="btn btn-danger btn-sm ti-trash"></button>
                         </form>
                     </td>
                 </tr>
@@ -54,4 +53,57 @@
         {!! $pemilik->links() !!}
     </div>
 </div>
+
 @endsection
+
+<script>
+    @if (session('success'))
+        Swal.fire({
+            title: 'Berhasil!',
+            icon: 'success',
+            text: '{{ session('success') }}',
+            showCloseButton: true
+        });
+    @elseif (session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ session('error') }}',
+            showCloseButton: true
+        });
+    @endif
+
+    // Function to confirm deletion of data
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Yakin ingin menghapus data?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Cancel', // Ganti teks tombol Batal menjadi Cancel
+            focusCancel: true, // Fokus pada tombol Cancel
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika tombol "Ya, Hapus!" dipilih
+                Swal.fire(
+                    'Dihapus!',
+                    'Data telah dihapus.',
+                    'success'
+                ).then(() => {
+                    // Submit form untuk menghapus data setelah konfirmasi
+                    document.getElementById('delete-form-' + id).submit();
+                });
+            } else {
+                // Jika tombol Cancel yang dipilih, tidak ada tindakan penghapusan
+                Swal.fire(
+                    'Dibatalkan',
+                    'Data tidak dihapus.',
+                    'info'
+                );
+            }
+        });
+        return false; // Prevent immediate form submission
+    }
+</script>

@@ -73,28 +73,10 @@
                 <span class="text-danger">{{ $errors->first('JenisKelamin') }}</span>
             </div>
             <div class="form-group mt-1 mb-3">
-                <label for="Jalan" class="text-primary" style="font-weight: bolder;">Jalan</label>
-                <input type="text" class="form-control @error('Jalan') is-invalid @enderror" id="Jalan" name="Jalan"
-                    value="{{ old('Jalan') ?? $pemilik->Jalan }}">
-                <span class="text-danger">{{ $errors->first('Jalan') }}</span>
-            </div>
-            <div class="form-group mt-1 mb-3">
-                <label for="Kecamatan" class="text-primary" style="font-weight: bolder;">Kecamatan</label>
-                <input type="text" class="form-control @error('Kecamatan') is-invalid @enderror" id="Kecamatan" name="Kecamatan"
-                    value="{{ old('Kecamatan') ?? $pemilik->Kecamatan }}">
-                <span class="text-danger">{{ $errors->first('Kecamatan') }}</span>
-            </div>
-            <div class="form-group mt-1 mb-3">
-                <label for="KabupatenKota" class="text-primary" style="font-weight: bolder;">Kabupaten / Kota *</label>
-                <input type="text" class="form-control @error('KabupatenKota') is-invalid @enderror" id="KabupatenKota" name="KabupatenKota"
-                    value="{{ old('KabupatenKota') ?? $pemilik->KabupatenKota }}">
-                <span class="text-danger">{{ $errors->first('KabupatenKota') }}</span>
-            </div>
-            <div class="form-group mt-1 mb-3">
-                <label for="Provinsi" class="text-primary" style="font-weight: bolder;">Provinsi *</label>
-                <input type="text" class="form-control @error('Provinsi') is-invalid @enderror" id="Provinsi" name="Provinsi"
-                    value="{{ old('Provinsi') ?? $pemilik->Provinsi }}">
-                <span class="text-danger">{{ $errors->first('Provinsi') }}</span>
+                <label for="Alamat" class="text-primary" style="font-weight: bolder;">Alamat</label>
+                <input type="text" class="form-control @error('Alamat') is-invalid @enderror" id="Alamat" name="Alamat"
+                    value="{{ old('Alamat') ?? $pemilik->Alamat }}">
+                <span class="text-danger">{{ $errors->first('Alamat') }}</span>
             </div>
             <button type="submit" class="btn btn-primary">UPDATE</button>
         </form>

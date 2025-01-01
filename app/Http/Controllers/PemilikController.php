@@ -41,10 +41,7 @@ class PemilikController extends Controller
             'Email' => 'required|email',
             'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
             'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
-            'Jalan' => 'nullable',
-            'Kecamatan' => 'nullable',
-            'KabupatenKota' => 'required',
-            'Provinsi' => 'required',
+            'Alamat' => 'nullable',
         ]);
 
         $pemilik = new Pemilik; //membuat objek kosong di variabel
@@ -56,7 +53,7 @@ class PemilikController extends Controller
         }
 
         $pemilik->save(); //menyimpan data ke database
-        return redirect('/pemilik');
+        return redirect('/pemilik')->with('success', 'Data Pemilik berhasil ditambahkan!');
     }
 
     /**
@@ -82,10 +79,7 @@ class PemilikController extends Controller
             'Email' => 'required|email',
             'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
             'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
-            'Jalan' => 'nullable',
-            'Kecamatan' => 'nullable',
-            'KabupatenKota' => 'required',
-            'Provinsi' => 'required',
+            'Alamat' => 'nullable',
         ]);
         $pemilik = \App\Models\Pemilik::findOrFail($id); //membuat objek kosong di variabel model
         $pemilik->fill($requestData); //mengisi var model dengan data yang sudah divalidasi requestData
@@ -97,7 +91,7 @@ class PemilikController extends Controller
 
         // $pasien->foto = $request->file('foto')->store('public');
         $pemilik->save(); //menyimpan data ke database
-        return redirect('/pemilik');
+        return redirect('/pemilik')->with('success', 'Data Pemilik berhasil diupdate!');
     }
 
     /**
@@ -112,6 +106,6 @@ class PemilikController extends Controller
         }
 
         $pemilik->delete(); // Menghapus data pemilik
-        return redirect('/pemilik');
+        return redirect('/pemilik')->with('success', 'Data Pemilik berhasil dihapus!');
     }
 }

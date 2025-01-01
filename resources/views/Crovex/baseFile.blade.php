@@ -17,8 +17,43 @@
         <link href="{{ url('Crovex/HTML/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/metisMenu.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('Crovex/HTML/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <style>
+            /* Fix the navbar and user profile */
+            .topbar {
+                position: fixed;
+                width: 100%;
+                z-index: 1000;
+                top: 0;
+                left: 0;
+                background-color: white;
+                border-bottom: 1px solid #ddd;
+            }
+            .navbar-custom {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .nav-user {
+                position: relative;
+            }
+            .left-sidenav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 220px;
+                background-color: #ffff;
+                z-index: 999;
+                padding-top: 60px; /* Adjust for fixed navbar */
+                box-shadow: 1px 0 1px rgba(0, 0, 0, 0.2);
+            }
+            .page-wrapper {
+                margin-top: 60px; /* Adjust for fixed navbar */
+                margin-left: 260px; /* Increased space for left sidebar */
+                padding: 20px;
+            }
             .active-item {
                 background-color: #3475FE !important;
                 color: white !important;
@@ -53,7 +88,7 @@
                         </button>
                     </li>
                     <li class="hide-phone app-search">
-                        <form role="search" class="">
+                        <form role="search" class="form-inline">
                             <input type="text" id="AllCompo" placeholder="Search..." class="form-control">
                             <a href=""><i class="fas fa-search"></i></a>
                         </form>
@@ -99,11 +134,9 @@
                 <br>
                 @yield('content')
             </div>
-            <footer class="footer text-center text-sm-left">
-                <span class="text-muted d-none d-sm-inline-block float-right"> 2024 &copy; ParcelPoint </span>
-            </footer><!--end footer-->
         </div>
         <!-- end page content -->
+
 
         <!-- jQuery  -->
         <script src="{{ url('Crovex/HTML/assets/js/jquery.min.js') }}"></script>

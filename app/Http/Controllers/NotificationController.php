@@ -99,8 +99,8 @@ class NotificationController extends Controller
         $details = [
             'title' => 'Notifikasi ' . $suratPaket->Jenis . ' Dengan Resi ' . $suratPaket->Resi,
             'body' => "Halo, " . ($suratPaket->Pemilik->Nama ?? 'Pemilik') . "!\n\n" .
-                $suratPaket->Jenis . "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa ".
-                " Anda dengan detail berikut telah terdaftar:\n" .
+                "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa ".
+                $suratPaket->Jenis . " Anda dengan detail berikut telah terdaftar:\n" .
                 "Resi: " . $suratPaket->Resi . "\n" .
                 "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
                  "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.",

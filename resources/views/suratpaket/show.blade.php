@@ -73,7 +73,7 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group mt-1 mb-3">
-                            <label for="FotoST"  class="text-primary" style="font-weight: bolder;">Foto ST</label>
+                            <label for="FotoST"  class="text-primary" style="font-weight: bolder;">Foto Serah Terima</label>
                             <input type="file" class="form-control @error('FotoST') is-invalid @enderror" id="FotoST" name="FotoST">
                             <span class="text-danger">{{ $errors->first('FotoST') }}</span>
                             <img src="{{ Storage::url($suratPaket->FotoST) }}" alt="Foto Serah Terima" class="img-thumbnail mt-2" style="width: 150px; height: 100px">
@@ -108,3 +108,4 @@
     </div>
 </div>
 @endsection
+
