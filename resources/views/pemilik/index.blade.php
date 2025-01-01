@@ -2,14 +2,11 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3 class="text-primary text-center font-weight-bold">Data Pemilik</h3>
-            <center>
-                <a href="/pemilik/create" class="btn btn-primary btn-sm">Tambah Data Pemilik</a>
-            </center>
-            <br>
+            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Pemilik Surat Paket</h3>
+            <center><a href="/pemilik/create" class="btn btn-primary btn-sm">Tambah Data Pemilik</a></center><br>
             <table class="table table-striped">
                 <thead>
-                    <tr class="text-center">
+                    <tr style="text-align: center;">
                         <th width="1%">No</th>
                         <th>Nomor Induk</th>
                         <th>Foto & Nama</th>
@@ -24,12 +21,12 @@
                 </thead>
                 <tbody>
                     @foreach ($pemilik as $item)
-                        <tr class="text-center">
+                        <tr style="text-align: center;">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->NomorInduk }}</td>
                             <td>
                                 @if ($item->Foto)
-                                    <a href="{{ \Storage::url($item->Foto) }}" target="_blank">
+                                    <a href="{{ \Storage::url($item->Foto) }}" target="blank">
                                         <img src="{{ \Storage::url($item->Foto) }}" width="50" height="100" alt="Foto Pemilik" />
                                     </a>
                                 @endif
@@ -42,33 +39,25 @@
                             <td>{{ $item->JenisKelamin }}</td>
                             <td>{{ $item->Alamat }}</td>
                             <td>
-                                <!-- Edit Button -->
-                                <a href="/pemilik/{{ $item->id }}/edit"
-                                   class="btn btn-warning btn-sm m-1"
-                                   title="Edit Data">
-                                    <i class="ti ti-pencil"></i>
-                                </a>
-                                <!-- Delete Button -->
-                                <form action="/pemilik/{{ $item->id }}" method="POST" class="d-inline" id="delete-form-{{ $item->id }}" onsubmit="return confirmDelete({{ $item->id }})">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-danger btn-sm"
-                                            title="Hapus Data"
-                                            onclick="confirmDelete({{ $item->id }})">
-                                        <i class="ti ti-trash"></i>
-                                    </button>
-                                </form>
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                    <div style="display: flex; gap: 10px;">
+                                        <a href="/pemilik/{{ $item->id }}/edit" class="btn btn-warning btn-sm ti-pencil"></a>
+                                        <form action="/pemilik/{{ $item->id }}" method="POST" class="d-inline" id="delete-form-{{ $item->id }}" onsubmit="return confirmDelete({{ $item->id }})">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm ti-trash"></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            {!! $pemilik->links('pagination::bootstrap-4') !!}
+            {{ $pemilik->links() }}
         </div>
     </div>
-@endsection
 
-@push('scripts')
     <script>
         @if (session('success'))
             Swal.fire({
@@ -115,6 +104,29 @@
                     );
                 }
             });
+            return false; // Prevent immediate form submission
+        }
+
+        // WhatsApp notification function
+        function sendWhatsAppNotification(phoneNumber) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Notifikasi WhatsApp',
+                text: 'Pesan berhasil dikirim ke nomor yang terdaftar: ' + phoneNumber,
+                showCloseButton: true
+            });
+            return true; // Keep the link behavior intact
+        }
+
+        // Email notification function
+        function sendEmailNotification(email) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Notifikasi Email',
+                text: 'Pesan berhasil dikirim ke email yang terdaftar: ' + email,
+                showCloseButton: true
+            });
+            return true; // Keep the link behavior intact
         }
     </script>
-@endpush
+@endsection
