@@ -2,31 +2,27 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <div class="row mb-3 mt-3">
-            <div class="col-md-6">
-                <a href="/ruang/create" class="btn btn-primary btn-sm">Tambah Data Ruang</a>
-            </div>
-        </div>
-        <h3>Data Ruang</h3>
+        <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Ruang</h3>
+        <center><a href="/ruang/create" class="btn btn-primary btn-sm">Tambah Data Ruang</a><br></center><br>
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <center><th>No</th></center>
-                    <center><th>Nama</th></center>
-                    <center><th>Lantai</th></center>
-                    <center><th>Lokasi</th></center>
-                    <center><th>PIC</th></center>
-                    <center><th>Aksi</th></center>
+                <tr style="text-align: center;">
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Lantai</th>
+                    <th>Lokasi</th>
+                    <th>PIC</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($ruang as $item)
-                <tr>
-                    <center><td>{{ $loop->iteration }}</td></center>
-                    <center><td>{{ $item->Nama }}</td></center>
-                    <center><td>{{ $item->Lantai }}</td></center>
-                    <center><td>{{ $item->Lokasi }}</td></center>
-                    <center><td>{{ $item->PIC }}</td></center>
+                <tr style="text-align: center;">
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->Nama }}</td>
+                    <td>{{ $item->Lantai }}</td>
+                    <td>{{ $item->Lokasi }}</td>
+                    <td>{{ $item->PIC }}</td>
                     <td>
                         <a href="/ruang/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
                         <form action="/ruang/{{ $item->id }}" method="POST" class="d-inline">

@@ -27,10 +27,11 @@ class NotificationController extends Controller
 
         // Informasi yang akan dikirim melalui WhatsApp
         $message = "Halo, " . ($suratPaket->Pemilik->Nama ?? 'Pemilik') . "!\n\n" .
-            "Paket Anda dengan detail berikut telah terdaftar:\n" .
+            "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa ".
+            $suratPaket->Jenis . " Anda dengan detail berikut telah terdaftar:\n" .
             "Resi: " . $suratPaket->Resi . "\n" .
             "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
-            "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.";
+            "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi}  untuk informasi lebih lanjut\nTerima kasih.";
 
         // Nomor WhatsApp tujuan
         $noHp = $suratPaket->NoHP;
@@ -75,12 +76,7 @@ class NotificationController extends Controller
         return redirect()->back()->with('success', 'Notifikasi berhasil dikirim.');
     }
 
-    /**
-     * Kirim email notifikasi ke pemilik surat paket
-     *
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
     public function sendEmailNotification($id)
     {
         // Cari data Surat Paket berdasarkan ID
@@ -91,29 +87,38 @@ class NotificationController extends Controller
             return redirect()->back()->with('error', 'Data Surat Paket tidak ditemukan.');
         }
 
-        // Ambil email pemilik surat paket
-        $emailAddress = $suratPaket->Pemilik->Email ?? null;
+        // Email tujuan
+        $email = $suratPaket->Pemilik->Email ?? null;
 
-        // Validasi jika email tidak ada
-        if (!$emailAddress) {
-            return redirect()->back()->with('error', 'Alamat email tidak ditemukan.');
+        // Validasi jika email tidak tersedia
+        if (!$email) {
+            return redirect()->back()->with('error', 'Email pemilik tidak tersedia.');
         }
 
-        // Data yang akan dikirimkan ke email
-        $emailData = [
-            'nama' => $suratPaket->Pemilik->Nama ?? 'Pemilik',
-            'resi' => $suratPaket->Resi,
-            'kurir' => $suratPaket->Kurir->Ekspedisi ?? 'Tidak ada',
-            'jenis' => $suratPaket->Jenis,
-            'link' => url("/{$suratPaket->Resi}")
+        // Data untuk email
+        $details = [
+            'title' => 'Notifikasi ' . $suratPaket->Jenis . ' Dengan Resi ' . $suratPaket->Resi,
+            'body' => "Halo, " . ($suratPaket->Pemilik->Nama ?? 'Pemilik') . "!\n\n" .
+                $suratPaket->Jenis . "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa ".
+                " Anda dengan detail berikut telah terdaftar:\n" .
+                "Resi: " . $suratPaket->Resi . "\n" .
+                "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
+                 "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.",
         ];
 
         // Kirim email
         try {
-            Mail::to($emailAddress)->send(new NotifMail($emailData));
+            Mail::to($email)->send(new NotifMail($details));
             return redirect()->back()->with('success', 'Email notifikasi berhasil dikirim.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal mengirim email: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal mengirim email notifikasi: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Kirim email notifikasi ke pemilik surat paket
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
 }

@@ -21,10 +21,7 @@ return new class extends Migration
             $table->string('Email');
             $table->enum('JenisKelamin', ['LakiLaki', 'Perempuan']);
             $table->string('Foto')->nullable();
-            $table->string('Jalan')->nullable();
-            $table->string('Kecamatan')->nullable();
-            $table->string('KabupatenKota');
-            $table->string('Provinsi');
+            $table->string('Alamat')->nullable();
             $table->timestamps();
         });
     }

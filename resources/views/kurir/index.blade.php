@@ -2,25 +2,21 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <div class="row mb-3 mt-3">
-            <div class="col-md-6">
-                <a href="/kurir/create" class="btn btn-primary btn-sm">Tambah Data Kurir</a>
-            </div>
-        </div>
-        <h3>Data Kurir</h3>
+        <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Kurir</h3>
+        <center><a href="/kurir/create" class="btn btn-primary btn-sm">Tambah Data Kurir</a></center><br>
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <center><th>No</th></center>
-                    <center><th>Ekspedisi</th></center>
-                    <center><th>Aksi</th></center>
+                <tr style="text-align: center;">
+                    <th>No</th>
+                    <th>Ekspedisi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($kurir as $item)
-                <tr>
-                    <center><td>{{ $loop->iteration }}</td></center>
-                    <center><td>{{ $item->Ekspedisi }}</td></center>
+                <tr style="text-align: center;">
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->Ekspedisi }}</td>
                     <td>
                         <a href="/kurir/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
                         <form action="/kurir/{{ $item->id }}" method="POST" class="d-inline">

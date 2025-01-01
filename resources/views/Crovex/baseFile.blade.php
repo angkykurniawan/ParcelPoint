@@ -41,12 +41,9 @@
             <!-- Navbar -->
             <nav class="navbar-custom">
                 <ul class="list-unstyled topbar-nav float-right mb-0">
-                    <li class="dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="false" aria-expanded="false">
-                            <img src="{{ url('Crovex/HTML/assets/images/users/user-1.png') }}" alt="profile-user" class="rounded-circle" />
-                            <span class="ml-1 nav-user-name hidden-sm">Aziz <i class="mdi mdi-chevron-down"></i> </span>
-                        </a>
+                    <li class="nav-link waves-effect waves-light nav-user">
+                            <span class="ml-1 nav-user-name">{{ Auth::user()->name }} </span>
+                            <img src="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}" alt="profile-user" class="rounded-circle" />
                     </li>
                 </ul><!--end topbar-nav-->
                 <ul class="list-unstyled topbar-nav mb-0">
@@ -99,6 +96,7 @@
         <div class="page-wrapper">
             <!-- Page Content-->
             <div class="page-content">
+                <br>
                 @yield('content')
             </div>
             <footer class="footer text-center text-sm-left">

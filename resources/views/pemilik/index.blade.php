@@ -2,54 +2,43 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <div class="row mb-3 mt-3">
-            <div class="col-md-6">
-                <a href="/pemilik/create" class="btn btn-primary btn-sm">Tambah Data Pemilik</a>
-            </div>
-        </div>
-        <h3>Data Pemilik</h3>
+        <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Pemilik</h3>
+        <center><a href="/pemilik/create" class="btn btn-primary btn-sm">Tambah Data Pemilik</a></center><br>
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <center><th>No</th></center>
-                    <center><th>Nomor Induk</th></center>
-                    <center><th>Nama</th></center>
-                    <center><th>Umur</th></center>
-                    <center><th>Pekerjaan</th></center>
-                    <center><th>Whatsapp</th></center>
-                    <center><th>Email</th></center>
-                    <center><th>Jenis Kelamin</th></center>
-                    <center><th>Jalan</th></center>
-                    <center><th>Kecamatan</th></center>
-                    <center><th>KabupatenKota</th></center>
-                    <center><th>Provinsi</th></center>
-                    <center><th>Aksi</th></center>
+                <tr style="text-align: center;">
+                    <th>No</th>
+                    <th>Nomor Induk</th>
+                    <th>Nama</th>
+                    <th>Umur</th>
+                    <th>Pekerjaan</th>
+                    <th>Whatsapp</th>
+                    <th>Email</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($pemilik as $item)
-                <tr>
-                    <center><td>{{ $loop->iteration }}</td></center>
-                    <center><td>{{ $item->NomorInduk }}</td></center>
-                    <center>
+                <tr style="text-align: center;">
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->NomorInduk }}</td>
+
                         <td>
                             @if($item->Foto)
                                 <a href="{{ \Storage::url($item->Foto) }}" target="blank">
-                                    <img src="{{  \Storage::url($item->Foto) }}" width="50" />
+                                    <img src="{{  \Storage::url($item->Foto) }}" width="50" width="150" height="100" />
                                 </a>
                             @endif
                             {{ $item->Nama }}
                         </td>
-                    </center>
-                    <center><td>{{ $item->Umur }}</td></center>
-                    <center><td>{{ $item->Pekerjaan }}</td></center>
-                    <center><td>{{ $item->Whatsapp }}</td></center>
-                    <center><td>{{ $item->Email }}</td></center>
-                    <center><td>{{ $item->JenisKelamin }}</td></center>
-                    <center><td>{{ $item->Jalan }}</td></center>
-                    <center><td>{{ $item->Kecamatan }}</td></center>
-                    <center><td>{{ $item->KabupatenKota }}</td></center>
-                    <center><td>{{ $item->Provinsi }}</td></center>
+                    <td>{{ $item->Umur }}</td>
+                    <td>{{ $item->Pekerjaan }}</td>
+                    <td>{{ $item->Whatsapp }}</td>
+                    <td>{{ $item->Email }}</td>
+                    <td>{{ $item->JenisKelamin }}</td>
+                    <td>{{ $item->Alamat }}</td>
                     <td>
                         <a href="/pemilik/{{ $item->id }}/edit" class="btn btn-warning btn-sm m-1 ti ti-pencil"></a>
                         <form action="/pemilik/{{ $item->id }}" method="POST" class="d-inline">

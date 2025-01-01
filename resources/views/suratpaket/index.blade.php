@@ -2,18 +2,14 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <div class="row mb-3 mt-3">
-            <div class="col-md-6">
-                <a href="/suratPaket/create" class="btn btn-primary btn-sm">Tambah Data Surat Paket</a>
-            </div>
-        </div>
-        <h3>Data Surat Paket</h3>
+        <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Surat Paket</h3>
+        <center><a href="/suratPaket/create" class="btn btn-primary btn-sm ">Tambah Data Surat Paket</a></center><br>
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>No</th>
+                <tr style="text-align: center;">
+                    <th width="1%">No</th>
                     <th>Pemilik</th>
-                    <th>Foto Surat Paket </th>
+                    <th>Foto Surat Paket</th>
                     <th>NoHP</th>
                     <th>Waktu Antar</th>
                     <th>Kurir</th>
@@ -26,14 +22,14 @@
             </thead>
             <tbody>
                 @foreach ($suratPaket as $item)
-                <tr>
+                <tr style="text-align: center;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->Pemilik->Nama }}</td>
                     <td>
                         @if($item->Foto)
                             <a href="{{ \Storage::url($item->Foto) }}" target="blank">
-                            <img src="{{  \Storage::url($item->Foto) }}" width="50" />
-                        </a>
+                                <img src="{{ \Storage::url($item->Foto) }}" width="150" height="100" />
+                            </a>
                         @endif
                     </td>
                     <td>{{ $item->NoHP }}</td>
@@ -44,8 +40,8 @@
                     <td>
                         @if($item->FotoST)
                             <a href="{{ \Storage::url($item->FotoST) }}" target="blank">
-                            <img src="{{  \Storage::url($item->FotoST) }}" width="50" />
-                        </a>
+                                <img src="{{ \Storage::url($item->FotoST) }}" width="50" width="150" height="100" />
+                            </a>
                         @endif
                     </td>
                     <td>{{ $item->WaktuJemput }}</td>
