@@ -51,7 +51,7 @@ class RuangController extends Controller
             'Nama' => 'required',
             'Lantai' => 'nullable',
             'Lokasi' => 'nullable',
-            'PIC' => 'nullable,'
+            'PIC' => 'nullable',
         ]);
 
         $ruang = new Ruang;
@@ -79,7 +79,7 @@ class RuangController extends Controller
             'Nama' => 'required',
             'Lantai' => 'nullable',
             'Lokasi' => 'nullable',
-            'PIC' => 'nullable,'
+            'PIC' => 'nullable',
         ]);
 
         $ruang = Ruang::findOrFail($id);
