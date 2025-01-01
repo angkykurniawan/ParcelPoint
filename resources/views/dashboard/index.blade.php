@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h1>Dashboard</h1>
+        <h1 style="font-weight: bolder; text-align: center;" class="text-primary">Dashboard</h1><br><br>
 
         <!-- Grafik Row 1 -->
         <div class="row">

@@ -47,17 +47,22 @@
                 background-color: #ffff;
                 z-index: 999;
                 padding-top: 60px; /* Adjust for fixed navbar */
-                box-shadow: 1px 0 1px rgba(0, 0, 0, 0.2);
+                box-shadow: 0.2px 0 1px rgba(0, 0, 0, 0.2);
             }
             .page-wrapper {
                 margin-top: 60px; /* Adjust for fixed navbar */
                 margin-left: 260px; /* Increased space for left sidebar */
-                padding: 20px;
+                padding: 20px 20px 50px; /* Add more padding at the bottom for pagination */
             }
             .active-item {
                 background-color: #3475FE !important;
                 color: white !important;
                 border-radius: 5px;
+            }
+            /* Center pagination */
+            .pagination {
+                margin-top: 20px;
+                justify-content: center;
             }
         </style>
     </head>
@@ -68,7 +73,7 @@
             <div class="topbar-left">
                 <a href="#" class="logo">
                     <span>
-                        <img src="{{ url('Crovex/HTML/assets/images/ParcelPointWithText.png') }}" alt="logo-large" class="logo-lg" style="width: 150px; height: auto;">
+                        <img src="{{ url('Crovex/HTML/assets/images/ParcelPointWithText.png') }}" alt="logo-large" class="logo-lg" style="width: 150px; height: 40px; margin-top: 15px;">
                     </span>
                 </a>
             </div>
@@ -81,19 +86,6 @@
                             <img src="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}" alt="profile-user" class="rounded-circle" />
                     </li>
                 </ul><!--end topbar-nav-->
-                <ul class="list-unstyled topbar-nav mb-0">
-                    <li>
-                        <button class="nav-link button-menu-mobile waves-effect waves-light">
-                            <i class="ti-menu nav-icon"></i>
-                        </button>
-                    </li>
-                    <li class="hide-phone app-search">
-                        <form role="search" class="form-inline">
-                            <input type="text" id="AllCompo" placeholder="Search..." class="form-control">
-                            <a href=""><i class="fas fa-search"></i></a>
-                        </form>
-                    </li>
-                </ul>
             </nav>
             <!-- end navbar-->
         </div>
@@ -128,6 +120,7 @@
         </div>
         <!-- end left-sidenav-->
 
+
         <div class="page-wrapper">
             <!-- Page Content-->
             <div class="page-content">
@@ -136,7 +129,6 @@
             </div>
         </div>
         <!-- end page content -->
-
 
         <!-- jQuery  -->
         <script src="{{ url('Crovex/HTML/assets/js/jquery.min.js') }}"></script>

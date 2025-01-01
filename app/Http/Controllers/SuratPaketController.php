@@ -75,6 +75,7 @@ class SuratPaketController extends Controller
             $suratPaket->status = 'DiterimaSecurity';
         }
 
+        // Store success message
         return redirect('/suratPaket')->with('success', 'Data Surat Paket berhasil ditambahkan!');
     }
 
@@ -144,19 +145,19 @@ class SuratPaketController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-{
-    // Mencari SuratPaket berdasarkan ID
-    $suratPaket = suratPaket::findOrFail($id);
+    {
+        // Mencari SuratPaket berdasarkan ID
+        $suratPaket = suratPaket::findOrFail($id);
 
-    // Menghapus file Foto jika ada
-    if ($suratPaket->Foto && Storage::exists($suratPaket->Foto)) {
-        Storage::delete($suratPaket->Foto); // Menghapus gambar jika ada
+        // Menghapus file Foto jika ada
+        if ($suratPaket->Foto && Storage::exists($suratPaket->Foto)) {
+            Storage::delete($suratPaket->Foto); // Menghapus gambar jika ada
+        }
+
+        // Menghapus data suratPaket dari database
+        $suratPaket->delete(); // Menghapus data suratPaket
+
+        // Redirect kembali ke halaman suratPaket setelah berhasil dihapus
+        return redirect('/suratPaket')->with('success', 'Data berhasil dihapus!');
     }
-
-    // Menghapus data suratPaket dari database
-    $suratPaket->delete(); // Menghapus data suratPaket
-
-    // Redirect kembali ke halaman suratPaket setelah berhasil dihapus
-    return redirect('/suratPaket')->with('success', 'Data berhasil dihapus!');
-}
 }

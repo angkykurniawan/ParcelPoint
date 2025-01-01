@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-header">Edit Data Ruang : <b>{{ strtoupper($ruang->Nama) }}</b></h5>
-        <form action="/ruang/{{ $ruang->id }}" method="POST" enctype="multipart/form-data"> <!-- enctype untuk foto -->
+        <form action="/ruang/{{ $ruang->id }}" method="POST" enctype="multipart/form-data">
             @method('put')
             @csrf
             <div class="form-group mt-1 mb-3">
@@ -34,4 +34,17 @@
         </form>
     </div>
 </div>
+
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session("success") }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+@endif

@@ -13,8 +13,8 @@ class RuangController extends Controller
      */
     public function index()
     {
-        $ruang = Ruang::latest()->paginate(10);
-        return view('ruang.index', compact('ruang'));
+        $data['ruang'] = Ruang::latest()->paginate(10);
+        return view('ruang.index', $data);
     }
 
     /**
@@ -42,6 +42,7 @@ class RuangController extends Controller
         $ruang->fill($requestData); //mengisi var model dengan data yang sudah divalidasi
 
         $ruang->save(); //menyimpan data ke database
+
         return redirect('/ruang')->with('success', 'Data Ruang berhasil ditambahkan!');
     }
 

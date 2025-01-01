@@ -72,7 +72,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {!! $suratPaket->links() !!}
+            {{ $suratPaket->links() }}
         </div>
     </div>
 

@@ -2,8 +2,8 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <center><h5 class="card-title btn-primary" style="font-weight: bolder; font-size: 20px; height: 20%; border-radius: 5px;" >Tambah Data Pemilik</h5></center><br>
-        <form action="/ruang" method="POST" enctype="multipart/form-data"> <!-- enctype untuk foto -->
+        <center><h5 class="card-title btn-primary" style="font-weight: bolder; font-size: 20px; height: 20%; border-radius: 5px;" >Tambah Data Ruang Surat Paket</h5></center><br>
+        <form action="/ruang" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group mt-1 mb-3">
                 <label for="Nama" class="text-primary" style="font-weight: bolder;">Nama *</label>
@@ -33,14 +33,16 @@
         </form>
     </div>
 </div>
+
 @endsection
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if(session('success'))
     <script>
         Swal.fire({
             icon: 'success',
             title: 'Berhasil!',
-            text: '{{ session('success') }}',
+            text: '{{ session("success") }}',
             confirmButtonText: 'OK'
         });
     </script>

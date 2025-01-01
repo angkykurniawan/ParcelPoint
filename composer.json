@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "illuminate/mail": "*",
+        "illuminate/pagination": "*",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9"
     },
