@@ -65,7 +65,7 @@
                     name="Alamat" value="{{ old('Alamat') }}" placeholder="Jl. Kembang Sari">
                 <span class="text-danger">{{ $errors->first('Alamat') }}</span>
             </div>
-            <button type="submit" class="btn btn-primary">SIMPAN</button>
+            <center><button type="submit" class="btn btn-primary">SIMPAN</button></center>
         </form>
     </div>
 </div>

@@ -100,7 +100,7 @@
                                 value="{{ old('WaktuJemput', \Carbon\Carbon::parse($suratPaket->WaktuJemput)->format('Y-m-d\TH:i')) }}">
                             <span class="text-danger">{{ $errors->first('WaktuJemput') }}</span>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">SIMPAN</button>
+                        <center><button type="submit" class="btn btn-primary mt-3">UPDATE</button></center>
                     </form>
                 </div>
             </div>

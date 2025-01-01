@@ -45,7 +45,7 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">SIMPAN</button>
+            <center><button type="submit" class="btn btn-primary">SIMPAN</button></center>
         </form>
     </div>
 </div>
