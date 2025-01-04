@@ -31,7 +31,7 @@ class NotificationController extends Controller
             $suratPaket->Jenis . " Anda dengan detail berikut telah terdaftar:\n" .
             "Resi: " . $suratPaket->Resi . "\n" .
             "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
-            "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.";
+            "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi/{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.";
 
         // Nomor WhatsApp tujuan
         $noHp = $suratPaket->NoHP;
@@ -104,7 +104,7 @@ class NotificationController extends Controller
                 $suratPaket->Jenis . " Anda dengan detail berikut telah terdaftar:\n" .
                 "Resi: " . $suratPaket->Resi . "\n" .
                 "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
-                "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.",
+                "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi/{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.",
         ];
 
         // Kirim email
