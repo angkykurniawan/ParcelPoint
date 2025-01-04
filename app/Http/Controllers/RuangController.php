@@ -18,7 +18,7 @@ class RuangController extends Controller
         $search = $request->get('search');
 
         // Menambahkan pagination dan opsi per_page
-        $perPage = $request->get('per_page', 10); // Default 10 per halaman
+        $perPage = $request->get('per_page', 1); // Default 10 per halaman
 
         // Jika ada pencarian, filter berdasarkan nama ruang
         if ($search) {

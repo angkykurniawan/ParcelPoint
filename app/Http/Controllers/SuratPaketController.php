@@ -23,7 +23,7 @@ class SuratPaketController extends Controller
     {
         // Use $request->input() to retrieve input values
         $search = $request->input('search');
-        $perPage = $request->input('per_page', 10);
+        $perPage = $request->input('per_page', 2);
 
         $suratPaket = SuratPaket::with('Pemilik')
             ->when($search, function ($query, $search) {

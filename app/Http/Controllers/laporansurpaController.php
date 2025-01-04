@@ -33,8 +33,8 @@ class laporansurpaController extends Controller
             $models->where('pemilik_id', '=', $request->pemilik_id);
         }
 
-        // Mengambil data dengan urutan terbaru
-        $data['models'] = $models->latest()->get();
+        // Mengambil data dengan urutan terbaru dan paginate
+        $data['models'] = $models->latest()->paginate(2); // Gunakan paginate untuk membatasi hasil
         return view('laporansurpa.index', $data);
     }
 }

@@ -18,7 +18,7 @@ class KurirController extends Controller
         $search = $request->get('search');
 
         // Menambahkan pagination dan opsi per_page
-        $perPage = $request->get('per_page', 10); // Default 10 per halaman
+        $perPage = $request->get('per_page', 1); // Default 10 per halaman
 
         // Jika ada pencarian, filter berdasarkan ekspedisi
         $kurir = Kurir::when($search, function ($query, $search) {
@@ -46,7 +46,7 @@ class KurirController extends Controller
         // Validate the request and get the validated data
         $requestData = $request->validate([
             'Ekspedisi'=> 'required',
-        ]);  
+        ]);
 
         // Create a new Kurir instance and fill it with the validated data
         $kurir = new Kurir;
