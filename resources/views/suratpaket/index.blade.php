@@ -13,6 +13,7 @@
                 </form>
 
                 <a href="/suratPaket/create" class="btn btn-primary btn-sm ml-1">Tambah Data Surat Paket</a>
+                <a href="/laporansurpa/create" class="btn btn-primary btn-sm ml-1">Buat Laporan Surat Paket</a>
             </div>
             <br>
 

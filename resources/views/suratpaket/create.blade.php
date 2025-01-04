@@ -21,15 +21,12 @@
                         Tambah Data Pemilik
                     </a>
                 </label>
-                <select class="form-control select2 @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
-                    <option value="">Pilih Nama Pemilik</option>
+                <select class="form-control select2" id="pemilik_id" name="pemilik_id" style="width: 100%;">
+                    <option value="">Cari nama pemilik...</option>
                     @foreach($Pemilik as $pe)
-                        <option value="{{ $pe->id }}" {{ old('pemilik_id') == $pe->id ? 'selected' : '' }}>
-                            {{ $pe->Nama }}
-                        </option>
+                        <option value="{{ $pe->id }}"> {{ $pe->Nama }}</option>
                     @endforeach
                 </select>
-                <span class="text-danger">{{ $errors->first('pemilik_id') }}</span>
             </div>
 
             <!-- Jenis Selection -->
@@ -138,5 +135,17 @@
         });
     </script>
 @endif
+
+<script>
+    $(document).ready(function() {
+        // Inisialisasi Select2 dengan fitur pencarian
+        $('#pemilik_id').select2({
+            placeholder: "Pilih Nama Pemilik",
+            allowClear: true
+        });
+    });
+</script>
+
+
 
 

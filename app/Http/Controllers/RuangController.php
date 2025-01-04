@@ -49,7 +49,7 @@ class RuangController extends Controller
     {
         $requestData = $request->validate([
             'Nama' => 'required',
-            'Lantai' => 'nullable',
+            'Lantai' => 'nullable|numeric',
             'Lokasi' => 'nullable',
             'PIC' => 'nullable',
         ]);
@@ -77,7 +77,7 @@ class RuangController extends Controller
     {
         $requestData = $request->validate([
             'Nama' => 'required',
-            'Lantai' => 'nullable',
+            'Lantai' => 'nullable|numeric',
             'Lokasi' => 'nullable',
             'PIC' => 'nullable',
         ]);

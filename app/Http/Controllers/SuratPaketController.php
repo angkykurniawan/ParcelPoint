@@ -63,10 +63,10 @@ class SuratPaketController extends Controller
             'kurir_id' => 'required|exists:kurirs,id',
             'ruang_id' => 'required|exists:ruangs,id',
             'Jenis' => 'required|in:Surat,Paket',
-            'Foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
-            'NoHP' => 'required',
+            'Foto' => 'required|image|mimes:jpeg,png,jpg|max:2000',
+            'NoHP' => 'required|numeric',
             'Resi' => 'required',
-            'Berat' => 'nullable',
+            'Berat' => 'nullable|numeric',
             'WaktuJemput' => 'nullable|date',
             'Penjemput' => 'nullable|in:YBS,Teman,Keluarga',
         ]);
@@ -90,6 +90,7 @@ class SuratPaketController extends Controller
         $suratPaket = SuratPaket::findOrFail($id);
         return view('suratpaket.show', ['suratPaket' => $suratPaket]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -163,6 +163,7 @@
 
         <!-- jQuery -->
         <script src="{{ url('Crovex/HTML/assets/js/jquery.min.js') }}"></script>
+
         <script src="{{ url('Crovex/HTML/assets/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url('Crovex/HTML/assets/js/metismenu.min.js') }}"></script>
         <script src="{{ url('Crovex/HTML/assets/js/waves.js') }}"></script>
@@ -173,6 +174,7 @@
         <script src="{{ url('Crovex/HTML/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
         <script src="{{ url('Crovex/HTML/plugins/jvectormap/jquery-jvectormap-us-aea-en.js') }}"></script>
         <script src="{{ url('Crovex/HTML/assets/pages/jquery.analytics_dashboard.init.js') }}"></script>
+
         <!-- App js -->
         <script src="{{ url('Crovex/HTML/assets/js/app.js') }}"></script>
 
@@ -213,3 +215,23 @@
         });
     });
 </script>
+
+
+<script>
+    $(document).ready(function() {
+      $('.select2').select2({
+        placeholder: function() {
+          return $(this).data('placeholder');
+        },
+        allowClear: true,
+        width: 'resolve'
+      });
+    });
+  </script>
+
+  <!-- Select2 -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+
+
+</body>
