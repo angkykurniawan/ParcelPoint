@@ -134,9 +134,9 @@
                     <a href="/kurir" class="{{ Request::is('kurir') ? 'active-item' : '' }}"><i class="ti ti-map"></i><span>Kurir</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <form action="{{ route('logout') }}" method="POST" style="position: fixed; bottom: 10px; left: 7%; transform: translateX(-50%);">
+                    <form action="{{ route('logout') }}" method="POST" id="logoutForm" style="position: fixed; bottom: 10px; left: 7%; transform: translateX(-50%);">
                         @csrf
-                        <button type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" id="logoutButton">
                             <i class="ti-power-off"></i> Logout
                         </button>
                     </form>
@@ -191,3 +191,25 @@
         </script>
     </body>
 </html>
+
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function(e) {
+        e.preventDefault();  // Mencegah form untuk dikirim langsung
+
+        // Tampilkan SweetAlert konfirmasi
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda akan keluar dari akun Anda!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Logout!',
+            cancelButtonText: 'Batal',
+            reverseButtons: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika pengguna memilih "Ya, Logout!", kirimkan form logout
+                document.getElementById('logoutForm').submit();
+            }
+        });
+    });
+</script>

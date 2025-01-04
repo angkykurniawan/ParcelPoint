@@ -21,13 +21,18 @@ body, html {
 /* Navbar */
 .navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
+    justify-content: space-between; /* Mengatur jarak antara logo dan nav-links */
+    align-items: center; /* Posisi vertikal elemen di tengah */
+    padding: 10px 40px; /* Mengurangi padding agar elemen terlihat lebih proporsional */
     z-index: 1;
     position: relative;
     background-color: #ffffff; /* Navbar dengan warna latar putih */
     box-shadow: 0 4px 6px rgba(0, 168, 232, 0.3); /* Shadow biru */
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Memastikan logo tetap di tengah vertikal */
 }
 
 .logo-img {
@@ -39,6 +44,13 @@ body, html {
     list-style: none;
     display: flex;
     gap: 20px;
+    align-items: center; /* Link berada di tengah vertikal */
+    margin: 0; /* Menghapus margin default */
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center; /* Pastikan teks link juga di tengah vertikal */
 }
 
 .nav-links a {
@@ -63,7 +75,7 @@ body, html {
 }
 
 .cta-button:hover {
-    background-color: #3475FE; /* Biru lebih gelap saat hover */
+    background-color: #1f5db4; /* Biru lebih gelap saat hover */
     transform: scale(1.05);
 }
 
@@ -139,7 +151,7 @@ body, html {
 }
 
 .search-button:hover {
-    background-color: #3475FE;
+    background-color: #1f5db4;
     transform: scale(1.05);
 }
 
@@ -204,4 +216,12 @@ body, html {
 .user-info .cta-button:hover {
     background-color: #1f5db4; /* Biru lebih gelap saat hover */
     transform: scale(1.05);
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px; /* Jarak antara form pencarian dan pesan error */
+    margin-left: 15px;
+    text-align: center; /* Pesan error ditampilkan di tengah */
+    font-weight: bold; /* Tulisan lebih tebal */
 }

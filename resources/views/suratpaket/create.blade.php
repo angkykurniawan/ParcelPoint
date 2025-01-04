@@ -16,6 +16,10 @@
             <div class="form-group mt-1 mb-3">
                 <label for="pemilik_id" class="text-primary" style="font-weight: bolder;">
                     Nama Pemilik *
+                    <span style="font-weight: normal;">|</span>
+                    <a href="{{ url('/pemilik/create') }}" class="text-primary" style="font-weight: bold; text-decoration: none;" target="_blank">
+                        Tambah Data Pemilik
+                    </a>
                 </label>
                 <select class="form-control select2 @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
                     <option value="">Pilih Nama Pemilik</option>
@@ -71,9 +75,13 @@
             <div class="form-group mt-1 mb-3">
                 <label for="kurir_id" class="text-primary" style="font-weight: bolder;">
                     Nama Kurir *
+                    <span style="font-weight: normal;">|</span>
+                    <a href="{{ url('/kurir/create') }}" class="text-primary" style="font-weight: bold; text-decoration: none;" target="_blank">
+                        Tambah Data Kurir
+                    </a>
                 </label>
                 <select class="form-control select2 @error('kurir_id') is-invalid @enderror" id="kurir_id" name="kurir_id">
-                    <option value="">Pilih Nama Kurir</option>
+                    <option value="">Pilih Ekspedisi Kurir</option>
                     @foreach($Kurir as $ku)
                         <option value="{{ $ku->id }}" {{ old('kurir_id') == $ku->id ? 'selected' : '' }}>
                             {{ $ku->Ekspedisi }}
@@ -95,6 +103,10 @@
             <div class="form-group mt-1 mb-3">
                 <label for="ruang_id" class="text-primary" style="font-weight: bolder;">
                     Nama Ruang *
+                    <span style="font-weight: normal;">|</span>
+                    <a href="{{ url('/ruang/create') }}" class="text-primary" style="font-weight: bold; text-decoration: none;" target="_blank">
+                        Tambah Data Ruang
+                    </a>
                 </label>
                 <select class="form-control select2 @error('ruang_id') is-invalid @enderror" id="ruang_id" name="ruang_id">
                     <option value="">Pilih Nama Ruang</option>

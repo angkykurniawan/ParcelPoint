@@ -67,6 +67,10 @@
                                             <button type="submit" class="btn btn-danger btn-sm ti-trash"></button>
                                         </form>
                                     </div>
+                                    <div style="display: flex; gap: 10px;">
+                                        <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm fab fa-whatsapp"></a>
+                                        <a href="{{ route('notification.sendEmail', $item->id) }}" class="btn btn-info btn-sm ti-email"></a>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -97,5 +101,38 @@
                 showCloseButton: true
             });
         @endif
+        // Function to confirm deletion of data
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Yakin ingin menghapus data?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Cancel', // Ganti teks tombol Batal menjadi Cancel
+                focusCancel: true, // Fokus pada tombol Cancel
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika tombol "Ya, Hapus!" dipilih
+                    Swal.fire(
+                        'Dihapus!',
+                        'Data telah dihapus.',
+                        'success'
+                    ).then(() => {
+                        // Submit form untuk menghapus data setelah konfirmasi
+                        document.getElementById('delete-form-' + id).submit();
+                    });
+                } else {
+                    // Jika tombol Cancel yang dipilih, tidak ada tindakan penghapusan
+                    Swal.fire(
+                        'Dibatalkan',
+                        'Data tidak dihapus.',
+                        'info'
+                    );
+                }
+            });
+            return false; // Prevent immediate form submission
+        }
     </script>
 @endsection

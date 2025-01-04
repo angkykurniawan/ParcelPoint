@@ -114,6 +114,9 @@ class SuratPaketController extends Controller
             'FotoST' => 'required|image|mimes:jpeg,png,jpg|max:2000',
         ]);
 
+        $requestData['Pengupdate'] = Auth::user()->name;
+
+
         $suratPaket = SuratPaket::findOrFail($id);
         $suratPaket->fill($requestData);
 

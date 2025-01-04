@@ -67,7 +67,6 @@
                 showCloseButton: true
             });
         @endif
-
         // Function to confirm deletion of data
         function confirmDelete(id) {
             Swal.fire({
@@ -77,18 +76,21 @@
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-                focusCancel: true
+                cancelButtonText: 'Cancel', // Ganti teks tombol Batal menjadi Cancel
+                focusCancel: true, // Fokus pada tombol Cancel
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Jika tombol "Ya, Hapus!" dipilih
                     Swal.fire(
                         'Dihapus!',
                         'Data telah dihapus.',
                         'success'
                     ).then(() => {
+                        // Submit form untuk menghapus data setelah konfirmasi
                         document.getElementById('delete-form-' + id).submit();
                     });
                 } else {
+                    // Jika tombol Cancel yang dipilih, tidak ada tindakan penghapusan
                     Swal.fire(
                         'Dibatalkan',
                         'Data tidak dihapus.',
@@ -96,7 +98,7 @@
                     );
                 }
             });
-            return false;
+            return false; // Prevent immediate form submission
         }
     </script>
 @endsection

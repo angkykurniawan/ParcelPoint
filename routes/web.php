@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SuratPaketController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,9 +18,10 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.index');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::Resource('profile', ProfileController::class);
     Route::Resource('pemilik', PemilikController::class);
     Route::Resource('kurir', KurirController::class);
     Route::Resource('ruang', RuangController::class);
@@ -27,6 +29,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/notification/send/{id}', [NotificationController::class, 'sendNotification'])->name('notification.send');
     Route::get('/notification/sendEmail/{id}', [NotificationController::class, 'sendEmailNotification'])->name('notification.sendEmail');
 });
+
+
+// Untuk tambah path akses dengan tujuan yang sama
+// Route::get('/registerSecurity', [RegisteredUserController::class, 'create'])->name('registerSecurity');
+// Route::post('/registerSecurity', [RegisteredUserController::class, 'store']);
+// Route::get('/register', function () {
+//     abort(403);  // Akses terlarang
+// });
 
 Route::get('/cekresi', [ResiController::class, 'searchResi'])->name('search.resi');
 

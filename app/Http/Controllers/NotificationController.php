@@ -27,11 +27,11 @@ class NotificationController extends Controller
 
         // Informasi yang akan dikirim melalui WhatsApp
         $message = "Halo, " . ($suratPaket->Pemilik->Nama ?? 'Pemilik') . "!\n\n" .
-            "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa ".
+            "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa " .
             $suratPaket->Jenis . " Anda dengan detail berikut telah terdaftar:\n" .
             "Resi: " . $suratPaket->Resi . "\n" .
             "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
-            "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi}  untuk informasi lebih lanjut\nTerima kasih.";
+            "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.";
 
         // Nomor WhatsApp tujuan
         $noHp = $suratPaket->NoHP;
@@ -73,7 +73,8 @@ class NotificationController extends Controller
 
         curl_close($curl);
 
-        return redirect()->back()->with('success', 'Notifikasi berhasil dikirim.');
+        // Menampilkan nomor WhatsApp yang dikirimkan
+        return redirect()->back()->with('success', 'Notifikasi berhasil dikirim ke WhatsApp: ' . $noHp);
     }
 
 
@@ -99,17 +100,17 @@ class NotificationController extends Controller
         $details = [
             'title' => 'Notifikasi ' . $suratPaket->Jenis . ' Dengan Resi ' . $suratPaket->Resi,
             'body' => "Halo, " . ($suratPaket->Pemilik->Nama ?? 'Pemilik') . "!\n\n" .
-                "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa ".
+                "Kami dari security Politeknik Caltex Riau ingin memberitahukan bahwa " .
                 $suratPaket->Jenis . " Anda dengan detail berikut telah terdaftar:\n" .
                 "Resi: " . $suratPaket->Resi . "\n" .
                 "Kurir: " . ($suratPaket->Kurir->Ekspedisi ?? 'Tidak ada') . "\n\n" .
-                 "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.",
+                "Silakan jemput " . $suratPaket->Jenis . " Anda di lokasi kami. \n\n Kunjungi : localhost:8000/cekResi{$suratPaket->Resi} untuk informasi lebih lanjut\nTerima kasih.",
         ];
 
         // Kirim email
         try {
             Mail::to($email)->send(new NotifMail($details));
-            return redirect()->back()->with('success', 'Email notifikasi berhasil dikirim.');
+            return redirect()->back()->with('success', 'Email notifikasi berhasil dikirim ke: ' . $email);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal mengirim email notifikasi: ' . $e->getMessage());
         }

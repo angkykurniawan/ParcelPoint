@@ -47,13 +47,17 @@
       <p>Sebuah layanan penitipan surat & paket yang disediakan untuk sivitas akademika Politeknik Caltex Riau</p>
       <div class="search-container">
         <form action="{{ route('search.resi') }}" method="GET" class="search-form">
-            <input type="text" name="resi" placeholder="Masukkan nomor resi..." class="search-input" required>
-            <button type="submit" class="search-button">Search</button>
-        </form>
+          <input type="text" name="resi" placeholder="Masukkan nomor resi..." class="search-input" required>
+          <button type="submit" class="search-button">Search</button>
+        </form><br><br><br>
+        @if (session('error'))
+        <div class="error-message">
+          {{ session('error') }}
+        </div>
+      @endif
       </div>
     </div>
   </header>
-
   <script>
     let currentIndex = 0;
     const images = document.querySelector('.carousel-images');

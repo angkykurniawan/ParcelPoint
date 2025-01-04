@@ -25,7 +25,8 @@ return new class extends Migration
             $table->enum('Penjemput', ['YBS', 'Teman', 'Keluarga'])->nullable();
             $table->string('FotoST')->nullable();
             $table->string('status_daftar')->default('DiterimaSecurity');
-            $table->string('Penginput');
+            $table->string('Penginput')->nullable();
+            $table->string('Pengupdate')->nullable();
             $table->timestamps();
         });
     }
