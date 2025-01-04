@@ -6,7 +6,7 @@
     <title>{{ config('app.name', 'Laravel') }} | Reset Password</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="shortcut icon" href="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}">
-    <link rel="stylesheet" href="css/loginCSS.css">
+    <link rel="stylesheet" href="css/resetCSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 </head>
 <body>
@@ -18,9 +18,10 @@
             <!-- Right side Form -->
             <div class="login-form">
                 <center>
+                    <!-- Use a publicly accessible image URL -->
                     <img src="{{ url('Crovex/HTML/assets/images/ParcelPointWithText.png') }}" alt="ParcelPoint" width="250px" height="100px">
                 </center>
-                <center><h3 class="text-primary" style="font-weight: bolder;">Reset Password</h3></center>
+                <center><h3 class="text-primary" style="font-weight: bolder;">Ganti Password</h3></center>
 
                 <!-- Form -->
                 <form method="POST" action="{{ route('password.store') }}">
@@ -63,7 +64,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+                    <button type="submit" class="btn btn-primary w-100">Ganti</button>
                 </form>
             </div>
         </div>
