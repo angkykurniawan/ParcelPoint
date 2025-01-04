@@ -19,7 +19,7 @@ class PemilikController extends Controller
         $search = $request->get('search');
 
         // Menambahkan pagination dan opsi per_page
-        $perPage = $request->get('per_page', 1); // Default 10 per halaman
+        $perPage = $request->get('per_page', 2); // Default 10 per halaman
 
         // Jika ada pencarian, filter berdasarkan nama
         if ($search) {
@@ -54,7 +54,7 @@ class PemilikController extends Controller
             'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
             'Whatsapp' => 'required',
             'Email' => 'required',
-            'JenisKelamin' => 'required|in:LakiLaki,P',
+            'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
             'Foto' => 'nullable',
             'Alamat' => 'nullable',
         ]);
@@ -91,7 +91,7 @@ class PemilikController extends Controller
             'Pekerjaan' => 'required|in:Mahasiswa,Dosen,Staff',
             'Whatsapp' => 'required',
             'Email' => 'required',
-            'JenisKelamin' => 'required|in:LakiLaki,P',
+            'JenisKelamin' => 'required|in:LakiLaki,Perempuan',
             'Foto' => 'nullable',
             'Alamat' => 'nullable',
         ]);

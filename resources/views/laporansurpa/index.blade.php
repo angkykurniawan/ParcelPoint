@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Surat Paket {{ $models->first()->Pemilik->Nama }}</h3> <!-- Check if Pemilik is available -->
+            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Surat Paket {{ $models->first()->Pemilik->Nama ?? 'Unknown'}}</h3> <!-- Check if Pemilik is available -->
 
             <table class="table table-striped">
                 <thead>
@@ -51,9 +51,9 @@
             </table>
 
             <!-- Pagination Links -->
-            {{-- <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center">
                 {{ $models->appends(request()->query())->links('pagination::bootstrap-4') }} <!-- Menampilkan pagination dengan Bootstrap 4 -->
-            </div> --}}
+            </div>
         </div>
     </div>
 @endsection

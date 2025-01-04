@@ -18,7 +18,7 @@ class KurirController extends Controller
         $search = $request->get('search');
 
         // Menambahkan pagination dan opsi per_page
-        $perPage = $request->get('per_page', 1); // Default 10 per halaman
+        $perPage = $request->get('per_page', 5); // Default 10 per halaman
 
         // Jika ada pencarian, filter berdasarkan ekspedisi
         $kurir = Kurir::when($search, function ($query, $search) {
