@@ -34,7 +34,7 @@ class laporansurpaController extends Controller
         }
 
         // Mengambil data dengan urutan terbaru dan paginate
-        $data['models'] = $models->latest()->paginate(2); // Gunakan paginate untuk membatasi hasil
+        $data['models'] = $models->latest()->get(); // Gunakan paginate untuk membatasi hasil
         return view('laporansurpa.index', $data);
     }
 }

@@ -51,9 +51,9 @@
             </table>
 
             <!-- Pagination Links -->
-            <div class="d-flex justify-content-center">
+            {{-- <div class="d-flex justify-content-center">
                 {{ $models->appends(request()->query())->links('pagination::bootstrap-4') }} <!-- Menampilkan pagination dengan Bootstrap 4 -->
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

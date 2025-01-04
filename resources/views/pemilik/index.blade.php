@@ -21,7 +21,7 @@
                     <tr style="text-align: center;">
                         <th width="1%">No</th>
                         <th>Nomor Induk</th>
-                        <th>Foto & Nama</th>
+                        <th>Nama</th>
                         <th>Umur</th>
                         <th>Pekerjaan</th>
                         <th>Whatsapp</th>
