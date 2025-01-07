@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\KurirController;
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\ProfileController;
@@ -39,11 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::Resource('profile', ProfileController::class);
 
     Route::get('forgot-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('forgot-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('reset-password/{token}', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'showResetForm'])->name('password.reset');
-Route::post('reset-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'reset'])->name('password.store');
-
-
+    Route::post('forgot-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('reset-password/{token}', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'showResetForm'])->name('password.reset');
+    Route::post('reset-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'reset'])->name('password.store');
     Route::Resource('pemilik', PemilikController::class);
     Route::Resource('kurir', KurirController::class);
     Route::Resource('ruang', RuangController::class);
@@ -57,14 +56,8 @@ Route::post('reset-password', [\App\Http\Controllers\Auth\PasswordResetLinkContr
 
 });
 
-
-// Untuk tambah path akses dengan tujuan yang sama
-// Route::get('/registerSecurity', [RegisteredUserController::class, 'create'])->name('registerSecurity');
-// Route::post('/registerSecurity', [RegisteredUserController::class, 'store']);
-// Route::get('/register', function () {
-//     abort(403);  // Akses terlarang
-// });
-
+//Fitur CekResi
 Route::get('/cekresi', [ResiController::class, 'searchResi'])->name('search.resi');
+Route::get('/search-owner', [SuratPaketController::class, 'searchOwner'])->name('searchOwner');
 
 require __DIR__.'/auth.php';

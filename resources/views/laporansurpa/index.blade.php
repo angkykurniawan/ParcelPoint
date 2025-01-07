@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Surat Paket {{ $models->first()->Pemilik->Nama ?? 'Unknown'}}</h3> <!-- Check if Pemilik is available -->
+            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Laporan Data Surat & Paket {{ $models->first()->Pemilik->Nama ?? 'Unknown'}}</h3> <!-- Check if Pemilik is available -->
 
             <table class="table table-striped">
                 <thead>

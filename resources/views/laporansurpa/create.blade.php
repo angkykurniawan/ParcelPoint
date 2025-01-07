@@ -5,7 +5,7 @@
     <div class="card-body">
         <center>
             <h5 class="card-title btn-primary" style="font-weight: bolder; font-size: 20px; height: 20%; border-radius: 5px;">
-                LAPORAN SERAH TERIMA SURAT PAKET
+                Laporan Serah Terima Surat & Paket
             </h5>
         </center>
         <br>

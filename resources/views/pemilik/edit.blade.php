@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Edit Data Pemilik Surat Paket<center><b>{{ strtoupper($pemilik->Nama) }}</b></center><br></h3>
+            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Edit Data Pemilik Surat & Paket<center><b>{{ strtoupper($pemilik->Nama) }}</b></center><br></h3>
             <form action="/pemilik/{{ $pemilik->id }}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf

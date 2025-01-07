@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Pemilik Surat Paket</h3>
+            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Pemilik Surat & Paket</h3>
 
             <!-- Form pencarian dan tombol tambah data di tengah -->
             <div class="d-flex justify-content-center align-items-center">
@@ -39,7 +39,7 @@
                             <td>
                                 @if ($item->Foto)
                                     <a href="{{ \Storage::url($item->Foto) }}" target="_blank">
-                                        <img src="{{ \Storage::url($item->Foto) }}" width="50" height="100" alt="Foto Pemilik">
+                                        <img src="{{ \Storage::url($item->Foto) }}" width="50" height="50" alt="Foto Pemilik">
                                     </a>
                                 @endif
                                 {{ $item->Nama }}

@@ -5,33 +5,30 @@
     <div class="card-body">
         <h1 style="font-weight: bolder; text-align: center;" class="text-primary">Dashboard</h1><br><br>
 
-        <!-- Grafik Row 1 -->
-        <div class="row">
-            <!-- Grafik 1: Surat Hari Ini -->
-            <div class="col-md-6 mb-4">
-                <canvas id="chart2" width="400" height="400"></canvas>
-                <div id="label2" class="mt-2 text-center"></div> <!-- Label keterangan -->
+        <!-- Grafik Row: Semua Grafik dalam Satu Baris -->
+        <div class="row text-center justify-content-center">
+            <!-- Grafik 1: Jumlah Surat dan Paket -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
+                <canvas id="chart1" width="200" height="200"></canvas>
+                <div id="label1" class="mt-2"></div>
             </div>
 
-            <!-- Grafik 2: Paket Hari Ini -->
-            <div class="col-md-6 mb-4">
-                <canvas id="chart3" width="400" height="400"></canvas>
-                <div id="label3" class="mt-2 text-center"></div> <!-- Label keterangan -->
-            </div>
-        </div>
-
-        <!-- Grafik Row 2 -->
-        <div class="row">
-            <!-- Grafik 3: Jumlah Surat dan Paket -->
-            <div class="col-md-6 mb-4">
-                <canvas id="chart1" width="400" height="400"></canvas>
-                <div id="label1" class="mt-2 text-center"></div> <!-- Label keterangan -->
+            <!-- Grafik 2: Surat dan Paket yang Diterima Hari Ini -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
+                <canvas id="chart2" width="200" height="200"></canvas>
+                <div id="label2" class="mt-2"></div>
             </div>
 
-            <!-- Grafik 4: Surat dan Paket Dijemput Hari Ini -->
-            <div class="col-md-6 mb-4">
-                <canvas id="chart4" width="400" height="400"></canvas>
-                <div id="label4" class="mt-2 text-center"></div> <!-- Label keterangan -->
+            <!-- Grafik 3: Serah Terima Surat Paket Hari Ini -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
+                <canvas id="chart3" width="200" height="200"></canvas>
+                <div id="label3" class="mt-2"></div>
+            </div>
+
+            <!-- Grafik 4: Total Serah Terima Surat dan Paket -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
+                <canvas id="chart4" width="200" height="200"></canvas>
+                <div id="label4" class="mt-2"></div>
             </div>
         </div>
     </div>
@@ -45,12 +42,12 @@
         var chart1 = new Chart(ctx1, {
             type: 'bar',
             data: {
-                labels: ['Jumlah Surat', 'Jumlah Paket'],  // Label untuk jumlah surat dan paket
+                labels: ['Surat', 'Paket'],
                 datasets: [{
                     label: 'Jumlah Surat dan Paket',
-                    data: [{{ $jumlahSurat }}, {{ $jumlahPaket }}],  // Data jumlah surat dan paket yang dikirim dari controller
-                    backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 159, 64, 0.2)'],  // Warna biru muda untuk surat dan oranye muda untuk paket
-                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 159, 64, 1)'],  // Warna biru dan oranye untuk border
+                    data: [{{ $jumlahSurat }}, {{ $jumlahPaket }}],
+                    backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 159, 64, 1)'],
                     borderWidth: 1
                 }]
             },
@@ -58,19 +55,18 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Grafik Jumlah Surat dan Paket',
-                        font: {
-                            size: 18
-                        }
+                        text: 'Jumlah Surat dan Paket',
+                        font: { size: 16 },
+                        align: 'center' // Menempatkan judul di tengah
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 1, // Menentukan interval angka pada sumbu Y
+                            stepSize: 1,
                             callback: function(value) {
-                                return value; // Menampilkan angka sesuai pada sumbu Y
+                                return Number.isInteger(value) ? value : '';
                             }
                         }
                     }
@@ -78,21 +74,19 @@
                 responsive: true
             }
         });
-
-        // Menampilkan jumlah surat dan paket pada bagian bawah
         document.getElementById('label1').innerText = 'Jumlah Surat: {{ $jumlahSurat }} | Jumlah Paket: {{ $jumlahPaket }}';
 
-        // Grafik 2: Surat Hari Ini
+        // Grafik 2: Surat dan Paket yang Diterima Hari Ini
         var ctx2 = document.getElementById('chart2').getContext('2d');
         var chart2 = new Chart(ctx2, {
-            type: 'pie',
+            type: 'bar',
             data: {
-                labels: ['Surat Hari Ini'],  // Hanya ada satu label untuk surat hari ini
+                labels: ['Surat', 'Paket'],
                 datasets: [{
-                    label: 'Surat Hari Ini',
-                    data: [{{ $suratHariIni }}],  // Data surat yang diterima hari ini dari controller
-                    backgroundColor: ['rgba(54, 162, 235, 0.2)'],  // Warna biru muda
-                    borderColor: ['rgba(54, 162, 235, 1)'],  // Warna biru
+                    label: 'Diterima Hari Ini',
+                    data: [{{ $suratHariIni }}, {{ $paketHariIni }}],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
                     borderWidth: 1
                 }]
             },
@@ -100,30 +94,38 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Grafik Surat Hari Ini',
-                        font: {
-                            size: 18
+                        text: 'Surat dan Paket yang Diterima Hari Ini',
+                        font: { size: 16 },
+                        align: 'center' // Menempatkan judul di tengah
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                return Number.isInteger(value) ? value : '';
+                            }
                         }
                     }
                 },
                 responsive: true
             }
         });
+        document.getElementById('label2').innerText = 'Surat: {{ $suratHariIni }} | Paket: {{ $paketHariIni }}';
 
-        // Menampilkan jumlah surat hari ini pada bagian bawah
-        document.getElementById('label2').innerText = 'Surat Hari Ini: {{ $suratHariIni }}';
-
-        // Grafik 3: Paket Hari Ini
+        // Grafik 3: Serah Terima Surat Paket Hari Ini
         var ctx3 = document.getElementById('chart3').getContext('2d');
         var chart3 = new Chart(ctx3, {
-            type: 'doughnut',
+            type: 'bar',
             data: {
-                labels: ['Paket Hari Ini'],  // Hanya ada satu label untuk paket hari ini
+                labels: ['Surat Dijemput', 'Paket Dijemput'],
                 datasets: [{
-                    label: 'Paket Hari Ini',
-                    data: [{{ $paketHariIni }}],  // Data paket yang diterima hari ini dari controller
-                    backgroundColor: ['rgba(255, 159, 64, 0.2)'],  // Warna oranye muda
-                    borderColor: ['rgba(255, 159, 64, 1)'],  // Warna oranye
+                    label: 'Serah Terima Hari Ini',
+                    data: [{{ $suratDijemputHariIni }}, {{ $paketDijemputHariIni }}],
+                    backgroundColor: ['rgba(153, 102, 255, 0.2)', 'rgba(255, 205, 86, 0.2)'],
+                    borderColor: ['rgba(153, 102, 255, 1)', 'rgba(255, 205, 86, 1)'],
                     borderWidth: 1
                 }]
             },
@@ -131,30 +133,38 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Grafik Paket Hari Ini',
-                        font: {
-                            size: 18
+                        text: 'Serah Terima Surat Paket Hari Ini',
+                        font: { size: 16 },
+                        align: 'center' // Menempatkan judul di tengah
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                return Number.isInteger(value) ? value : '';
+                            }
                         }
                     }
                 },
                 responsive: true
             }
         });
+        document.getElementById('label3').innerText = 'Surat Dijemput: {{ $suratDijemputHariIni }} | Paket Dijemput: {{ $paketDijemputHariIni }}';
 
-        // Menampilkan jumlah paket hari ini pada bagian bawah
-        document.getElementById('label3').innerText = 'Paket Hari Ini: {{ $paketHariIni }}';
-
-        // Grafik 4: Surat dan Paket Dijemput Hari Ini
+        // Grafik 4: Total Serah Terima Surat dan Paket
         var ctx4 = document.getElementById('chart4').getContext('2d');
         var chart4 = new Chart(ctx4, {
             type: 'bar',
             data: {
-                labels: ['Surat Dijemput', 'Paket Dijemput'],  // Label untuk surat dan paket dijemput
+                labels: ['Surat', 'Paket'],
                 datasets: [{
-                    label: 'Surat dan Paket Dijemput Hari Ini',
-                    data: [{{ $suratDijemputHariIni }}, {{ $paketDijemputHariIni }}],  // Data surat dan paket dijemput hari ini
-                    backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 159, 64, 0.2)'],  // Warna biru muda dan oranye muda
-                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 159, 64, 1)'],  // Warna biru dan oranye
+                    label: 'Total Serah Terima',
+                    data: [{{ $totalSuratDijemput }}, {{ $totalPaketDijemput }}],
+                    backgroundColor: ['rgba(201, 203, 207, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                    borderColor: ['rgba(201, 203, 207, 1)', 'rgba(54, 162, 235, 1)'],
                     borderWidth: 1
                 }]
             },
@@ -162,19 +172,18 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Grafik Surat dan Paket Dijemput Hari Ini',
-                        font: {
-                            size: 18
-                        }
+                        text: 'Total Serah Terima Surat dan Paket',
+                        font: { size: 16 },
+                        align: 'center' // Menempatkan judul di tengah
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 1, // Menentukan interval angka pada sumbu Y
+                            stepSize: 1,
                             callback: function(value) {
-                                return value; // Menampilkan angka sesuai pada sumbu Y
+                                return Number.isInteger(value) ? value : '';
                             }
                         }
                     }
@@ -182,9 +191,7 @@
                 responsive: true
             }
         });
-
-        // Menampilkan jumlah surat dan paket dijemput pada bagian bawah
-        document.getElementById('label4').innerText = 'Surat Dijemput: {{ $suratDijemputHariIni }} | Paket Dijemput: {{ $paketDijemputHariIni }}';
+        document.getElementById('label4').innerText = 'Total Surat: {{ $totalSuratDijemput }} | Total Paket: {{ $totalPaketDijemput }}';
     </script>
 </div>
 @endsection

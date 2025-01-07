@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSuratPaketRequest;
 use App\Http\Requests\UpdateSuratPaketRequest;
+use Carbon\Carbon;
 
 class SuratPaketController extends Controller
 {
@@ -21,26 +22,50 @@ class SuratPaketController extends Controller
      */
     public function index(Request $request)
     {
-        // Use $request->input() to retrieve input values
+        // Retrieve input values
         $search = $request->input('search');
         $perPage = $request->input('per_page', 2);
+        $selectedDate = $request->input('date'); // Menangkap input tanggal yang dipilih
+        $selectedMonth = $request->input('month'); // Menangkap input bulan yang dipilih
+        $selectedYear = $request->input('year'); // Menangkap input tahun yang dipilih
+        $selectedJenis = $request->input('jenis'); // Menangkap input jenis yang dipilih
 
         $suratPaket = SuratPaket::with('Pemilik')
             ->when($search, function ($query, $search) {
                 return $query->where('Resi', 'like', "%{$search}%")
-                             ->orWhereHas('Pemilik', function ($query) use ($search) {
-                                 $query->where('Nama', 'like', "%{$search}%");
-                             });
+                    ->orWhereHas('Pemilik', function ($query) use ($search) {
+                        $query->where('Nama', 'like', "%{$search}%");
+                    });
+            })
+            ->when($selectedDate, function ($query, $selectedDate) {
+                return $query->whereDate('created_at', $selectedDate); // Filter berdasarkan tanggal spesifik
+            })
+            ->when($selectedMonth, function ($query, $selectedMonth) {
+                return $query->whereMonth('created_at', $selectedMonth); // Filter berdasarkan bulan
+            })
+            ->when($selectedYear, function ($query, $selectedYear) {
+                return $query->whereYear('created_at', $selectedYear); // Filter berdasarkan tahun
+            })
+            ->when($selectedJenis, function ($query, $selectedJenis) {
+                return $query->where('Jenis', $selectedJenis); // Filter berdasarkan jenis
             })
             ->latest()
             ->paginate($perPage);
+
+        // Format tanggal untuk tampilkan dalam view
+        foreach ($suratPaket as $item) {
+            if ($item->WaktuJemput) {
+                $item->WaktuJemput = Carbon::parse($item->WaktuJemput)->format('d-m-Y');
+            }
+        }
 
         $Pemilik = Pemilik::latest()->paginate(10);
         $Kurir = Kurir::latest()->paginate(10);
         $Ruang = Ruang::latest()->paginate(10);
 
-        return view('suratpaket.index', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang', 'search'));
+        return view('suratpaket.index', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang', 'search', 'selectedDate', 'selectedMonth', 'selectedYear', 'selectedJenis'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -73,6 +98,11 @@ class SuratPaketController extends Controller
 
         $requestData['Penginput'] = Auth::user()->name;
 
+        // Convert WaktuJemput to Y-m-d format if provided, otherwise leave as is
+        if ($request->has('WaktuJemput') && $request->input('WaktuJemput')) {
+            $requestData['WaktuJemput'] = Carbon::createFromFormat('d-m-Y', $request->input('WaktuJemput'))->format('Y-m-d'); // Convert to Y-m-d for storage
+        }
+
         if ($request->hasFile('Foto')) {
             $requestData['Foto'] = $request->file('Foto')->store('public/suratpaket');
         }
@@ -88,9 +118,14 @@ class SuratPaketController extends Controller
     public function show($id)
     {
         $suratPaket = SuratPaket::findOrFail($id);
+
+        // Format date for display
+        if ($suratPaket->WaktuJemput) {
+            $suratPaket->WaktuJemput = Carbon::parse($suratPaket->WaktuJemput)->format('d-m-Y'); // Format to d-m-Y
+        }
+
         return view('suratpaket.show', ['suratPaket' => $suratPaket]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -110,17 +145,24 @@ class SuratPaketController extends Controller
     public function update(UpdateSuratPaketRequest $request, $id)
     {
         $requestData = $request->validate([
-            'WaktuJemput' => 'required|date',
-            'Penjemput' => 'required|in:YBS,Teman,Keluarga',
-            'FotoST' => 'required|image|mimes:jpeg,png,jpg|max:2000',
+            'WaktuJemput' => 'nullable|date',
+            'Penjemput' => 'nullable|in:YBS,Teman,Keluarga',
+            'FotoST' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
         ]);
 
-        $requestData['Pengupdate'] = Auth::user()->name;
+        // Menangani data dengan trim untuk memastikan tidak ada spasi ekstra
+        $requestData['Penjemput'] = filter_var(trim($request->input('Penjemput')), FILTER_SANITIZE_STRING);
 
-
+        // Proses update
         $suratPaket = SuratPaket::findOrFail($id);
         $suratPaket->fill($requestData);
 
+        // Menangani tanggal
+        if ($request->has('WaktuJemput') && !empty($request->input('WaktuJemput'))) {
+            $suratPaket->WaktuJemput = Carbon::parse($request->input('WaktuJemput'))->format('Y-m-d H:i:s');
+        }
+
+        // Menangani Foto Serah Terima jika ada
         if ($request->hasFile('FotoST')) {
             if ($suratPaket->FotoST && Storage::exists($suratPaket->FotoST)) {
                 Storage::delete($suratPaket->FotoST);
@@ -159,5 +201,21 @@ class SuratPaketController extends Controller
         return SuratPaket::where('resi', $resi)
             ->select('jenis', 'pemilik', 'statusDaftar', 'created_at', 'WaktuJemput', 'resi')
             ->first();
+    }
+
+    public function searchOwner(Request $request)
+    {
+        $request->validate([
+            'owner' => 'required|string',
+        ]);
+
+        $search = $request->input('owner');
+        $suratPaket = SuratPaket::with('Pemilik')
+            ->whereHas('Pemilik', function ($query) use ($search) {
+                $query->where('Nama', 'like', "%{$search}%");
+            })
+            ->get();
+
+        return view('searchResults', compact('suratPaket'));
     }
 }

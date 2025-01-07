@@ -10,39 +10,29 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Mengambil jumlah surat
+        // Jumlah Surat dan Paket
         $jumlahSurat = SuratPaket::where('Jenis', 'Surat')->count();
-
-        // Mengambil jumlah paket
         $jumlahPaket = SuratPaket::where('Jenis', 'Paket')->count();
 
-        // Mengambil jumlah surat yang diterima hari ini
-        $suratHariIni = SuratPaket::whereDate('created_at', today())->where('Jenis', 'Surat')->count();
+        // Surat dan Paket yang Diterima Hari Ini
+        $suratHariIni = SuratPaket::where('Jenis', 'Surat')->whereDate('created_at', today())->count();
+        $paketHariIni = SuratPaket::where('Jenis', 'Paket')->whereDate('created_at', today())->count();
 
-        // Mengambil jumlah paket yang diterima hari ini
-        $paketHariIni = SuratPaket::whereDate('created_at', today())->where('Jenis', 'Paket')->count();
+        // Serah Terima Hari Ini
+        $suratDijemputHariIni = SuratPaket::where('Jenis', 'Surat')->whereDate('WaktuJemput', today())->count();
+        $paketDijemputHariIni = SuratPaket::where('Jenis', 'Paket')->whereDate('WaktuJemput', today())->count();
 
-        // Mengambil jumlah surat yang sudah dijemput hari ini
-        $suratDijemputHariIni = SuratPaket::whereDate('WaktuJemput', today())
-            ->where('Jenis', 'Surat')->count();
+        // Total Serah Terima
+        $totalSuratDijemput = SuratPaket::where('Jenis', 'Surat')->whereNotNull('WaktuJemput')->count();
+        $totalPaketDijemput = SuratPaket::where('Jenis', 'Paket')->whereNotNull('WaktuJemput')->count();
 
-        // Mengambil jumlah paket yang sudah dijemput hari ini
-        $paketDijemputHariIni = SuratPaket::whereDate('WaktuJemput', today())
-            ->where('Jenis', 'Paket')->count();
-
-        // Mengirim data ke view
         return view('dashboard.index', compact(
-            'jumlahSurat',
-            'jumlahPaket',
-            'suratHariIni',
-            'paketHariIni',
-            'suratDijemputHariIni',
-            'paketDijemputHariIni'
+            'jumlahSurat', 'jumlahPaket',
+            'suratHariIni', 'paketHariIni',
+            'suratDijemputHariIni', 'paketDijemputHariIni',
+            'totalSuratDijemput', 'totalPaketDijemput'
         ));
     }
 }
