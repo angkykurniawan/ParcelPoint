@@ -6,7 +6,7 @@
             <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Data Surat & Paket</h3>
 
             <!-- Form pencarian dan tombol tambah data di tengah -->
-            <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-center mb-3">
 
                 <!-- Kolom Filter -->
                 <form action="{{ url('/suratPaket') }}" method="GET" class="d-flex">
@@ -70,14 +70,19 @@
                             <td>{{ $item->WaktuJemput }}</td>
                             <td>
                                 <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-                                    <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm ti-info"></a>
+                                    <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm ti-info" style="height: 25px; width: 25px; display: flex; justify-content: center; align-items: center;"></a>
                                     <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline" id="delete-form-{{ $item->id }}" onsubmit="return confirmDelete({{ $item->id }})">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm ti-trash"></button>
+                                        <button type="submit" class="btn btn-danger btn-sm ti-trash" style="height: 25px; width: 25px; display: flex; justify-content: center; align-items: center;"></button>
                                     </form>
-                                    <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm fab fa-whatsapp"></a>
-                                    <a href="{{ route('notification.sendEmail', $item->id) }}" class="btn btn-info btn-sm ti-email"></a>
+                                    <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm fab fa-whatsapp" style="height: 25px; width: 25px; display: flex; justify-content: center; align-items: center;"></a>
+                                    <a href="{{ route('notification.sendEmail', $item->id) }}" class="btn btn-info btn-sm ti-email" style="height: 25px; width: 25px; display: flex; justify-content: center; align-items: center;"></a>
+
+                                    <!-- Tombol untuk menampilkan history pengiriman -->
+                                    <a href="{{ route('suratPaket.history', $item->id) }}" class="btn btn-warning btn-sm" style="height: 25px; width: 25px; display: flex; justify-content: center; align-items: center;">
+                                        <i class="fas fa-history" style="font-size: 12px;"></i> <!-- Ukuran ikon lebih kecil lagi -->
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -93,6 +98,16 @@
     </div>
 
     <script>
+        // Fungsi untuk menampilkan/menghilangkan Riwayat Pengiriman
+        function toggleHistory(id) {
+            var historyDiv = document.getElementById('history-' + id);
+            if (historyDiv.style.display === "none" || historyDiv.style.display === "") {
+                historyDiv.style.display = "block";
+            } else {
+                historyDiv.style.display = "none";
+            }
+        }
+
         @if (session('success'))
             Swal.fire({
                 title: 'Berhasil!',

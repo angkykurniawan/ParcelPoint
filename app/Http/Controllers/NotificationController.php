@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\NotifMail;
 use App\Models\SuratPaket;
+use App\Models\EmailHistory;
 use Illuminate\Http\Request;
+use App\Models\WhatsappHistory;
 use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
@@ -73,6 +75,14 @@ class NotificationController extends Controller
 
         curl_close($curl);
 
+        // Simpan riwayat pengiriman WhatsApp ke dalam database
+        WhatsappHistory::create([
+            'surat_paket_id' => $suratPaket->id,
+            'recipient_phone' => $noHp,
+            'message' => $message,
+            'status' => 'Sent', // Anda bisa menambahkan status pengiriman
+        ]);
+
         // Menampilkan nomor WhatsApp yang dikirimkan
         return redirect()->back()->with('success', 'Notifikasi berhasil dikirim ke WhatsApp: ' . $noHp);
     }
@@ -110,6 +120,15 @@ class NotificationController extends Controller
         // Kirim email
         try {
             Mail::to($email)->send(new NotifMail($details));
+
+            // Simpan riwayat email ke dalam database
+            EmailHistory::create([
+                'surat_paket_id' => $suratPaket->id,
+                'recipient_email' => $email,
+                'subject' => $details['title'],
+                'body' => $details['body'],
+            ]);
+
             return redirect()->back()->with('success', 'Email notifikasi berhasil dikirim ke: ' . $email);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal mengirim email notifikasi: ' . $e->getMessage());

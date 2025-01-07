@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSuratPaketRequest;
 use App\Http\Requests\UpdateSuratPaketRequest;
+use App\Models\EmailHistory;
+use App\Models\WhatsappHistory;
 use Carbon\Carbon;
 
 class SuratPaketController extends Controller
@@ -25,10 +27,10 @@ class SuratPaketController extends Controller
         // Retrieve input values
         $search = $request->input('search');
         $perPage = $request->input('per_page', 2);
-        $selectedDate = $request->input('date'); // Menangkap input tanggal yang dipilih
-        $selectedMonth = $request->input('month'); // Menangkap input bulan yang dipilih
-        $selectedYear = $request->input('year'); // Menangkap input tahun yang dipilih
-        $selectedJenis = $request->input('jenis'); // Menangkap input jenis yang dipilih
+        $selectedDate = $request->input('date');
+        $selectedMonth = $request->input('month');
+        $selectedYear = $request->input('year');
+        $selectedJenis = $request->input('jenis');
 
         $suratPaket = SuratPaket::with('Pemilik')
             ->when($search, function ($query, $search) {
@@ -38,32 +40,18 @@ class SuratPaketController extends Controller
                     });
             })
             ->when($selectedDate, function ($query, $selectedDate) {
-                return $query->whereDate('created_at', $selectedDate); // Filter berdasarkan tanggal spesifik
+                return $query->whereDate('created_at', $selectedDate);
             })
             ->when($selectedMonth, function ($query, $selectedMonth) {
-                return $query->whereMonth('created_at', $selectedMonth); // Filter berdasarkan bulan
+                return $query->whereMonth('created_at', $selectedMonth);
             })
             ->when($selectedYear, function ($query, $selectedYear) {
-                return $query->whereYear('created_at', $selectedYear); // Filter berdasarkan tahun
+                return $query->whereYear('created_at', $selectedYear);
             })
-            ->when($selectedJenis, function ($query, $selectedJenis) {
-                return $query->where('Jenis', $selectedJenis); // Filter berdasarkan jenis
-            })
-            ->latest()
+            ->orderByDesc('created_at')
             ->paginate($perPage);
 
-        // Format tanggal untuk tampilkan dalam view
-        foreach ($suratPaket as $item) {
-            if ($item->WaktuJemput) {
-                $item->WaktuJemput = Carbon::parse($item->WaktuJemput)->format('d-m-Y');
-            }
-        }
-
-        $Pemilik = Pemilik::latest()->paginate(10);
-        $Kurir = Kurir::latest()->paginate(10);
-        $Ruang = Ruang::latest()->paginate(10);
-
-        return view('suratpaket.index', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang', 'search', 'selectedDate', 'selectedMonth', 'selectedYear', 'selectedJenis'));
+        return view('SuratPaket.index', compact('suratPaket', 'search', 'selectedDate', 'selectedMonth', 'selectedYear'));
     }
 
 
@@ -217,5 +205,16 @@ class SuratPaketController extends Controller
             ->get();
 
         return view('searchResults', compact('suratPaket'));
+    }
+
+    public function history($id)
+    {
+        $suratPaket = SuratPaket::findOrFail($id);
+
+        // Ambil 15 riwayat WhatsApp dan Email
+        $whatsappHistory = WhatsappHistory::take(15)->get();  // Mengambil 15 data teratas dari WhatsAppHistory
+        $emailHistory = EmailHistory::take(15)->get();        // Mengambil 15 data teratas dari EmailHistory
+
+        return view('suratPaket.history', compact('whatsappHistory', 'emailHistory', 'suratPaket'));
     }
 }
