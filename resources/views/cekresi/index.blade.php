@@ -168,7 +168,7 @@
       </div>
     </nav>
 
-    <div class="hero-content"><br><br><br><br><br>
+    <div class="hero-content">
       <h1 style="color: #3475FE; font-weight: bolder;">Hasil Pencarian Resi</h1>
       <hr> <!-- Blue line under the title -->
       @if(session('error'))

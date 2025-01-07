@@ -164,7 +164,7 @@
         <hr>
 
         @if($suratPaket->isEmpty())
-            <div class="alert">No results found.</div>
+            <div class="alert">Data Pemilik Tidak Ditemukan</div>
         @else
             @foreach($suratPaket as $item)
                 <div class="resi-card">

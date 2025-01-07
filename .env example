@@ -1,6 +1,6 @@
-APP_NAME="Parcel Point"
+APP_NAME="Parcel Point Politeknik Caltex Riau"
 APP_ENV=local
-APP_KEY=base64:J19HdQmXYDWpH4VmWM4dQAYPi8EzZVhby5gx0aEhWxM=
+APP_KEY=base64:CimxyZJysQf2qs5QZVsqJ7RDiiKd3zBBd5doKt6M/Vg=
 APP_DEBUG=true
 APP_TIMEZONE=UTC
 APP_URL=http://localhost
