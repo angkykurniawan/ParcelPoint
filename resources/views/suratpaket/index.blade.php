@@ -17,8 +17,6 @@
                     <button type="submit" class="btn btn-primary btn-sm ml-1">Filter</button>
                 </form>
 
-
-
                 <form action="{{ url('/suratPaket') }}" method="GET" class="d-flex">
                     <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control w-100" placeholder="Cari berdasarkan nomor resi atau nama pemilik..." />
                     <button type="submit" class="btn btn-primary btn-sm ml-0">Cari</button>
@@ -71,19 +69,15 @@
                             </td>
                             <td>{{ $item->WaktuJemput }}</td>
                             <td>
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <div style="display: flex; gap: 10px;">
-                                        <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm ti-info"></a>
-                                        <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline" id="delete-form-{{ $item->id }}" onsubmit="return confirmDelete({{ $item->id }})">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm ti-trash"></button>
-                                        </form>
-                                    </div>
-                                    <div style="display: flex; gap: 10px;">
-                                        <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm fab fa-whatsapp"></a>
-                                        <a href="{{ route('notification.sendEmail', $item->id) }}" class="btn btn-info btn-sm ti-email"></a>
-                                    </div>
+                                <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                                    <a href="/suratPaket/{{ $item->id }}" class="btn btn-primary btn-sm ti-info"></a>
+                                    <form action="/suratPaket/{{ $item->id }}" method="POST" class="d-inline" id="delete-form-{{ $item->id }}" onsubmit="return confirmDelete({{ $item->id }})">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm ti-trash"></button>
+                                    </form>
+                                    <a href="{{ route('notification.send', $item->id) }}" class="btn btn-success btn-sm fab fa-whatsapp"></a>
+                                    <a href="{{ route('notification.sendEmail', $item->id) }}" class="btn btn-info btn-sm ti-email"></a>
                                 </div>
                             </td>
                         </tr>
