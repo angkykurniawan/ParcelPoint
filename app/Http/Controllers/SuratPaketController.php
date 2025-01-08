@@ -26,7 +26,7 @@ class SuratPaketController extends Controller
     {
         // Retrieve input values
         $search = $request->input('search');
-        $perPage = $request->input('per_page', 2);
+        $perPage = $request->input('per_page', 4);
         $selectedDate = $request->input('date');
         $selectedMonth = $request->input('month');
         $selectedYear = $request->input('year');
@@ -48,12 +48,14 @@ class SuratPaketController extends Controller
             ->when($selectedYear, function ($query, $selectedYear) {
                 return $query->whereYear('created_at', $selectedYear);
             })
+            ->when($selectedJenis, function ($query, $selectedJenis) {
+                return $query->where('Jenis', $selectedJenis);
+            })
             ->orderByDesc('created_at')
             ->paginate($perPage);
 
-        return view('SuratPaket.index', compact('suratPaket', 'search', 'selectedDate', 'selectedMonth', 'selectedYear'));
+        return view('SuratPaket.index', compact('suratPaket', 'search', 'selectedDate', 'selectedMonth', 'selectedYear', 'selectedJenis'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -211,9 +213,9 @@ class SuratPaketController extends Controller
     {
         $suratPaket = SuratPaket::findOrFail($id);
 
-        // Ambil 15 riwayat WhatsApp dan Email
-        $whatsappHistory = WhatsappHistory::take(15)->get();  // Mengambil 15 data teratas dari WhatsAppHistory
-        $emailHistory = EmailHistory::take(15)->get();        // Mengambil 15 data teratas dari EmailHistory
+        // Ambil 15 riwayat WhatsApp dan Email, urutkan berdasarkan created_at secara menurun (terbaru di atas)
+        $whatsappHistory = WhatsappHistory::orderBy('created_at', 'desc')->take(15)->get();  // Mengambil 15 data teratas dari WhatsappHistory
+        $emailHistory = EmailHistory::orderBy('created_at', 'desc')->take(15)->get();        // Mengambil 15 data teratas dari EmailHistory
 
         return view('suratPaket.history', compact('whatsappHistory', 'emailHistory', 'suratPaket'));
     }

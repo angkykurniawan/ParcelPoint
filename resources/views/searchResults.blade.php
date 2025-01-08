@@ -160,7 +160,7 @@
     </nav>
 
     <div class="hero-content" style="margin-top: 200px;">
-        <h1>Hasil Pencarian Surat & Paket Pemilik</h1>
+        <h1>Hasil Pencarian Surat & Paket {{ $item->Pemilik->Nama ?? 'Nama Pemilik Tidak Ditemukan' }} </h1>
         <hr>
 
         @if($suratPaket->isEmpty())
@@ -171,7 +171,6 @@
                     <div class="resi-info">
                         <p><strong>Jenis:</strong> <span>{{ $item->Jenis }}</span></p>
                         <p><strong>Resi:</strong> <span>{{ $item->Resi }}</span></p>
-                        <p><strong>Pemilik:</strong> <span>{{ $item->Pemilik->Nama ?? 'Nama Pemilik Tidak Ditemukan' }}</span></p>
                         <p><strong>Waktu Antar:</strong> <span>{{ $item->created_at }}</span></p>
                         <p><strong>Status:</strong> <span>{{ $item->status_daftar }}</span></p>
                         <p><strong>Waktu Jemput:</strong> <span>
