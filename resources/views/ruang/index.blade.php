@@ -6,17 +6,28 @@
         <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
             <div class="card-body p-4">
 
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
-                    <h3 class="text-primary m-0" style="font-weight: 800;"><i class="ti ti-folder me-2"></i>Data Ruang</h3>
+                <div class="text-center mb-5 mt-2">
+                    <h3 class="text-primary mb-4" style="font-weight: 800; font-size: 1.6rem; letter-spacing: 0.5px;">
+                        <i class="ti ti-folder me-2"></i>Data Ruang
+                    </h3>
 
-                    <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto align-items-center">
-                        <form action="/ruang" method="GET" class="d-flex w-100 w-sm-auto">
-                            <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control me-2" placeholder="Cari Nama atau Lokasi..." style="border: 2px solid #cbdfff; border-radius: 12px; padding: 8px 16px;">
-                            <button type="submit" class="btn btn-primary" style="border-radius: 12px; background-color: #3475FE; border: none; padding: 8px 16px; font-weight: 600;">Cari</button>
-                        </form>
-                        <a href="/ruang/create" class="btn btn-primary w-100 w-sm-auto shadow-sm text-nowrap" style="border-radius: 12px; background-color: #3475FE; border: none; padding: 10px 16px; font-weight: 600;">
-                            <i class="ti ti-plus me-1"></i> Tambah Ruang
-                        </a>
+                    <div style="max-width: 650px; margin: 0 auto;" class="px-3">
+                        <div class="row g-2 align-items-center justify-content-center">
+
+                            <div class="col-md-8 col-12">
+                                <form action="/ruang" method="GET" class="d-flex w-100 m-0">
+                                    <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control" placeholder="Cari Nama atau Lokasi..." style="border: 2px solid #cbdfff; border-radius: 12px 0 0 12px; padding: 10px 16px; border-right: none;">
+                                    <button type="submit" class="btn btn-primary" style="border-radius: 0 12px 12px 0; background-color: #3475FE; border: 2px solid #3475FE; padding: 10px 20px; font-weight: 600;">Cari</button>
+                                </form>
+                            </div>
+
+                            <div class="col-md-4 col-12">
+                                <a href="/ruang/create" class="btn btn-primary w-100 shadow-sm text-nowrap d-flex align-items-center justify-content-center" style="border-radius: 12px; background-color: #3475FE; border: none; padding: 12px 16px; font-weight: 600; height: 45px;">
+                                    <i class="ti ti-plus me-1" style="font-size: 14px;"></i> Tambah Ruang
+                                </a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -101,6 +112,7 @@
         });
     @endif
 
+    font-family: 'Poppins', sans-serif;
     function confirmDelete(id) {
         Swal.fire({
             title: 'Yakin ingin menghapus data?',
@@ -119,5 +131,3 @@
     }
 </script>
 @endsection
-
-```

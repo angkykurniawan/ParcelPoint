@@ -6,13 +6,16 @@
         <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
             <div class="card-body p-4">
 
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
-                    <h3 class="text-primary m-0" style="font-weight: 800;">
+                <div class="text-center mb-5 mt-2">
+                    <h3 class="text-primary mb-4" style="font-weight: 800; font-size: 1.6rem; letter-spacing: 0.5px;">
                         <i class="ti ti-package me-2"></i>Laporan Data Surat & Paket {{ $models->first()->Pemilik->Nama ?? '' }}
                     </h3>
-                    <button class="btn btn-outline-secondary btn-sm" onclick="window.history.back()" style="border-radius: 12px; padding: 8px 16px; font-weight: 600; border: 2px solid #cbdfff; color: #475569;">
-                        Kembali
-                    </button>
+
+                    <div style="max-width: 200px; margin: 0 auto;" class="px-3">
+                        <button class="btn btn-outline-secondary w-100 shadow-sm" onclick="window.history.back()" style="border-radius: 12px; padding: 10px 16px; font-weight: 600; border: 2px solid #cbdfff; color: #475569; height: 45px;">
+                            <i class="ti ti-arrow-left me-1"></i> Kembali
+                        </button>
+                    </div>
                 </div>
 
                 <div class="table-responsive" style="border-radius: 12px; border: 1px solid #edf2f7;">
@@ -77,5 +80,3 @@
     </div>
 </div>
 @endsection
-
-```

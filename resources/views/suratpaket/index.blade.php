@@ -6,39 +6,42 @@
         <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
             <div class="card-body p-4">
 
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="text-primary m-0" style="font-weight: 800;">
+                <div class="text-center mb-4 mt-2">
+                    <h3 class="text-primary m-0" style="font-weight: 800; font-size: 1.6rem; letter-spacing: 0.5px;">
                         <i class="ti ti-package me-2"></i>Data Surat & Paket
                     </h3>
                 </div>
 
-                <div class="bg-light p-3 mb-4 rounded-3 border d-flex flex-column flex-xl-row justify-content-between align-items-stretch align-items-xl-center gap-3">
+                <div style="max-width: 950px; margin: 0 auto 24px auto;" class="px-2">
+                    <div class="p-0 d-flex flex-column flex-xl-row justify-content-between align-items-stretch align-items-xl-center gap-2">
 
-                    <div class="d-flex flex-column flex-md-row gap-2 flex-grow-1">
-                        <form action="{{ url('/suratPaket') }}" method="GET" class="d-flex flex-grow-1 flex-md-grow-0">
-                            <input type="hidden" name="search" value="{{ request()->get('search') }}">
-                            <input type="date" name="date" value="{{ request()->get('date') }}" class="form-control me-2" style="border: 2px solid #cbdfff; border-radius: 12px; max-width: 180px;" />
-                            <button type="submit" class="btn btn-primary" style="border-radius: 12px; background-color: #3475FE; border: none; font-weight: 600; padding: 0 16px;">
-                                Filter
-                            </button>
-                        </form>
+                        <div class="d-flex flex-column flex-md-row gap-2 flex-grow-1">
+                            <form action="{{ url('/suratPaket') }}" method="GET" class="d-flex flex-grow-1 flex-md-grow-0 m-0">
+                                <input type="hidden" name="search" value="{{ request()->get('search') }}">
+                                <input type="date" name="date" value="{{ request()->get('date') }}" class="form-control me-1" style="border: 2px solid #cbdfff; border-radius: 12px; max-width: 170px; height: 42px;" />
+                                <button type="submit" class="btn btn-primary" style="border-radius: 12px; background-color: #3475FE; border: none; font-weight: 600; padding: 0 16px; height: 42px;">
+                                    Filter
+                                </button>
+                            </form>
 
-                        <form action="{{ url('/suratPaket') }}" method="GET" class="d-flex flex-grow-1">
-                            <input type="hidden" name="date" value="{{ request()->get('date') }}">
-                            <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control me-2" placeholder="Cari nomor resi atau nama pemilik..." style="border: 2px solid #cbdfff; border-radius: 12px; padding: 8px 16px;">
-                            <button type="submit" class="btn btn-primary" style="border-radius: 12px; background-color: #3475FE; border: none; font-weight: 600; padding: 0 16px;">
-                                Cari
-                            </button>
-                        </form>
-                    </div>
+                            <form action="{{ url('/suratPaket') }}" method="GET" class="d-flex flex-grow-1 m-0">
+                                <input type="hidden" name="date" value="{{ request()->get('date') }}">
+                                <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control" placeholder="Cari nomor resi atau nama pemilik..." style="border: 2px solid #cbdfff; border-radius: 12px 0 0 12px; padding: 8px 16px; border-right: none; height: 42px;">
+                                <button type="submit" class="btn btn-primary" style="border-radius: 0 12px 12px 0; background-color: #3475FE; border: 2px solid #3475FE; font-weight: 600; padding: 0 16px; height: 42px;">
+                                    Cari
+                                </button>
+                            </form>
+                        </div>
 
-                    <div class="d-flex flex-column flex-sm-row gap-2 text-nowrap">
-                        <a href="/suratPaket/create" class="btn btn-primary shadow-sm" style="border-radius: 12px; background-color: #3475FE; border: none; padding: 10px 16px; font-weight: 600;">
-                            <i class="ti ti-plus me-1"></i> Tambah Data
-                        </a>
-                        <a href="/laporansurpa" class="btn btn-outline-primary" style="border-radius: 12px; border: 2px solid #cbdfff; font-weight: 600; padding: 10px 16px; color: #3475FE; background-color: white;">
-                            <i class="ti ti-printer me-1"></i> Buat Laporan
-                        </a>
+                        <div class="d-flex flex-column flex-sm-row gap-2 text-nowrap mt-2 mt-xl-0">
+                            <a href="/suratPaket/create" class="btn btn-primary shadow-sm" style="border-radius: 12px; background-color: #3475FE; border: none; padding: 0 16px; font-weight: 600; height: 42px; display: inline-flex; align-items: center; justify-content: center;">
+                                <i class="ti ti-plus me-1"></i> Tambah Data
+                            </a>
+                            <a href="/laporansurpa/create" class="btn btn-outline-primary shadow-sm" style="border-radius: 12px; border: 2px solid #cbdfff; font-weight: 600; padding: 0 16px; color: #3475FE; background-color: white; height: 42px; display: inline-flex; align-items: center; justify-content: center;">
+                                <i class="ti ti-printer me-1"></i> Buat Laporan
+                            </a>
+                        </div>
+
                     </div>
                 </div>
 
@@ -117,7 +120,7 @@
                                     <td colspan="11" class="text-center py-5 text-muted fw-medium">
                                         <i class="ti ti-alert-circle fs-3 d-block mb-2"></i> Tidak ada data surat atau paket yang ditemukan.
                                     </td>
-                                endtr>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
