@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kurir;
+use App\Models\kurir;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreKurirRequest;
 use App\Http\Requests\UpdateKurirRequest;
@@ -21,7 +21,7 @@ class KurirController extends Controller
         $perPage = $request->get('per_page', 5); // Default 10 per halaman
 
         // Jika ada pencarian, filter berdasarkan ekspedisi
-        $kurir = Kurir::when($search, function ($query, $search) {
+        $kurir = kurir::when($search, function ($query, $search) {
             return $query->where('Ekspedisi', 'like', "%{$search}%");
         })
         ->latest()

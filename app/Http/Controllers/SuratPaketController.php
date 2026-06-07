@@ -54,7 +54,7 @@ class SuratPaketController extends Controller
             ->orderByDesc('created_at')
             ->paginate($perPage);
 
-        return view('suratPaket.index', compact('suratPaket', 'search', 'selectedDate', 'selectedMonth', 'selectedYear', 'selectedJenis'));
+        return view('suratpaket.index', compact('suratPaket', 'search', 'selectedDate', 'selectedMonth', 'selectedYear', 'selectedJenis'));
     }
 
     /**
@@ -114,7 +114,7 @@ class SuratPaketController extends Controller
             $suratPaket->WaktuJemput = Carbon::parse($suratPaket->WaktuJemput)->format('d-m-Y'); // Format to d-m-Y
         }
 
-        return view('suratPaket.show', ['suratPaket' => $suratPaket]);
+        return view('suratpaket.show', ['suratPaket' => $suratPaket]);
     }
 
     /**
@@ -126,7 +126,7 @@ class SuratPaketController extends Controller
         $Pemilik = Pemilik::all();
         $Kurir = Kurir::all();
         $Ruang = Ruang::all();
-        return view('suratPaket.edit', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang'));
+        return view('suratpaket.edit', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang'));
     }
 
     /**
@@ -217,6 +217,6 @@ class SuratPaketController extends Controller
         $whatsappHistory = WhatsappHistory::orderBy('created_at', 'desc')->take(15)->get();  // Mengambil 15 data teratas dari WhatsappHistory
         $emailHistory = EmailHistory::orderBy('created_at', 'desc')->take(15)->get();        // Mengambil 15 data teratas dari EmailHistory
 
-        return view('suratPaket.history', compact('whatsappHistory', 'emailHistory', 'suratPaket'));
+        return view('suratP=paket.history', compact('whatsappHistory', 'emailHistory', 'suratPaket'));
     }
 }

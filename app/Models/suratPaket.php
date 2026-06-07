@@ -17,7 +17,7 @@ class suratPaket extends Model
     public function pemilik(): BelongsTo
     {
         return $this->belongsTo(Pemilik::class, 'pemilik_id')->withDefault([
-            'Nama' => 'Tidak Diketahui', // Nilai default jika pemilik tidak ditemukan
+            'Nama' => 'Tidak Diketahui', 
         ]);
     }
 
@@ -25,15 +25,15 @@ class suratPaket extends Model
     public function kurir(): BelongsTo
     {
         return $this->belongsTo(kurir::class, 'kurir_id')->withDefault([
-            'Ekspedisi' => 'Tidak Diketahui', // Nilai default jika pemilik tidak ditemukan
+            'Ekspedisi' => 'Tidak Diketahui',
         ]);
     }
 
     //Relasi ke Ruangs
     public function ruang(): BelongsTo
     {
-        return $this->belongsTo(ruang::class, 'ruang_id')->withDefault([
-            'Nama' => 'Pos Security', // Nilai default jika pemilik tidak ditemukan
+        return $this->belongsTo(Ruang::class, 'ruang_id')->withDefault([
+            'Nama' => 'Pos Security',
         ]);
     }
 }
