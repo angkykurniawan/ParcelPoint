@@ -1,4 +1,4 @@
-APP_NAME="Parcel Point Politeknik Caltex Riau"
+APP_NAME="Parcel Point"
 APP_ENV=local
 APP_KEY=base64:CimxyZJysQf2qs5QZVsqJ7RDiiKd3zBBd5doKt6M/Vg=
 APP_DEBUG=true
