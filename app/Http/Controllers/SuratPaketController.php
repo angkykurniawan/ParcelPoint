@@ -65,7 +65,7 @@ class SuratPaketController extends Controller
         $Pemilik = Pemilik::latest()->paginate(10);
         $Kurir = kurir::latest()->paginate(10);
         $Ruang = Ruang::latest()->paginate(10);
-        return view('suratPaket.create', compact('Pemilik', 'Kurir', 'Ruang'));
+        return view('suratpaket.create', compact('Pemilik', 'Kurir', 'Ruang'));
     }
 
     /**

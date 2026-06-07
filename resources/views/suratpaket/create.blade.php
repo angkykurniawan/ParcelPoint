@@ -7,7 +7,7 @@
             <div class="card-body p-4">
 
                 <div class="text-center p-3 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
-                    <h5 class="m-0" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">
+                    <h5 class="m-0" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px; color: #ffffff !important;">
                         <i class="ti ti-package me-2"></i>Tambah Data Surat & Paket
                     </h5>
                 </div>
@@ -168,6 +168,5 @@
             placeholder: "Pilih Nama Ruang",
             allowClear: true
         });
-    });
-</script>
+    </script>
 @endsection

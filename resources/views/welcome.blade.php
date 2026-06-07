@@ -235,7 +235,7 @@
     </div>
   </main>
 
-  <a href="https://wa.me/6281234567890?text=Halo%20Admin%20ParcelPoint%20PCR..."
+  <a href="https://wa.me/6282277508334?text=Halo%20Admin%20ParcelPoint%20PCR..."
      target="_blank"
      class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 group"
      title="Hubungi Admin WhatsApp">
