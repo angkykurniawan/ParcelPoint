@@ -120,7 +120,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span class="font-bold text-sm tracking-wide uppercase">Hasil Pencarian Paket</span>
+                  <span class="font-bold text-sm tracking-wide uppercase">Hasil Pencarian Paket Terbaru</span>
                 </div>
                 <span class="text-xs bg-white/20 px-3 py-1 rounded-full font-medium backdrop-blur-sm">
                   {{ date('d M Y') }}
@@ -131,15 +131,15 @@
                 <div class="space-y-4">
                   <div>
                     <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Nomor Resi</label>
-                    <p class="text-base font-bold text-blue-600 mt-0.5">{{ $paket->resi ?? $paket->no_resi ?? '-' }}</p>
+                    <p class="text-base font-bold text-blue-600 mt-0.5">{{ $paket->Resi ?? '-' }}</p>
                   </div>
                   <div>
                     <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Nama Pemilik / Penerima</label>
-                    <p class="text-base font-bold text-slate-800 mt-0.5">{{ $paket->owner ?? $paket->nama_pemilik ?? '-' }}</p>
+                    <p class="text-base font-bold text-slate-800 mt-0.5">{{ $paket->Pemilik->Nama ?? '-' }}</p>
                   </div>
                   <div>
-                    <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Keterangan Barang</label>
-                    <p class="text-sm text-slate-600 mt-0.5">{{ $paket->keterangan ?? $paket->deskripsi ?? 'Tidak ada keterangan tambahan' }}</p>
+                    <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Jenis Barang</label>
+                    <p class="text-sm font-semibold text-slate-700 mt-0.5">{{ $paket->Jenis ?? '-' }}</p>
                   </div>
                 </div>
 
@@ -147,22 +147,20 @@
                   <div>
                     <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Status Paket Saat Ini</label>
                     @php
-                      $status = strtolower($paket->status ?? 'belum diambil');
+                      $status = strtolower($paket->status_daftar ?? 'diterimasecurity');
                       $badgeClass = 'bg-blue-50 text-blue-700 border-blue-200';
-                      if($status == 'diambil' || $status == 'success' || $status == 'selesai') {
+                      if($status == 'sudahdiambil' || $status == 'selesai') {
                           $badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
-                      } elseif($status == 'pending' || $status == 'menunggu') {
-                          $badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
                       }
                     @endphp
                     <span class="inline-flex items-center px-3 py-1 mt-1.5 rounded-full text-xs font-bold uppercase border {{ $badgeClass }}">
-                      ● {{ $paket->status ?? 'Belum Diambil' }}
+                      ● {{ $paket->status_daftar ?? 'DiterimaSecurity' }}
                     </span>
                   </div>
                   <div>
                     <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Posisi / Lokasi Penyimpanan</label>
                     <p class="text-sm font-semibold text-slate-700 mt-0.5">
-                      📍 {{ $paket->lokasi ?? $paket->rak ?? 'Loket Utama PCR' }}
+                      📍 {{ $paket->Ruang->Nama ?? 'Loket Utama PCR' }}
                     </p>
                   </div>
                   <div class="pt-2 text-xs text-slate-400 italic">

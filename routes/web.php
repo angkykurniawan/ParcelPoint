@@ -13,6 +13,7 @@ use App\Http\Controllers\SuratPaketController;
 use App\Http\Controllers\laporansurpaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\SecurityUserController;
+use App\Http\Controllers\PencarianPublikController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +34,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notification/send/{id}', [NotificationController::class, 'sendNotification'])->name('notification.send');
     Route::get('/notification/sendEmail/{id}', [NotificationController::class, 'sendEmailNotification'])->name('notification.sendEmail');
 
-    // Rute Lupa Password bawaan yang ada di dalam middleware auth
     Route::get('forgot-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('forgot-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('reset-password/{token}', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'showResetForm'])->name('password.reset');
@@ -49,7 +49,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('/security/{id}', [SecurityUserController::class, 'destroy'])->name('security.destroy');
 });
 
-// Fitur CekResi Publik
-Route::get('/cekresi', [ResiController::class, 'searchResi'])->name('search.resi');
+Route::get('/', [PencarianPublikController::class, 'index']);
 
 require __DIR__.'/auth.php';
