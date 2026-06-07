@@ -1,4 +1,4 @@
-@extends('dashboardLayout', ['title' => 'Manajemen Akun Security'])
+@extends('Crovex.baseFile', ['title' => 'Manajemen Akun Security'])
 
 @section('content')
 <div class="row">

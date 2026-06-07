@@ -138,6 +138,15 @@
             .page-wrapper {
                 margin-left: 0;
             }
+
+            /* Penyelamat Layout Mobile agar teks tidak tabrakan */
+            .nav-user-name {
+                font-size: 12px !important;
+                max-width: 130px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     </style>
 </head>
@@ -152,17 +161,25 @@
         </div>
 
         <nav class="navbar-custom d-flex justify-content-between align-items-center h-100">
-            <button class="btn d-lg-none text-dark p-0 fs-4" id="toggleMobileMenu">
-                <i class="ti-menu"></i>
-            </button>
 
-            <ul class="list-unstyled topbar-nav ms-auto mb-0 d-flex align-items-center">
+            <div class="d-flex align-items-center">
+                <button class="btn d-lg-none text-dark p-0 fs-4" id="toggleMobileMenu">
+                    <i class="ti-menu"></i>
+                </button>
+            </div>
+
+            <div class="flex-grow-1"></div>
+
+            <ul class="list-unstyled topbar-nav mb-0 d-flex align-items-center justify-content-end">
                 <li class="nav-link waves-effect waves-light nav-user d-flex align-items-center gap-2">
-                    <span class="nav-user-name text-dark fw-semibold">{{ Auth::user()->name }}</span>
+                    <span class="nav-user-name text-dark fw-semibold" style="font-size: 1rem; font-family: 'Poppins', sans-serif;">
+                        {{ Auth::user()->name }}
+                    </span>
                     <img src="{{ url('Crovex/HTML/assets/images/ParcelPointLogoOnly.png') }}" alt="profile-user"
                         class="rounded-circle" style="width: 32px; height: 32px;" />
                 </li>
             </ul>
+
         </nav>
     </div>
 
