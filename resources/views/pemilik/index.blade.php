@@ -1,5 +1,4 @@
-```html
-@extends('dashboardLayout', ['title' => 'Data Pemilik Surat Paket'])
+@extends('Crovex.baseFile', ['title' => 'Data Pemilik Surat Paket'])
 
 @section('content')
 <div class="row">
@@ -22,7 +21,6 @@
                     </div>
                 </div>
 
-                <!-- Responsive Table Content -->
                 <div class="table-responsive" style="border-radius: 12px; border: 1px solid #edf2f7;">
                     <table class="table table-striped align-middle m-0">
                         <thead style="background-color: #f8faff;">
@@ -101,7 +99,6 @@
                     </table>
                 </div>
 
-                <!-- Custom Pagination System -->
                 <div class="d-flex justify-content-center mt-4">
                     {{ $pemilik->appends(['search' => request()->get('search')])->links('pagination::bootstrap-4') }}
                 </div>

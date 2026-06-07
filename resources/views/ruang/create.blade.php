@@ -1,4 +1,4 @@
-@extends('dashboardLayout', ['title' => 'Tambah Data Ruang Surat Paket'])
+@extends('Crovex.baseFile', ['title' => 'Tambah Data Ruang Surat Paket'])
 
 @section('content')
 <div class="row">
@@ -15,7 +15,6 @@
                 <form action="/ruang" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <!-- Nama Input -->
                     <div class="mb-3 text-start">
                         <label for="Nama" class="form-label text-primary fw-bold small">Nama Ruang <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('Nama') is-invalid @enderror" id="Nama" name="Nama" value="{{ old('Nama') }}" placeholder="Contoh: Sarana Prasarana" required style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
@@ -24,7 +23,6 @@
                         @enderror
                     </div>
 
-                    <!-- Lantai Input -->
                     <div class="mb-3 text-start">
                         <label for="Lantai" class="form-label text-primary fw-bold small">Lantai</label>
                         <input type="text" class="form-control @error('Lantai') is-invalid @enderror" id="Lantai" name="Lantai" value="{{ old('Lantai') }}" placeholder="Contoh: 3" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
@@ -33,7 +31,6 @@
                         @enderror
                     </div>
 
-                    <!-- Lokasi Input -->
                     <div class="mb-3 text-start">
                         <label for="Lokasi" class="form-label text-primary fw-bold small">Lokasi Gedung</label>
                         <input type="text" class="form-control @error('Lokasi') is-invalid @enderror" id="Lokasi" name="Lokasi" value="{{ old('Lokasi') }}" placeholder="Contoh: Gedung Utama" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
@@ -42,7 +39,6 @@
                         @enderror
                     </div>
 
-                    <!-- PIC Input -->
                     <div class="mb-4 text-start">
                         <label for="PIC" class="form-label text-primary fw-bold small">Penanggung Jawab (PIC)</label>
                         <input type="text" class="form-control @error('PIC') is-invalid @enderror" id="PIC" name="PIC" value="{{ old('PIC') }}" placeholder="Contoh: Nama PIC" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
@@ -51,7 +47,6 @@
                         @enderror
                     </div>
 
-                    <!-- Action Buttons -->
                     <div class="row g-2">
                         <div class="col-6">
                             <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()" style="border-radius: 12px; padding: 12px; font-weight: bold; border: 2px solid #cbdfff; color: #475569;">

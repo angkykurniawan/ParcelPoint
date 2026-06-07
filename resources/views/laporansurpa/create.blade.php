@@ -1,5 +1,4 @@
-```html
-@extends('dashboardLayout', ['title' => 'Laporan Serah Terima Surat Paket'])
+@extends('Crovex.baseFile', ['title' => 'Laporan Serah Terima Surat Paket'])
 
 @section('content')
 <div class="row">

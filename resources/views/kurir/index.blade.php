@@ -1,5 +1,4 @@
-```html
-@extends('dashboardLayout', ['title' => 'Data Kurir Surat Paket'])
+@extends('Crovex.baseFile', ['title' => 'Data Kurir Surat Paket'])
 
 @section('content')
 <div class="row">
@@ -106,4 +105,3 @@
 </script>
 @endsection
 
-```
