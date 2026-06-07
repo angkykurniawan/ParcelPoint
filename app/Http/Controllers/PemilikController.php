@@ -19,7 +19,7 @@ class PemilikController extends Controller
         $search = $request->get('search');
 
         // Menambahkan pagination dan opsi per_page
-        $perPage = $request->get('per_page', 2); // Default 10 per halaman
+        $perPage = $request->get('per_page', 2); 
 
         // Jika ada pencarian, filter berdasarkan nama
         if ($search) {
