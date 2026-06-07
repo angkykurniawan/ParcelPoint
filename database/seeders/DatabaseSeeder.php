@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Admin ParcelPoint',
-            'email' => 'admin@pcr.ac.id',
+            'email' => 'kurniawan.angang2005@gmail.com',
             'password' => Hash::make('ABC#123'), // Ganti password ini
             'role' => 'admin',
         ]);

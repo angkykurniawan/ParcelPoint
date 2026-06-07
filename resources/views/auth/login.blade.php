@@ -172,9 +172,9 @@
                     <button type="submit" class="btn btn-primary shadow-sm mb-3">Masuk</button>
                 </form>
 
-                <div class="text-secondary text-center mt-3 small">
+                {{-- <div class="text-secondary text-center mt-3 small">
                     Belum Mempunyai Akun? <a href="{{ route('register') }}" class="fw-bold text-decoration-none">Daftar</a>
-                </div>
+                </div> --}}
                 <div class="text-secondary text-center mt-2 small">
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="text-decoration-none">Lupa Password?</a>

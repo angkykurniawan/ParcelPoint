@@ -62,7 +62,7 @@ class NotificationController extends Controller
                 'countryCode' => '62', // Kode negara Indonesia
             ),
             CURLOPT_HTTPHEADER => array(
-                'Authorization: CoXpGMHoZ7TAUS6hP3YH', // Ganti dengan token Fonnte Anda
+                'Authorization: ' . env('FONNTE_TOKEN'), // Ganti dengan token Fonnte Anda
             ),
         ));
 
