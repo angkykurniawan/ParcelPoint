@@ -1,6 +1,21 @@
 @extends('Crovex.baseFile', ['title' => 'Dashboard Surat Paket'])
 
 @section('content')
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center position-relative py-2">
+        <div style="width: 150px;" class="d-none d-md-block"></div>
+
+        <h2 style="font-weight: 800; margin: 0;" class="text-dark text-center flex-grow-1">
+            <i class="ti-dashboard me-2 text-primary"></i>Dashboard Utama
+        </h2>
+
+        <div class="text-end visual-user-profile" style="min-width: 150px;">
+            <span class="text-muted d-block" style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Selamat Datang,</span>
+            <span class="fw-bold text-primary" style="font-size: 15px;"><i class="ti-user me-1"></i>{{ Auth::user()->name }}</span>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-12">
         <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
