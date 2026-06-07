@@ -169,30 +169,41 @@
     <div class="left-sidenav d-flex flex-column justify-content-between">
         <ul class="metismenu left-sidenav-menu flex-grow-1">
             <li>
-                <a href="/dashboard" class="{{ Request::is('dashboard') ? 'active-item' : '' }}">
+                <a href="/dashboard" class="{{ Request::is('dashboard*') ? 'active-item' : '' }}">
                     <i class="ti-bar-chart"></i><span>Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="/pemilik" class="{{ Request::is('pemilik') ? 'active-item' : '' }}">
+                <a href="/pemilik" class="{{ Request::is('pemilik*') ? 'active-item' : '' }}">
                     <i class="ti-crown"></i><span>Pemilik</span>
                 </a>
             </li>
             <li>
-                <a href="/ruang" class="{{ Request::is('ruang') ? 'active-item' : '' }}">
+                <a href="/ruang" class="{{ Request::is('ruang*') ? 'active-item' : '' }}">
                     <i class="ti ti-folder"></i><span>Ruang</span>
                 </a>
             </li>
             <li>
-                <a href="/suratPaket" id="suratPaketLink" class="{{ Request::is('suratPaket') ? 'active-item' : '' }}">
+                <a href="/suratPaket" id="suratPaketLink" class="{{ Request::is('suratPaket*') ? 'active-item' : '' }}">
                     <i class="ti ti-package"></i><span>Surat & Paket</span>
                 </a>
             </li>
             <li>
-                <a href="/kurir" class="{{ Request::is('kurir') ? 'active-item' : '' }}">
+                <a href="/kurir" class="{{ Request::is('kurir*') ? 'active-item' : '' }}">
                     <i class="ti ti-map"></i><span>Kurir</span>
                 </a>
             </li>
+
+            @if (Auth::user()->role === 'admin')
+            <li class="menu-title mt-3 text-uppercase text-muted" style="font-size: 0.72rem; font-weight: 700; padding-left: 20px; list-style: none; letter-spacing: 0.5px;">
+                Menu Administrator
+            </li>
+            <li>
+                <a href="{{ route('admin.security.index') }}" class="{{ Request::is('admin/security*') ? 'active-item' : '' }}">
+                    <i class="ti ti-shield"></i><span>Kelola Security</span>
+                </a>
+            </li>
+            @endif
         </ul>
 
         <div class="logout-container mb-4">
