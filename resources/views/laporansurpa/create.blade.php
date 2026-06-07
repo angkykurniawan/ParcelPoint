@@ -1,37 +1,58 @@
-@extends('Crovex/baseFile', ['title' => 'Laporan Serah Terima Surat Paket'])
+```html
+@extends('dashboardLayout', ['title' => 'Laporan Serah Terima Surat Paket'])
 
 @section('content')
-<div class="card">
-    <div class="card-body">
-        <center>
-            <h5 class="card-title btn-primary" style="font-weight: bolder; font-size: 20px; height: 20%; border-radius: 5px;">
-                Laporan Serah Terima Surat & Paket
-            </h5>
-        </center>
-        <br>
-        <form action="/laporansurpa" method="GET" target="_blank">
-            <div class="form-group mt-1 mb-3">
-                <label for="tanggal_mulai" class="text-primary" style="font-weight: bolder;">Tanggal Awal</label>
-                <input type="date" name="tanggal_mulai" class="form-control" value="{{ old('tanggal_mulai') }}">
-            </div>
+<div class="row">
+    <div class="col-12 max-w-lg mx-auto">
+        <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
+            <div class="card-body p-4">
 
-            <div class="form-group mt-1 mb-3">
-                <label for="tanggal_akhir" class="text-primary" style="font-weight: bolder;">Tanggal Akhir</label>
-                <input type="date" name="tanggal_akhir" class="form-control" value="{{ old('tanggal_akhir') }}">
-            </div>
+                <div class="text-center p-3 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+                    <h5 class="m-0" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">
+                        <i class="ti ti-package me-2"></i>Laporan Serah Terima Surat & Paket
+                    </h5>
+                </div>
 
-            <div class="form-group mt-1 mb-3">
-                <label for="pemilik_id" class="text-primary" style="font-weight: bolder;">Pilih Pemilik</label>
-                <select name="pemilik_id" class="form-control">
-                    <option value="">-- Semua Data --</option>
-                    @foreach ($listPemilik as $key => $val)
-                        <option value="{{ $key }}" @selected(old('pemilik_id') == $key)>{{ $val }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <form action="/laporansurpa" method="GET" target="_blank">
 
-            <center><button type="submit" class="btn btn-primary">Cetak</button></center>
-        </form>
+                    <div class="mb-3 text-start">
+                        <label for="tanggal_mulai" class="form-label text-primary fw-bold small">Tanggal Awal</label>
+                        <input type="date" name="tanggal_mulai" class="form-control" value="{{ old('tanggal_mulai') }}" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
+                    </div>
+
+                    <div class="mb-3 text-start">
+                        <label for="tanggal_akhir" class="form-label text-primary fw-bold small">Tanggal Akhir</label>
+                        <input type="date" name="tanggal_akhir" class="form-control" value="{{ old('tanggal_akhir') }}" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
+                    </div>
+
+                    <div class="mb-4 text-start">
+                        <label for="pemilik_id" class="form-label text-primary fw-bold small">Pilih Pemilik</label>
+                        <select name="pemilik_id" class="form-control select2" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
+                            <option value="">-- Semua Data --</option>
+                            @foreach ($listPemilik as $key => $val)
+                                <option value="{{ $key }}" @selected(old('pemilik_id') == $key)>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()" style="border-radius: 12px; padding: 12px; font-weight: bold; border: 2px solid #cbdfff; color: #475569;">
+                                Kembali
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary w-100 shadow-sm" style="border-radius: 12px; padding: 12px; font-weight: bold; background-color: #3475FE; border: none;">
+                                <i class="ti ti-printer me-1"></i> Cetak
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
 </div>
 @endsection
+
+

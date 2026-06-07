@@ -1,59 +1,82 @@
-@extends('Crovex/baseFile', ['title' => 'Data Surat Paket'])
+```html
+@extends('dashboardLayout', ['title' => 'Data Surat Paket'])
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <h3 class="text-primary" style="font-weight: bolder; text-align: center;">Laporan Data Surat & Paket {{ $models->first()->Pemilik->Nama ?? 'Unknown'}}</h3> <!-- Check if Pemilik is available -->
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
+            <div class="card-body p-4">
 
-            <table class="table table-striped">
-                <thead>
-                    <tr style="text-align: center;">
-                        <th width="1%">No</th>
-                        <th>Foto Surat Paket</th>
-                        <th>Waktu Antar</th>
-                        <th>Kurir</th>
-                        <th>Resi</th>
-                        <th>Penjemput</th>
-                        <th>Foto Serah Terima</th>
-                        <th>Waktu Jemput</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($models as $item)
-                        <tr style="text-align: center;">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>
-                                @if ($item->Foto)
-                                    <a href="{{ \Storage::url($item->Foto) }}" target="_blank">
-                                        <img src="{{ \Storage::url($item->Foto) }}" width="150" height="100" />
-                                    </a>
-                                @else
-                                    <span>No Image</span> <!-- If no image is available -->
-                                @endif
-                            </td>
-                            <td>{{ $item->created_at }}</td>
-                            <td>{{ $item->Kurir->Ekspedisi ?? 'Unknown' }}</td> <!-- Safe fallback if Kurir is null -->
-                            <td>{{ $item->Resi }}</td>
-                            <td>{{ $item->Penjemput }}</td>
-                            <td>
-                                @if ($item->FotoST)
-                                    <a href="{{ \Storage::url($item->FotoST) }}" target="_blank">
-                                        <img src="{{ \Storage::url($item->FotoST) }}" width="150" height="100" />
-                                    </a>
-                                @else
-                                    <span>No Image</span> <!-- If no image is available -->
-                                @endif
-                            </td>
-                            <td>{{ $item->WaktuJemput }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
+                    <h3 class="text-primary m-0" style="font-weight: 800;">
+                        <i class="ti ti-package me-2"></i>Laporan Data Surat & Paket {{ $models->first()->Pemilik->Nama ?? '' }}
+                    </h3>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="window.history.back()" style="border-radius: 12px; padding: 8px 16px; font-weight: 600; border: 2px solid #cbdfff; color: #475569;">
+                        Kembali
+                    </button>
+                </div>
 
-            <!-- Pagination Links -->
-            <div class="d-flex justify-content-center">
-                {{ $models->appends(request()->query())->links('pagination::bootstrap-4') }} <!-- Menampilkan pagination dengan Bootstrap 4 -->
+                <div class="table-responsive" style="border-radius: 12px; border: 1px solid #edf2f7;">
+                    <table class="table table-striped align-middle m-0">
+                        <thead style="background-color: #f8faff;">
+                            <tr class="text-center" style="border-bottom: 2px solid #e1eeff;">
+                                <th width="1%" class="py-3 fw-bold text-secondary">No</th>
+                                <th class="py-3 fw-bold text-secondary">Foto Surat Paket</th>
+                                <th class="py-3 fw-bold text-secondary">Waktu Antar</th>
+                                <th class="py-3 fw-bold text-secondary">Kurir</th>
+                                <th class="py-3 fw-bold text-secondary">Resi</th>
+                                <th class="py-3 fw-bold text-secondary">Penjemput</th>
+                                <th class="py-3 fw-bold text-secondary">Foto Serah Terima</th>
+                                <th class="py-3 fw-bold text-secondary">Waktu Jemput</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($models as $item)
+                                <tr class="text-center" style="border-bottom: 1px solid #edf2f7;">
+                                    <td class="py-3 fw-semibold text-dark">{{ $loop->iteration }}</td>
+                                    <td class="py-3">
+                                        @if ($item->Foto)
+                                            <a href="{{ \Storage::url($item->Foto) }}" target="_blank" class="d-inline-block">
+                                                <img src="{{ \Storage::url($item->Foto) }}" class="img-thumbnail" style="width: 100px; height: 70px; object-fit: cover; border-radius: 8px;" />
+                                            </a>
+                                        @else
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-20 px-2 py-1 small rounded-pill">No Image</span>
+                                        @endif
+                                    </td>
+                                    <td class="py-3 text-muted small fw-medium">{{ $item->created_at }}</td>
+                                    <td class="py-3 fw-semibold text-dark">{{ $item->Kurir->Ekspedisi ?? 'Unknown' }}</td>
+                                    <td class="py-3 font-monospace fw-bold text-primary small">{{ $item->Resi }}</td>
+                                    <td class="py-3 fw-medium text-dark">{{ $item->Penjemput ?? '-' }}</td>
+                                    <td class="py-3">
+                                        @if ($item->FotoST)
+                                            <a href="{{ \Storage::url($item->FotoST) }}" target="_blank" class="d-inline-block">
+                                                <img src="{{ \Storage::url($item->FotoST) }}" class="img-thumbnail" style="width: 100px; height: 70px; object-fit: cover; border-radius: 8px;" />
+                                            </a>
+                                        @else
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-20 px-2 py-1 small rounded-pill">No Image</span>
+                                        @endif
+                                    </td>
+                                    <td class="py-3 text-muted small fw-medium">{{ $item->WaktuJemput ?? '-' }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center py-5 text-muted fw-medium">
+                                        <i class="ti ti-alert-circle fs-3 d-block mb-2"></i> Tidak ada data surat atau paket.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $models->appends(request()->query())->links('pagination::bootstrap-4') }}
+                </div>
+
             </div>
         </div>
     </div>
+</div>
 @endsection
+
+```
