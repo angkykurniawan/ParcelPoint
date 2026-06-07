@@ -1,65 +1,85 @@
-@extends('Crovex/baseFile', ['title' => 'Tambah Data Ruang Surat Paket'])
+@extends('dashboardLayout', ['title' => 'Tambah Data Ruang Surat Paket'])
 
 @section('content')
-<div class="card">
-    <div class="card-body">
-        <center>
-            <h5 class="card-title btn-primary" style="font-weight: bolder; font-size: 20px; height: 20%; border-radius: 5px;">
-                Tambah Data Ruang Surat Paket
-            </h5>
-        </center><br>
+<div class="row">
+    <div class="col-12 max-w-lg mx-auto">
+        <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
+            <div class="card-body p-4">
 
-        <form action="/ruang" method="POST" enctype="multipart/form-data">
-            @csrf
+                <div class="text-center p-3 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+                    <h5 class="m-0" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">
+                        <i class="ti ti-folder me-2"></i>Tambah Data Ruang
+                    </h5>
+                </div>
 
-            <!-- Nama Input -->
-            <div class="form-group mt-1 mb-3">
-                <label for="Nama" class="text-primary" style="font-weight: bolder;">Nama *</label>
-                <input type="text" class="form-control @error('Nama') is-invalid @enderror" id="Nama" name="Nama"
-                    value="{{ old('Nama') }}" placeholder="Sarana Prasarana">
-                <span class="text-danger">{{ $errors->first('Nama') }}</span>
+                <form action="/ruang" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <!-- Nama Input -->
+                    <div class="mb-3 text-start">
+                        <label for="Nama" class="form-label text-primary fw-bold small">Nama Ruang <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('Nama') is-invalid @enderror" id="Nama" name="Nama" value="{{ old('Nama') }}" placeholder="Contoh: Sarana Prasarana" required style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
+                        @error('Nama')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <!-- Lantai Input -->
+                    <div class="mb-3 text-start">
+                        <label for="Lantai" class="form-label text-primary fw-bold small">Lantai</label>
+                        <input type="text" class="form-control @error('Lantai') is-invalid @enderror" id="Lantai" name="Lantai" value="{{ old('Lantai') }}" placeholder="Contoh: 3" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
+                        @error('Lantai')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <!-- Lokasi Input -->
+                    <div class="mb-3 text-start">
+                        <label for="Lokasi" class="form-label text-primary fw-bold small">Lokasi Gedung</label>
+                        <input type="text" class="form-control @error('Lokasi') is-invalid @enderror" id="Lokasi" name="Lokasi" value="{{ old('Lokasi') }}" placeholder="Contoh: Gedung Utama" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
+                        @error('Lokasi')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <!-- PIC Input -->
+                    <div class="mb-4 text-start">
+                        <label for="PIC" class="form-label text-primary fw-bold small">Penanggung Jawab (PIC)</label>
+                        <input type="text" class="form-control @error('PIC') is-invalid @enderror" id="PIC" name="PIC" value="{{ old('PIC') }}" placeholder="Contoh: Nama PIC" style="border: 2px solid #cbdfff; border-radius: 12px; padding: 12px 16px;">
+                        @error('PIC')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()" style="border-radius: 12px; padding: 12px; font-weight: bold; border: 2px solid #cbdfff; color: #475569;">
+                                Batal
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary w-100 shadow-sm" style="border-radius: 12px; padding: 12px; font-weight: bold; background-color: #3475FE; border: none;">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
-
-            <!-- Lantai Input -->
-            <div class="form-group mt-1 mb-3">
-                <label for="Lantai" class="text-primary" style="font-weight: bolder;">Lantai</label>
-                <input type="text" class="form-control @error('Lantai') is-invalid @enderror" id="Lantai" name="Lantai"
-                    value="{{ old('Lantai') }}" placeholder="3">
-                <span class="text-danger">{{ $errors->first('Lantai') }}</span>
-            </div>
-
-            <!-- Lokasi Input -->
-            <div class="form-group mt-1 mb-3">
-                <label for="Lokasi" class="text-primary" style="font-weight: bolder;">Lokasi</label>
-                <input type="text" class="form-control @error('Lokasi') is-invalid @enderror" id="Lokasi" name="Lokasi"
-                    value="{{ old('Lokasi') }}" placeholder="Gedung Utama">
-                <span class="text-danger">{{ $errors->first('Lokasi') }}</span>
-            </div>
-
-            <!-- PIC Input -->
-            <div class="form-group mt-1 mb-3">
-                <label for="PIC" class="text-primary" style="font-weight: bolder;">PIC</label>
-                <input type="text" class="form-control @error('PIC') is-invalid @enderror" id="PIC" name="PIC"
-                    value="{{ old('PIC') }}" placeholder="Nama PIC">
-                <span class="text-danger">{{ $errors->first('PIC') }}</span>
-            </div>
-
-            <!-- Submit Button -->
-            <center><button type="submit" class="btn btn-primary">SIMPAN</button></center>
-        </form>
+        </div>
     </div>
 </div>
 
-@endsection
-
-<!-- Success Message -->
 @if(session('success'))
     <script>
         Swal.fire({
             icon: 'success',
             title: 'Berhasil!',
             text: '{{ session('success') }}',
+            confirmButtonColor: '#3475FE',
             confirmButtonText: 'OK'
         });
     </script>
 @endif
+@endsection
