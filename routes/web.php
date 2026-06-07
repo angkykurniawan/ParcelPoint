@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'prevent-back'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('reset-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'reset'])->name('password.store');
 });
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin', 'prevent-back'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/security', [SecurityUserController::class, 'index'])->name('security.index');
     Route::get('/security/create', [SecurityUserController::class, 'create'])->name('security.create');
     Route::post('/security', [SecurityUserController::class, 'store'])->name('security.store');
