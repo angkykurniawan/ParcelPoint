@@ -7,7 +7,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "illuminate/mail": "*",
         "illuminate/pagination": "*",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9"
@@ -68,6 +67,9 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "block-insecure": true
         }
     },
     "minimum-stability": "stable",
