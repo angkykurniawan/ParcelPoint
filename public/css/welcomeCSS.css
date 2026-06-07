@@ -1,0 +1,227 @@
+/* Reset dan styling dasar */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #0A174E; /* Biru gelap untuk teks */
+    background-color: #b8d7f5; /* Biru muda sebagai warna awal */
+    overflow-x: hidden;
+    transition: background-color 30s ease-in-out; /* Durasi transisi 30 detik untuk latar belakang */
+}
+
+/* Hero section */
+.hero {
+    position: relative;
+    height: 100vh;
+    background-color: #ffffff; /* Latar belakang putih */
+    overflow: hidden;
+    transition: background-color 30s ease-in-out; /* Durasi transisi 30 detik */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Mengatur jarak antara logo dan nav-links */
+    align-items: center; /* Posisi vertikal elemen di tengah */
+    padding: 10px 40px; /* Mengurangi padding agar elemen terlihat lebih proporsional */
+    z-index: 1;
+    position: relative;
+    background-color: #ffffff; /* Navbar dengan warna latar putih */
+    box-shadow: 0 4px 6px rgba(0, 168, 232, 0.3); /* Shadow biru */
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Memastikan logo tetap di tengah vertikal */
+}
+
+.logo-img {
+    width: 150px;
+    height: auto;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center; /* Link berada di tengah vertikal */
+    margin: 0; /* Menghapus margin default */
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center; /* Pastikan teks link juga di tengah vertikal */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #0A174E; /* Warna teks biru gelap */
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #3475FE; /* Biru cerah saat hover */
+}
+
+.cta-button {
+    background-color: #3475FE; /* Biru cerah */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-button:hover {
+    background-color: #1f5db4; /* Biru lebih gelap saat hover */
+    transform: scale(1.05);
+}
+
+/* Hero Content */
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+}
+
+.hero-content h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #0A174E; /* Biru gelap */
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #3475FE;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.5;
+    color: #0A174E; /* Biru gelap */
+}
+
+/* Tombol dan kolom pencarian */
+.search-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 2px solid #3475FE;
+    outline: none;
+    width: 250px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+    border-color: #3475FE;
+    box-shadow: 0 0 8px rgba(0, 168, 232, 0.5);
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #3475FE;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.search-button:hover {
+    background-color: #1f5db4;
+    transform: scale(1.05);
+}
+
+.search-button:focus {
+    outline: none;
+}
+
+/* Animasi bergerak untuk gambar */
+.animated-image {
+    width: 200px; /* Atur ukuran gambar sesuai kebutuhan */
+    animation: move 5s infinite alternate; /* Animasi bergerak */
+}
+
+@keyframes move {
+    0% { transform: translateX(-300px); }
+    100% { transform: translateX(300px); }
+}
+
+/* Carousel Styling */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 50vh; /* Mengatur tinggi carousel menjadi 50vh untuk tampilan lebih rendah */
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+    width: 100%; /* Gambar akan memenuhi lebar kontainer */
+    height: auto; /* Menjaga rasio aspek gambar */
+    object-fit: contain; /* Pastikan gambar sepenuhnya terlihat tanpa terpotong */
+    flex-shrink: 0; /* Gambar tidak akan mengecil */
+}
+
+/* User Info Section - Menampilkan nama pengguna dan tombol akses */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info span {
+    color: #0A174E; /* Biru gelap untuk teks */
+    font-size: 1.2rem;
+}
+
+.user-info .cta-button {
+    background-color: #3475FE; /* Biru cerah */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.user-info .cta-button:hover {
+    background-color: #1f5db4; /* Biru lebih gelap saat hover */
+    transform: scale(1.05);
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px; /* Jarak antara form pencarian dan pesan error */
+    margin-left: 15px;
+    text-align: center; /* Pesan error ditampilkan di tengah */
+    font-weight: bold; /* Tulisan lebih tebal */
+}
