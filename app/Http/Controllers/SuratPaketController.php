@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Log;
 use CURLFile;
-use App\Models\Kurir;
+use App\Models\kurir;
 use App\Models\Ruang;
 use App\Models\Pemilik;
 use App\Models\suratPaket;
@@ -63,7 +63,7 @@ class SuratPaketController extends Controller
     public function create()
     {
         $Pemilik = Pemilik::latest()->paginate(10);
-        $Kurir = Kurir::latest()->paginate(10);
+        $Kurir = kurir::latest()->paginate(10);
         $Ruang = Ruang::latest()->paginate(10);
         return view('suratPaket.create', compact('Pemilik', 'Kurir', 'Ruang'));
     }
@@ -124,7 +124,7 @@ class SuratPaketController extends Controller
     {
         $suratPaket = suratPaket::findOrFail($id);
         $Pemilik = Pemilik::all();
-        $Kurir = Kurir::all();
+        $Kurir = kurir::all();
         $Ruang = Ruang::all();
         return view('suratpaket.edit', compact('suratPaket', 'Pemilik', 'Kurir', 'Ruang'));
     }
