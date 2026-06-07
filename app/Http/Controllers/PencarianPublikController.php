@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuratPaket;
+use App\Models\suratPaket;
 use Illuminate\Http\Request;
 
 class PencarianPublikController extends Controller
@@ -14,7 +14,7 @@ class PencarianPublikController extends Controller
         if ($request->has('resi') && $request->input('resi') != '') {
             $keyword = trim($request->input('resi'));
 
-            $paket = SuratPaket::with(['Pemilik', 'Ruang', 'Kurir'])
+            $paket = suratPaket::with(['Pemilik', 'Ruang', 'Kurir'])
                 ->where('Resi', 'LIKE', '%' . $keyword . '%')
                 ->latest()
                 ->first();
@@ -23,7 +23,7 @@ class PencarianPublikController extends Controller
         elseif ($request->has('owner') && $request->input('owner') != '') {
             $keyword = trim($request->input('owner'));
 
-            $paket = SuratPaket::with(['Pemilik', 'Ruang', 'Kurir'])
+            $paket = suratPaket::with(['Pemilik', 'Ruang', 'Kurir'])
                 ->whereHas('Pemilik', function($query) use ($keyword) {
                     $query->where('Nama', 'LIKE', '%' . $keyword . '%');
                 })

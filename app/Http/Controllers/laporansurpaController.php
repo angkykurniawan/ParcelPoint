@@ -8,13 +8,13 @@ use Carbon\Carbon;
 class laporansurpaController extends Controller
 {
     public function create(){
-        $data['listSurpa'] = \App\Models\SuratPaket::orderBy('Resi', 'asc')->get();
+        $data['listSurpa'] = \App\Models\suratPaket::orderBy('Resi', 'asc')->get();
         $data['listPemilik'] = \App\Models\Pemilik::orderBy('Nama', 'asc')->pluck('Nama', 'id');
         return view('laporansurpa.create', $data);
     }
 
     public function index(Request $request){
-        $models = \App\Models\SuratPaket::query();
+        $models = \App\Models\suratPaket::query();
 
         // Memfilter berdasarkan tanggal_mulai
         if ($request->filled('tanggal_mulai')) {

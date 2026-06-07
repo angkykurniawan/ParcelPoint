@@ -7,7 +7,7 @@ use CURLFile;
 use App\Models\Kurir;
 use App\Models\Ruang;
 use App\Models\Pemilik;
-use App\Models\SuratPaket;
+use App\Models\suratPaket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -32,7 +32,7 @@ class SuratPaketController extends Controller
         $selectedYear = $request->input('year');
         $selectedJenis = $request->input('jenis');
 
-        $suratPaket = SuratPaket::with('Pemilik')
+        $suratPaket = suratPaket::with('Pemilik')
             ->when($search, function ($query, $search) {
                 return $query->where('Resi', 'like', "%{$search}%")
                     ->orWhereHas('Pemilik', function ($query) use ($search) {
@@ -54,7 +54,7 @@ class SuratPaketController extends Controller
             ->orderByDesc('created_at')
             ->paginate($perPage);
 
-        return view('SuratPaket.index', compact('suratPaket', 'search', 'selectedDate', 'selectedMonth', 'selectedYear', 'selectedJenis'));
+        return view('suratPaket.index', compact('suratPaket', 'search', 'selectedDate', 'selectedMonth', 'selectedYear', 'selectedJenis'));
     }
 
     /**
@@ -65,7 +65,7 @@ class SuratPaketController extends Controller
         $Pemilik = Pemilik::latest()->paginate(10);
         $Kurir = Kurir::latest()->paginate(10);
         $Ruang = Ruang::latest()->paginate(10);
-        return view('suratpaket.create', compact('Pemilik', 'Kurir', 'Ruang'));
+        return view('suratPaket.create', compact('Pemilik', 'Kurir', 'Ruang'));
     }
 
     /**
@@ -94,10 +94,10 @@ class SuratPaketController extends Controller
         }
 
         if ($request->hasFile('Foto')) {
-            $requestData['Foto'] = $request->file('Foto')->store('public/suratpaket');
+            $requestData['Foto'] = $request->file('Foto')->store('public/suratPaket');
         }
 
-        SuratPaket::create($requestData);
+        suratPaket::create($requestData);
 
         return redirect('/suratPaket')->with('success', 'Data Surat Paket berhasil ditambahkan!');
     }
@@ -107,14 +107,14 @@ class SuratPaketController extends Controller
      */
     public function show($id)
     {
-        $suratPaket = SuratPaket::findOrFail($id);
+        $suratPaket = suratPaket::findOrFail($id);
 
         // Format date for display
         if ($suratPaket->WaktuJemput) {
             $suratPaket->WaktuJemput = Carbon::parse($suratPaket->WaktuJemput)->format('d-m-Y'); // Format to d-m-Y
         }
 
-        return view('suratpaket.show', ['suratPaket' => $suratPaket]);
+        return view('suratPaket.show', ['suratPaket' => $suratPaket]);
     }
 
     /**
@@ -122,7 +122,7 @@ class SuratPaketController extends Controller
      */
     public function edit(string $id)
     {
-        $suratPaket = SuratPaket::findOrFail($id);
+        $suratPaket = suratPaket::findOrFail($id);
         $Pemilik = Pemilik::all();
         $Kurir = Kurir::all();
         $Ruang = Ruang::all();
@@ -144,7 +144,7 @@ class SuratPaketController extends Controller
         $requestData['Penjemput'] = filter_var(trim($request->input('Penjemput')), FILTER_SANITIZE_STRING);
 
         // Proses update
-        $suratPaket = SuratPaket::findOrFail($id);
+        $suratPaket = suratPaket::findOrFail($id);
         $suratPaket->fill($requestData);
 
         // Menangani tanggal
@@ -158,7 +158,7 @@ class SuratPaketController extends Controller
                 Storage::delete($suratPaket->FotoST);
             }
 
-            $suratPaket->FotoST = $request->file('FotoST')->store('public/suratpaket/fotoST');
+            $suratPaket->FotoST = $request->file('FotoST')->store('public/suratPaket/fotoST');
         }
 
         $suratPaket->status_daftar = 'Sudah Dijemput';
@@ -172,7 +172,7 @@ class SuratPaketController extends Controller
      */
     public function destroy(string $id)
     {
-        $suratPaket = SuratPaket::findOrFail($id);
+        $suratPaket = suratPaket::findOrFail($id);
 
         if ($suratPaket->Foto && Storage::exists($suratPaket->Foto)) {
             Storage::delete($suratPaket->Foto);
@@ -188,7 +188,7 @@ class SuratPaketController extends Controller
      */
     public function cekResi($resi)
     {
-        return SuratPaket::where('resi', $resi)
+        return suratPaket::where('resi', $resi)
             ->select('jenis', 'pemilik', 'statusDaftar', 'created_at', 'WaktuJemput', 'resi')
             ->first();
     }
@@ -200,7 +200,7 @@ class SuratPaketController extends Controller
         ]);
 
         $search = $request->input('owner');
-        $suratPaket = SuratPaket::with('Pemilik')
+        $suratPaket = suratPaket::with('Pemilik')
             ->whereHas('Pemilik', function ($query) use ($search) {
                 $query->where('Nama', 'like', "%{$search}%");
             })
@@ -211,7 +211,7 @@ class SuratPaketController extends Controller
 
     public function history($id)
     {
-        $suratPaket = SuratPaket::findOrFail($id);
+        $suratPaket = suratPaket::findOrFail($id);
 
         // Ambil 15 riwayat WhatsApp dan Email, urutkan berdasarkan created_at secara menurun (terbaru di atas)
         $whatsappHistory = WhatsappHistory::orderBy('created_at', 'desc')->take(15)->get();  // Mengambil 15 data teratas dari WhatsappHistory

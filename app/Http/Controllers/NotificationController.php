@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NotifMail;
-use App\Models\SuratPaket;
+use App\Models\suratPaket;
 use App\Models\EmailHistory;
 use Illuminate\Http\Request;
 use App\Models\WhatsappHistory;
@@ -20,7 +20,7 @@ class NotificationController extends Controller
     public function sendNotification($id)
     {
         // Cari data Surat Paket berdasarkan ID
-        $suratPaket = SuratPaket::with(['Pemilik', 'Kurir'])->find($id);
+        $suratPaket = suratPaket::with(['Pemilik', 'Kurir'])->find($id);
 
         // Validasi jika data tidak ditemukan
         if (!$suratPaket) {
@@ -91,7 +91,7 @@ class NotificationController extends Controller
     public function sendEmailNotification($id)
     {
         // Cari data Surat Paket berdasarkan ID
-        $suratPaket = SuratPaket::with(['Pemilik', 'Kurir'])->find($id);
+        $suratPaket = suratPaket::with(['Pemilik', 'Kurir'])->find($id);
 
         // Validasi jika data tidak ditemukan
         if (!$suratPaket) {
