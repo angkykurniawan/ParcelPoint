@@ -217,7 +217,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.security.index') }}" class="{{ Request::is('admin/security*') ? 'active-item' : '' }}">
-                    <i class="ti ti-shield"></i><span>Kelola Security</span>
+                    <i class="ti ti-shield"></i><span>Security</span>
                 </a>
             </li>
             @endif

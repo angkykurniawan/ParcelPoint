@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="row">
-    <div class="col-12 max-w-lg mx-auto">
+    <div class="col-12">
         <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
             <div class="card-body p-4">
 
-                <div class="text-center p-3 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
-                    <h5 class="m-0" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">
-                        <i class="ti ti-package me-2"></i>Laporan Serah Terima Surat & Paket
+                <div class="d-flex justify-content-center align-items-center p-3 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+                    <h5 class="m-0 text-center text-white" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">
+                        <i class="ti ti-package me-2 text-white"></i>Laporan Serah Terima Surat & Paket
                     </h5>
                 </div>
 
@@ -53,5 +53,3 @@
     </div>
 </div>
 @endsection
-
-

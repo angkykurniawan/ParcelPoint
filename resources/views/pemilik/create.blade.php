@@ -2,25 +2,21 @@
 
 @section('content')
 <div class="row">
-    <!-- Diperlebar menjadi max-w-2xl atau col-xl-10 agar muat 2 kolom bersandingan dengan lega -->
-    <div class="col-12 col-xl-10 mx-auto">
+    <div class="col-12">
         <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
             <div class="card-body p-4">
 
-                <!-- JUDUL FORM (Sudah presisi di tengah) -->
                 <div class="d-flex justify-content-center align-items-center p-3 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
-                    <h5 class="m-0 text-center" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">
-                        <i class="ti ti-crown me-2"></i>Tambah Data Pemilik
+                    <h5 class="m-0 text-center text-white" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">
+                        <i class="ti ti-crown me-2 text-white"></i>Tambah Data Pemilik
                     </h5>
                 </div>
 
                 <form action="/pemilik" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <!-- GRID UTAMA: Semua inputan otomatis naik ke atas di bawah judul -->
                     <div class="row">
 
-                        <!-- ================= KOLOM KIRI ================= -->
                         <div class="col-md-6">
                             <div class="mb-3 text-start">
                                 <label for="NomorInduk" class="form-label text-primary fw-bold small">Nomor Induk <span class="text-danger">*</span></label>
@@ -64,7 +60,6 @@
                             </div>
                         </div>
 
-                        <!-- ================= KOLOM KANAN ================= -->
                         <div class="col-md-6">
                             <div class="mb-3 text-start">
                                 <label for="Whatsapp" class="form-label text-primary fw-bold small">No Whatsapp <span class="text-danger">*</span></label>
@@ -99,7 +94,6 @@
                             </div>
                         </div>
 
-                        <!-- ================= BARIS FULL (FOTO) ================= -->
                         <div class="col-12">
                             <div class="mb-4 text-start">
                                 <label for="Foto" class="form-label text-primary fw-bold small">Foto Profil</label>
@@ -112,14 +106,13 @@
 
                     </div>
 
-                    <!-- TOMBOL AKSI -->
-                    <div class="row g-2 justify-content-end mt-2">
-                        <div class="col-md-3 col-6">
+                    <div class="row g-2 mt-2">
+                        <div class="col-6">
                             <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()" style="border-radius: 12px; padding: 12px; font-weight: bold; border: 2px solid #cbdfff; color: #475569;">
                                 Batal
                             </button>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-6">
                             <button type="submit" class="btn btn-primary w-100 shadow-sm" style="border-radius: 12px; padding: 12px; font-weight: bold; background-color: #3475FE; border: none;">
                                 Simpan
                             </button>

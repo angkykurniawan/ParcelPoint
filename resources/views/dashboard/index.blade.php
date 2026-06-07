@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
             <div class="card-body p-4">
-                <h3 style="font-weight: 800; margin: 0;" class="text-primary text-center">
+                <h3 style="font-weight: 800; margin: 0;" class="text-primary text-center mb-5">
                     <i class="ti-bar-chart me-2"></i>Dashboard Analitik
                 </h3>
 
@@ -15,7 +15,7 @@
                             <div style="max-width: 220px; margin: 0 auto;">
                                 <canvas id="chart1" width="200" height="200"></canvas>
                             </div>
-                            <div id="label1" class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap"></div>
+                            <div id="label1" class="badge bg-primary px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap text-white" style="font-size: 0.85rem;"></div>
                         </div>
                     </div>
 
@@ -24,7 +24,7 @@
                             <div style="max-width: 220px; margin: 0 auto;">
                                 <canvas id="chart2" width="200" height="200"></canvas>
                             </div>
-                            <div id="label2" class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap"></div>
+                            <div id="label2" class="badge bg-success px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap text-white" style="font-size: 0.85rem;"></div>
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@
                             <div style="max-width: 220px; margin: 0 auto;">
                                 <canvas id="chart3" width="200" height="200"></canvas>
                             </div>
-                            <div id="label3" class="badge bg-purple bg-opacity-10 style-badge-purple px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap" style="color: #6f42c1; background-color: rgba(111, 66, 193, 0.1);"></div>
+                            <div id="label3" class="badge px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap text-white" style="font-size: 0.85rem; background-color: #6f42c1;"></div>
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@
                             <div style="max-width: 220px; margin: 0 auto;">
                                 <canvas id="chart4" width="200" height="200"></canvas>
                             </div>
-                            <div id="label4" class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap"></div>
+                            <div id="label4" class="badge bg-secondary px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap text-white" style="font-size: 0.85rem;"></div>
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
             }
         }
     });
-    document.getElementById('label1').innerText = 'Surat: {{ $jumlahSurat }} | Paket: {{ $jumlahPaket }}';
+    document.getElementById('label1').innerText = 'Total Keseluruhan: {{ $jumlahSurat + $jumlahPaket }}';
 
     var ctx2 = document.getElementById('chart2').getContext('2d');
     var chart2 = new Chart(ctx2, {
@@ -138,7 +138,7 @@
             }
         }
     });
-    document.getElementById('label2').innerText = 'Surat: {{ $suratHariIni }} | Paket: {{ $paketHariIni }}';
+    document.getElementById('label2').innerText = 'Total Hari Ini: {{ $suratHariIni + $paketHariIni }}';
 
     var ctx3 = document.getElementById('chart3').getContext('2d');
     var chart3 = new Chart(ctx3, {
@@ -161,7 +161,7 @@
             }
         }
     });
-    document.getElementById('label3').innerText = 'Surat: {{ $suratDijemputHariIni }} | Paket: {{ $paketDijemputHariIni }}';
+    document.getElementById('label3').innerText = 'Total Keluar: {{ $suratDijemputHariIni + $paketDijemputHariIni }}';
 
     var ctx4 = document.getElementById('chart4').getContext('2d');
     var chart4 = new Chart(ctx4, {
@@ -184,6 +184,6 @@
             }
         }
     });
-    document.getElementById('label4').innerText = 'Surat: {{ $totalSuratDijemput }} | Paket: {{ $totalPaketDijemput }}';
+    document.getElementById('label4').innerText = 'Total Selesai: {{ $totalSuratDijemput + $totalPaketDijemput }}';
 </script>
 @endsection
