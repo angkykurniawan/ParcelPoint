@@ -59,6 +59,5 @@ Route::middleware('auth')->group(function () {
 
 //Fitur CekResi
 Route::get('/cekresi', [ResiController::class, 'searchResi'])->name('search.resi');
-Route::get('/search-owner', [SuratPaketController::class, 'searchOwner'])->name('searchOwner');
 
 require __DIR__.'/auth.php';
