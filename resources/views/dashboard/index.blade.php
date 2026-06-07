@@ -1,197 +1,187 @@
-@extends('Crovex/baseFile', ['title' => 'Dashboard Surat Paket'])
+@extends('dashboardLayout', ['title' => 'Dashboard Surat Paket'])
 
 @section('content')
-<div class="card">
-    <div class="card-body">
-        <h1 style="font-weight: bolder; text-align: center;" class="text-primary">Dashboard</h1><br><br>
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="border-radius: 16px; border: 1px solid #e1eeff; box-shadow: 0 10px 30px rgba(13, 110, 253, 0.03);">
+            <div class="card-body p-4">
+                <h3 style="font-weight: 800;" class="text-primary mb-4"><i class="ti-bar-chart me-2"></i>Dashboard Analitik</h3>
 
-        <!-- Grafik Row: Semua Grafik dalam Satu Baris -->
-        <div class="row text-center justify-content-center">
-            <!-- Grafik 1: Jumlah Surat dan Paket -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
-                <canvas id="chart1" width="200" height="200"></canvas>
-                <div id="label1" class="mt-2"></div>
-            </div>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="p-3 text-center" style="background-color: #f8faff; border: 1px solid #edf2f7; border-radius: 16px;">
+                            <div style="max-width: 220px; margin: 0 auto;">
+                                <canvas id="chart1" width="200" height="200"></canvas>
+                            </div>
+                            <div id="label1" class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap"></div>
+                        </div>
+                    </div>
 
-            <!-- Grafik 2: Surat dan Paket yang Diterima Hari Ini -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
-                <canvas id="chart2" width="200" height="200"></canvas>
-                <div id="label2" class="mt-2"></div>
-            </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="p-3 text-center" style="background-color: #f8faff; border: 1px solid #edf2f7; border-radius: 16px;">
+                            <div style="max-width: 220px; margin: 0 auto;">
+                                <canvas id="chart2" width="200" height="200"></canvas>
+                            </div>
+                            <div id="label2" class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap"></div>
+                        </div>
+                    </div>
 
-            <!-- Grafik 3: Serah Terima Surat Paket Hari Ini -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
-                <canvas id="chart3" width="200" height="200"></canvas>
-                <div id="label3" class="mt-2"></div>
-            </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="p-3 text-center" style="background-color: #f8faff; border: 1px solid #edf2f7; border-radius: 16px;">
+                            <div style="max-width: 220px; margin: 0 auto;">
+                                <canvas id="chart3" width="200" height="200"></canvas>
+                            </div>
+                            <div id="label3" class="badge bg-purple bg-opacity-10 style-badge-purple px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap" style="color: #6f42c1; background-color: rgba(111, 66, 193, 0.1);"></div>
+                        </div>
+                    </div>
 
-            <!-- Grafik 4: Total Serah Terima Surat dan Paket -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="padding: 10px;">
-                <canvas id="chart4" width="200" height="200"></canvas>
-                <div id="label4" class="mt-2"></div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="p-3 text-center" style="background-color: #f8faff; border: 1px solid #edf2f7; border-radius: 16px;">
+                            <div style="max-width: 220px; margin: 0 auto;">
+                                <canvas id="chart4" width="200" height="200"></canvas>
+                            </div>
+                            <div id="label4" class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill mt-3 fw-bold w-100 text-wrap"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        // Grafik 1: Jumlah Surat dan Paket
-        var ctx1 = document.getElementById('chart1').getContext('2d');
-        var chart1 = new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: ['Surat', 'Paket'],
-                datasets: [{
-                    label: 'Jumlah Surat dan Paket',
-                    data: [{{ $jumlahSurat }}, {{ $jumlahPaket }}],
-                    backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 159, 64, 1)'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Jumlah Surat dan Paket',
-                        font: { size: 16 },
-                        align: 'center' // Menempatkan judul di tengah
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            callback: function(value) {
-                                return Number.isInteger(value) ? value : '';
-                            }
-                        }
-                    }
-                },
-                responsive: true
-            }
-        });
-        document.getElementById('label1').innerText = 'Jumlah Surat: {{ $jumlahSurat }} | Jumlah Paket: {{ $jumlahPaket }}';
-
-        // Grafik 2: Surat dan Paket yang Diterima Hari Ini
-        var ctx2 = document.getElementById('chart2').getContext('2d');
-        var chart2 = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: ['Surat', 'Paket'],
-                datasets: [{
-                    label: 'Diterima Hari Ini',
-                    data: [{{ $suratHariIni }}, {{ $paketHariIni }}],
-                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
-                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Surat dan Paket yang Diterima Hari Ini',
-                        font: { size: 16 },
-                        align: 'center' // Menempatkan judul di tengah
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            callback: function(value) {
-                                return Number.isInteger(value) ? value : '';
-                            }
-                        }
-                    }
-                },
-                responsive: true
-            }
-        });
-        document.getElementById('label2').innerText = 'Surat: {{ $suratHariIni }} | Paket: {{ $paketHariIni }}';
-
-        // Grafik 3: Serah Terima Surat Paket Hari Ini
-        var ctx3 = document.getElementById('chart3').getContext('2d');
-        var chart3 = new Chart(ctx3, {
-            type: 'bar',
-            data: {
-                labels: ['Surat Dijemput', 'Paket Dijemput'],
-                datasets: [{
-                    label: 'Serah Terima Hari Ini',
-                    data: [{{ $suratDijemputHariIni }}, {{ $paketDijemputHariIni }}],
-                    backgroundColor: ['rgba(153, 102, 255, 0.2)', 'rgba(255, 205, 86, 0.2)'],
-                    borderColor: ['rgba(153, 102, 255, 1)', 'rgba(255, 205, 86, 1)'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Serah Terima Surat Paket Hari Ini',
-                        font: { size: 16 },
-                        align: 'center' // Menempatkan judul di tengah
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            callback: function(value) {
-                                return Number.isInteger(value) ? value : '';
-                            }
-                        }
-                    }
-                },
-                responsive: true
-            }
-        });
-        document.getElementById('label3').innerText = 'Surat Dijemput: {{ $suratDijemputHariIni }} | Paket Dijemput: {{ $paketDijemputHariIni }}';
-
-        // Grafik 4: Total Serah Terima Surat dan Paket
-        var ctx4 = document.getElementById('chart4').getContext('2d');
-        var chart4 = new Chart(ctx4, {
-            type: 'bar',
-            data: {
-                labels: ['Surat', 'Paket'],
-                datasets: [{
-                    label: 'Total Serah Terima',
-                    data: [{{ $totalSuratDijemput }}, {{ $totalPaketDijemput }}],
-                    backgroundColor: ['rgba(201, 203, 207, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-                    borderColor: ['rgba(201, 203, 207, 1)', 'rgba(54, 162, 235, 1)'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Total Serah Terima Surat dan Paket',
-                        font: { size: 16 },
-                        align: 'center' // Menempatkan judul di tengah
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            callback: function(value) {
-                                return Number.isInteger(value) ? value : '';
-                            }
-                        }
-                    }
-                },
-                responsive: true
-            }
-        });
-        document.getElementById('label4').innerText = 'Total Surat: {{ $totalSuratDijemput }} | Total Paket: {{ $totalPaketDijemput }}';
-    </script>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                font: { size: 14, weight: '700', family: 'system-ui' },
+                color: '#2d3748',
+                padding: { bottom: 15 }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: '#f1f5f9'
+                },
+                ticks: {
+                    stepSize: 1,
+                    color: '#94a3b8',
+                    callback: function(value) {
+                        return Number.isInteger(value) ? value : '';
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: '#64748b',
+                    font: { weight: '600' }
+                }
+            }
+        }
+    };
+
+    var ctx1 = document.getElementById('chart1').getContext('2d');
+    var chart1 = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Surat', 'Paket'],
+            datasets: [{
+                data: [{{ $jumlahSurat }}, {{ $jumlahPaket }}],
+                backgroundColor: ['rgba(52, 117, 254, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                borderColor: ['rgba(52, 117, 254, 1)', 'rgba(255, 159, 64, 1)'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                title: { ...commonOptions.plugins.title, text: 'Stok Gudang Aktif' }
+            }
+        }
+    });
+    document.getElementById('label1').innerText = 'Surat: {{ $jumlahSurat }} | Paket: {{ $jumlahPaket }}';
+
+    var ctx2 = document.getElementById('chart2').getContext('2d');
+    var chart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Surat', 'Paket'],
+            datasets: [{
+                data: [{{ $suratHariIni }}, {{ $paketHariIni }}],
+                backgroundColor: ['rgba(46, 204, 113, 0.2)', 'rgba(231, 76, 60, 0.2)'],
+                borderColor: ['rgba(46, 204, 113, 1)', 'rgba(231, 76, 60, 1)'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                title: { ...commonOptions.plugins.title, text: 'Masuk Hari Ini' }
+            }
+        }
+    });
+    document.getElementById('label2').innerText = 'Surat: {{ $suratHariIni }} | Paket: {{ $paketHariIni }}';
+
+    var ctx3 = document.getElementById('chart3').getContext('2d');
+    var chart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Surat', 'Paket'],
+            datasets: [{
+                data: [{{ $suratDijemputHariIni }}, {{ $paketDijemputHariIni }}],
+                backgroundColor: ['rgba(111, 66, 193, 0.2)', 'rgba(241, 196, 15, 0.2)'],
+                borderColor: ['rgba(111, 66, 193, 1)', 'rgba(241, 196, 15, 1)'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                title: { ...commonOptions.plugins.title, text: 'Selesai Hari Ini' }
+            }
+        }
+    });
+    document.getElementById('label3').innerText = 'Surat: {{ $suratDijemputHariIni }} | Paket: {{ $paketDijemputHariIni }}';
+
+    var ctx4 = document.getElementById('chart4').getContext('2d');
+    var chart4 = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ['Surat', 'Paket'],
+            datasets: [{
+                data: [{{ $totalSuratDijemput }}, {{ $totalPaketDijemput }}],
+                backgroundColor: ['rgba(148, 163, 184, 0.2)', 'rgba(52, 117, 254, 0.2)'],
+                borderColor: ['rgba(148, 163, 184, 1)', 'rgba(52, 117, 254, 1)'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                title: { ...commonOptions.plugins.title, text: 'Total Keseluruhan Selesai' }
+            }
+        }
+    });
+    document.getElementById('label4').innerText = 'Surat: {{ $totalSuratDijemput }} | Paket: {{ $totalPaketDijemput }}';
+</script>
 @endsection
