@@ -7,7 +7,7 @@
             <div class="card-body p-4">
 
                 <div class="text-center p-4 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
-                    <h3 class="text-white mb-3" style="font-weight: 800; font-size: 1.6rem; letter-spacing: 0.5px;">
+                    <h3 class="text-white mb-3" style="font-weight: 800; font-size: 1.6rem; letter-spacing: 0.5px; color: #ffffff !important;">
                         <i class="ti ti-package me-2 text-white"></i>Laporan Data Surat & Paket {{ $models->first()->Pemilik->Nama ?? '' }}
                     </h3>
 
