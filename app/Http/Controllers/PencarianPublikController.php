@@ -12,7 +12,6 @@ class PencarianPublikController extends Controller
     {
         $paket = null;
 
-        // 1. Pencarian Resi: Diubah menggunakan '=' agar WAJIB sama persis
         if ($request->filled('resi')) {
             $keyword = trim($request->input('resi'));
 
@@ -22,7 +21,6 @@ class PencarianPublikController extends Controller
                 ->first();
         }
 
-        // 2. Pencarian Nama Pemilik: Tetap pakai LIKE (LOWER) agar fleksibel mencari potongan nama
         if ($request->filled('owner')) {
             $keyword = trim($request->input('owner'));
 
