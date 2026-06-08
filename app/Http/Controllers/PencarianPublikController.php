@@ -16,7 +16,7 @@ class PencarianPublikController extends Controller
             $keyword = trim($request->input('resi'));
 
             $paket = suratPaket::with(['Pemilik', 'Ruang', 'Kurir'])
-                ->where('Resi', '=', $keyword) // Menggunakan '=' menggantikan 'LIKE'
+                ->where('Resi', '=', $keyword) 
                 ->latest()
                 ->first();
         }
