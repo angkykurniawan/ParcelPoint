@@ -213,10 +213,9 @@ class SuratPaketController extends Controller
     {
         $suratPaket = suratPaket::findOrFail($id);
 
-        // Ambil 15 riwayat WhatsApp dan Email, urutkan berdasarkan created_at secara menurun (terbaru di atas)
-        $whatsappHistory = WhatsappHistory::orderBy('created_at', 'desc')->take(15)->get();  // Mengambil 15 data teratas dari WhatsappHistory
-        $emailHistory = EmailHistory::orderBy('created_at', 'desc')->take(15)->get();        // Mengambil 15 data teratas dari EmailHistory
+        $whatsappHistory = WhatsappHistory::orderBy('created_at', 'desc')->take(15)->get();
+        $emailHistory = EmailHistory::orderBy('created_at', 'desc')->take(15)->get();
 
-        return view('suratP=paket.history', compact('whatsappHistory', 'emailHistory', 'suratPaket'));
+        return view('suratpaket.history', compact('whatsappHistory', 'emailHistory', 'suratPaket'));
     }
 }
