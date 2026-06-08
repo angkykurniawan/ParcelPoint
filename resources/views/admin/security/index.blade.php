@@ -51,7 +51,7 @@
                                         <div class="d-flex justify-content-center gap-2">
 
                                             <a href="{{ route('admin.security.edit', $user->id) }}" class="btn btn-warning btn-sm d-flex align-items-center justify-content-center shadow-sm" title="Edit Akun" style="border-radius: 8px; width: 32px; height: 32px; padding: 0; background-color: #ffc107; border: none; color: #fff;">
-                                                <i class="ti ti-edit fs-5"></i>
+                                                <i class="ti ti-pencil fs-4"></i>
                                             </a>
 
                                             <form action="{{ route('admin.security.destroy', $user->id) }}" method="POST" class="m-0" id="delete-form-{{ $user->id }}">
@@ -92,7 +92,6 @@
             text: "Petugas keamanan yang bersangkutan tidak akan bisa login kembali ke sistem!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3475FE',
             confirmButtonText: 'Ya, Hapus!',

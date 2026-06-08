@@ -12,7 +12,6 @@ class SecurityUserController extends Controller
 {
     public function index()
     {
-        // Menggunakan query() agar tidak dideteksi error "not enough arguments" oleh VS Code
         $securityUsers = User::query()->where('role', 'security')->paginate(10);
         return view('admin.security.index', compact('securityUsers'));
     }
@@ -38,6 +37,33 @@ class SecurityUserController extends Controller
         ]);
 
         return redirect()->route('admin.security.index')->with('success', 'Akun Security berhasil didaftarkan!');
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.security.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.security.index')->with('success', 'Akun Security berhasil diperbarui!');
     }
 
     public function destroy($id)
