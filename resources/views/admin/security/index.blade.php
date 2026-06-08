@@ -33,7 +33,7 @@
                                 <th class="py-3 fw-bold text-secondary text-start">Nama Petugas</th>
                                 <th class="py-3 fw-bold text-secondary text-start">Email / Username</th>
                                 <th class="py-3 fw-bold text-secondary">Role</th>
-                                <th width="10%" class="py-3 fw-bold text-secondary">Aksi</th>
+                                <th width="12%" class="py-3 fw-bold text-secondary">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,7 +48,12 @@
                                         </span>
                                     </td>
                                     <td class="py-3">
-                                        <div class="d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center gap-2">
+
+                                            <a href="{{ route('admin.security.edit', $user->id) }}" class="btn btn-warning btn-sm d-flex align-items-center justify-content-center shadow-sm" title="Edit Akun" style="border-radius: 8px; width: 32px; height: 32px; padding: 0; background-color: #ffc107; border: none; color: #fff;">
+                                                <i class="ti ti-edit fs-5"></i>
+                                            </a>
+
                                             <form action="{{ route('admin.security.destroy', $user->id) }}" method="POST" class="m-0" id="delete-form-{{ $user->id }}">
                                                 @csrf
                                                 @method('DELETE')
@@ -56,6 +61,7 @@
                                                     <i class="ti ti-trash fs-6"></i>
                                                 </button>
                                             </form>
+
                                         </div>
                                     </td>
                                 </tr>
@@ -86,6 +92,7 @@
             text: "Petugas keamanan yang bersangkutan tidak akan bisa login kembali ke sistem!",
             icon: 'warning',
             showCancelButton: true,
+            confirmButtonColor: '#d33',
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3475FE',
             confirmButtonText: 'Ya, Hapus!',
