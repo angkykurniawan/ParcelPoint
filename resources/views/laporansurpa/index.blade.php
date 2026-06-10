@@ -18,6 +18,28 @@
                     </div>
                 </div>
 
+                <div class="p-3 mb-4 rounded-3 d-flex justify-content-center" style="background-color: #f8faff; border: 1px solid #e1eeff;">
+                    <form action="/laporansurpa" method="GET" class="row g-3 align-items-end justify-content-center w-100" style="max-width: 600px;">
+                        <input type="hidden" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}">
+                        <input type="hidden" name="tanggal_akhir" value="{{ request('tanggal_akhir') }}">
+                        <input type="hidden" name="pemilik_id" value="{{ request('pemilik_id') }}">
+
+                        <div class="col-md-8 col-12 text-center text-md-start">
+                            <label for="status_daftar" class="form-label text-primary fw-bold small mb-1">Filter Status</label>
+                            <select name="status_daftar" class="form-control" style="border: 2px solid #cbdfff; border-radius: 10px; padding: 8px 12px; height: 42px;">
+                                <option value="">-- Semua Status --</option>
+                                <option value="diterimasecurity" @selected(request('status_daftar') == 'diterimasecurity')>Diterima Security</option>
+                                <option value="sudah dijemput" @selected(request('status_daftar') == 'sudah dijemput')>Sudah Dijemput</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <button type="submit" class="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center" style="border-radius: 10px; height: 42px; background-color: #3475FE; border: none;">
+                                <i class="ti ti-filter me-1"></i> Filter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="table-responsive" style="border-radius: 12px; border: 1px solid #edf2f7;">
                     <table class="table table-striped align-middle m-0">
                         <thead style="background-color: #f8faff;">
@@ -27,6 +49,7 @@
                                 <th class="py-3 fw-bold text-secondary">Waktu Antar</th>
                                 <th class="py-3 fw-bold text-secondary">Kurir</th>
                                 <th class="py-3 fw-bold text-secondary">Resi</th>
+                                <th class="py-3 fw-bold text-secondary">Status</th>
                                 <th class="py-3 fw-bold text-secondary">Penjemput</th>
                                 <th class="py-3 fw-bold text-secondary">Foto Serah Terima</th>
                                 <th class="py-3 fw-bold text-secondary">Waktu Jemput</th>
@@ -48,9 +71,25 @@
                                     <td class="py-3 text-muted small fw-medium">{{ $item->created_at }}</td>
                                     <td class="py-3 fw-semibold text-dark">{{ $item->Kurir->Ekspedisi ?? 'Unknown' }}</td>
                                     <td class="py-3 font-monospace fw-bold text-primary small">{{ $item->Resi }}</td>
-                                    <td class="py-3 fw-medium text-dark">{{ $item->Penjemput ?? '-' }}</td>
+
                                     <td class="py-3">
-                                        @if ($item->FotoST)
+                                        @if (strtolower($item->status_daftar) == 'sudah dijemput')
+                                            <span class="badge bg-success px-3 py-2 fw-bold rounded-pill" style="color: #ffffff !important;">
+                                                Sudah Dijemput
+                                            </span>
+                                        @else
+                                            <span class="badge bg-warning px-3 py-2 fw-bold rounded-pill" style="color: #000000 !important;">
+                                                Diterima Security
+                                            </span>
+                                        @endif
+                                    </td>
+
+                                    <td class="py-3 fw-medium text-dark">
+                                        {{ strtolower($item->status_daftar) == 'sudah dijemput' ? ($item->Penjemput ?? '-') : '-' }}
+                                    </td>
+
+                                    <td class="py-3">
+                                        @if (strtolower($item->status_daftar) == 'sudah dijemput' && $item->FotoST)
                                             <a href="{{ \Storage::url($item->FotoST) }}" target="_blank" class="d-inline-block">
                                                 <img src="{{ \Storage::url($item->FotoST) }}" class="img-thumbnail" style="width: 100px; height: 70px; object-fit: cover; border-radius: 8px;" />
                                             </a>
@@ -58,11 +97,14 @@
                                             <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-20 px-2 py-1 small rounded-pill">No Image</span>
                                         @endif
                                     </td>
-                                    <td class="py-3 text-muted small fw-medium">{{ $item->WaktuJemput ?? '-' }}</td>
+
+                                    <td class="py-3 text-muted small fw-medium">
+                                        {{ strtolower($item->status_daftar) == 'sudah dijemput' ? ($item->WaktuJemput ?? '-') : '-' }}
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center py-5 text-muted fw-medium">
+                                    <td colspan="9" class="text-center py-5 text-muted fw-medium">
                                         <i class="ti ti-alert-circle fs-3 d-block mb-2"></i> Tidak ada data surat atau paket.
                                     </td>
                                 </tr>

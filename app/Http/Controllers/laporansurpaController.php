@@ -18,13 +18,13 @@ class laporansurpaController extends Controller
 
         // Memfilter berdasarkan tanggal_mulai
         if ($request->filled('tanggal_mulai')) {
-            $tanggalMulai = Carbon::parse($request->tanggal_mulai)->startOfDay(); // Memulai hari
+            $tanggalMulai = Carbon::parse($request->tanggal_mulai)->startOfDay();
             $models->where('created_at', '>=', $tanggalMulai);
         }
 
         // Memfilter berdasarkan tanggal_akhir
         if ($request->filled('tanggal_akhir')) {
-            $tanggalAkhir = Carbon::parse($request->tanggal_akhir)->endOfDay(); // Mengakhiri hari
+            $tanggalAkhir = Carbon::parse($request->tanggal_akhir)->endOfDay();
             $models->where('created_at', '<=', $tanggalAkhir);
         }
 
@@ -33,8 +33,14 @@ class laporansurpaController extends Controller
             $models->where('pemilik_id', '=', $request->pemilik_id);
         }
 
-        // Mengambil data dengan urutan terbaru dan paginate
-        $data['models'] = $models->latest()->paginate(2); // Gunakan paginate untuk membatasi hasil
+        // Memfilter berdasarkan status_daftar
+        if ($request->filled('status_daftar')) {
+            $models->where('status_daftar', '=', $request->status_daftar);
+        }
+
+        // Mengambil data terbaru dengan pagination 
+        $data['models'] = $models->latest()->paginate(5);
+
         return view('laporansurpa.index', $data);
     }
 }
