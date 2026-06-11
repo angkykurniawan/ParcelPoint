@@ -15,22 +15,25 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\SecurityUserController;
 use App\Http\Controllers\PencarianPublikController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Halaman awal publik menggunakan PencarianPublikController
+Route::get('/', [PencarianPublikController::class, 'index']);
 
 Route::middleware(['auth', 'prevent-back'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::Resource('profile', ProfileController::class);
-    Route::Resource('pemilik', PemilikController::class);
-    Route::Resource('kurir', KurirController::class);
-    Route::Resource('ruang', RuangController::class);
-    Route::Resource('suratPaket', SuratPaketController::class);
+    Route::resource('profile', ProfileController::class);
+    Route::resource('pemilik', PemilikController::class);
+    Route::resource('kurir', KurirController::class);
+    Route::resource('ruang', RuangController::class);
+    Route::resource('suratPaket', SuratPaketController::class);
 
     Route::get('suratPaket/{suratPaket}/history', [SuratPaketController::class, 'history'])->name('suratPaket.history');
-    Route::Resource('laporansurpa', laporansurpaController::class);
+
+    // Route Cetak diletakkan di atas Resource agar tidak bentrok
+    Route::get('laporansurpa/cetak', [laporansurpaController::class, 'cetak'])->name('laporansurpa.cetak');
+    Route::resource('laporansurpa', laporansurpaController::class);
+
     Route::get('/notification/send/{id}', [NotificationController::class, 'sendNotification'])->name('notification.send');
     Route::get('/notification/sendEmail/{id}', [NotificationController::class, 'sendEmailNotification'])->name('notification.sendEmail');
 
@@ -48,7 +51,5 @@ Route::middleware(['auth', 'role:admin', 'prevent-back'])->prefix('admin')->name
     Route::put('/security/{id}', [SecurityUserController::class, 'update'])->name('security.update');
     Route::delete('/security/{id}', [SecurityUserController::class, 'destroy'])->name('security.destroy');
 });
-
-Route::get('/', [PencarianPublikController::class, 'index']);
 
 require __DIR__.'/auth.php';

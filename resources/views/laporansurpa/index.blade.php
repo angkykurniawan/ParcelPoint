@@ -19,25 +19,32 @@
                 </div>
 
                 <div class="p-3 mb-4 rounded-3 d-flex justify-content-center" style="background-color: #f8faff; border: 1px solid #e1eeff;">
-                    <form action="/laporansurpa" method="GET" class="row g-3 align-items-end justify-content-center w-100" style="max-width: 600px;">
-                        <input type="hidden" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}">
-                        <input type="hidden" name="tanggal_akhir" value="{{ request('tanggal_akhir') }}">
-                        <input type="hidden" name="pemilik_id" value="{{ request('pemilik_id') }}">
+                    <div class="w-100" style="max-width: 700px;">
+                        <form action="/laporansurpa" method="GET" class="row g-3 align-items-end justify-content-center">
+                            <input type="hidden" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}">
+                            <input type="hidden" name="tanggal_akhir" value="{{ request('tanggal_akhir') }}">
+                            <input type="hidden" name="pemilik_id" value="{{ request('pemilik_id') }}">
 
-                        <div class="col-md-8 col-12 text-center text-md-start">
-                            <label for="status_daftar" class="form-label text-primary fw-bold small mb-1">Filter Status</label>
-                            <select name="status_daftar" class="form-control" style="border: 2px solid #cbdfff; border-radius: 10px; padding: 8px 12px; height: 42px;">
-                                <option value="">-- Semua Status --</option>
-                                <option value="diterimasecurity" @selected(request('status_daftar') == 'diterimasecurity')>Diterima Security</option>
-                                <option value="sudah dijemput" @selected(request('status_daftar') == 'sudah dijemput')>Sudah Dijemput</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <button type="submit" class="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center" style="border-radius: 10px; height: 42px; background-color: #3475FE; border: none;">
-                                <i class="ti ti-filter me-1"></i> Filter
-                            </button>
-                        </div>
-                    </form>
+                            <div class="col-md-6 col-12 text-center text-md-start">
+                                <label for="status_daftar" class="form-label text-primary fw-bold small mb-1">Filter Status</label>
+                                <select name="status_daftar" class="form-control" style="border: 2px solid #cbdfff; border-radius: 10px; padding: 8px 12px; height: 42px;">
+                                    <option value="">-- Semua Status --</option>
+                                    <option value="diterimasecurity" @selected(request('status_daftar') == 'diterimasecurity')>Diterima Security</option>
+                                    <option value="sudah dijemput" @selected(request('status_daftar') == 'sudah dijemput')>Sudah Dijemput</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <button type="submit" class="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center" style="border-radius: 10px; height: 42px; background-color: #3475FE; border: none;">
+                                    <i class="ti ti-filter me-1"></i> Filter
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <a href="/laporansurpa/cetak?{{ http_build_query(request()->all()) }}" target="_blank" class="btn btn-success w-100 fw-bold d-flex align-items-center justify-content-center" style="border-radius: 10px; height: 42px; border: none; background-color: #198754;">
+                                    <i class="ti ti-printer me-1"></i> Cetak
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="table-responsive" style="border-radius: 12px; border: 1px solid #edf2f7;">

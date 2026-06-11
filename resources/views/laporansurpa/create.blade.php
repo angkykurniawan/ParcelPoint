@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-primary w-100 shadow-sm" style="border-radius: 12px; padding: 12px; font-weight: bold; background-color: #3475FE; border: none;">
-                                <i class="ti ti-printer me-1"></i> Cetak
+                                <i class="ti ti-printer me-1"></i> Tampilkan
                             </button>
                         </div>
                     </div>
